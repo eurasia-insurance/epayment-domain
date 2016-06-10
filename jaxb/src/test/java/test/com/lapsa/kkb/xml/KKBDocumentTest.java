@@ -1,4 +1,4 @@
-package test.com.lapsa.kkb.core.xml;
+package test.com.lapsa.kkb.xml;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
