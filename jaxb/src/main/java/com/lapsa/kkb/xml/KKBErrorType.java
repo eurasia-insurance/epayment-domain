@@ -1,4 +1,4 @@
-package com.lapsa.kkb.core.xml;
+package com.lapsa.kkb.xml;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;

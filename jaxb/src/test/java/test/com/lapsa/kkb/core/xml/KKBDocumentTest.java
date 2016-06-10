@@ -16,12 +16,12 @@ import javax.xml.bind.Unmarshaller;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.lapsa.kkb.core.xml.KKBDepartment;
-import com.lapsa.kkb.core.xml.KKBDocument;
-import com.lapsa.kkb.core.xml.KKBMerchant;
-import com.lapsa.kkb.core.xml.KKBMerchantSign;
-import com.lapsa.kkb.core.xml.KKBOrder;
-import com.lapsa.kkb.core.xml.KKBSignType;
+import com.lapsa.kkb.xml.KKBDepartment;
+import com.lapsa.kkb.xml.KKBDocument;
+import com.lapsa.kkb.xml.KKBMerchant;
+import com.lapsa.kkb.xml.KKBMerchantSign;
+import com.lapsa.kkb.xml.KKBOrder;
+import com.lapsa.kkb.xml.KKBSignType;
 
 public class KKBDocumentTest {
 

@@ -1,4 +1,4 @@
-package com.lapsa.kkb.core.xml;
+package com.lapsa.kkb.xml;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
