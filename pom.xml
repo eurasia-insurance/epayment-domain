@@ -20,6 +20,10 @@
 		<module>core</module>
 	</modules>
 
+	<properties>
+		<international-lib.version>2.0-pre-rc3-SNAPSHOT</international-lib.version>
+	</properties>
+
 	<dependencyManagement>
 		<dependencies>
 			<!-- own -->
@@ -32,6 +36,12 @@
 				<groupId>com.lapsa.kkb-lib</groupId>
 				<artifactId>kkb-core</artifactId>
 				<version>${project.version}</version>
+			</dependency>
+			<!-- internal -->
+			<dependency>
+				<groupId>com.lapsa.international-lib</groupId>
+				<artifactId>international-core</artifactId>
+				<version>${international-lib.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

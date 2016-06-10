@@ -15,15 +15,14 @@ public class KKBMerchant implements Serializable {
     private static final long serialVersionUID = -671497891323516467L;
 
     // cert_id - Серийный номер сертификата
-
-    @XmlAttribute(name = "cert_id", required = true)
+    @XmlAttribute(name = "cert_id")
     private String certificateSerialId;
 
     // name - имя магазина(сайта)
-    @XmlAttribute(name = "name", required = true)
+    @XmlAttribute(name = "name")
     private String name;
 
-    @XmlElementRef(required = true)
+    @XmlElementRef
     private List<KKBOrder> orders;
 
     // GENERATED

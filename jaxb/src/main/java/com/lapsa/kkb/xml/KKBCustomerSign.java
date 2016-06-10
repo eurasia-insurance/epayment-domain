@@ -9,8 +9,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "merchant_sign")
-public class KKBMerchantSign implements Serializable {
+@XmlRootElement(name = "customer_sign")
+public class KKBCustomerSign implements Serializable {
     private static final long serialVersionUID = 6758256294210679603L;
 
     // type - Тип подписи

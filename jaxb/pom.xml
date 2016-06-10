@@ -14,6 +14,13 @@
 	<name>KKB Lib : JAXB</name>
 
 	<dependencies>
+		<!-- internal -->
+		<dependency>
+			<groupId>com.lapsa.international-lib</groupId>
+			<artifactId>international-core</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
 		<!-- test -->
 		<dependency>
 			<groupId>junit</groupId>

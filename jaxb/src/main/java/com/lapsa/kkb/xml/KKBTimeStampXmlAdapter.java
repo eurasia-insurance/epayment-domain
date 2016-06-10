@@ -6,18 +6,18 @@ import java.util.Date;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class KKBTimeStampAdapter extends XmlAdapter<String, Date> {
+public class KKBTimeStampXmlAdapter extends XmlAdapter<String, Date> {
 
-    private static final DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override
     public Date unmarshal(String v) throws Exception {
-	return df.parse(v);
+	return format.parse(v);
     }
 
     @Override
     public String marshal(Date v) throws Exception {
-	return df.format(v);
+	return format.format(v);
     }
 
 }

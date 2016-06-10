@@ -14,13 +14,13 @@ public class KKBResponse implements Serializable {
     private static final long serialVersionUID = -4672326400778882641L;
 
     // order_id - номер заказа
-    @XmlAttribute(name = "order_id", required = true)
+    @XmlAttribute(name = "order_id")
     private String orderId;
 
-    @XmlElementRef(required = true)
+    @XmlElementRef
     private KKBError error;
 
-    @XmlElementRef(required = true)
+    @XmlElementRef
     private KKBSession session;
 
     // GENERATED
