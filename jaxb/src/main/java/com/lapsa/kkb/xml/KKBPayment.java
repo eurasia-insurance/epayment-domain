@@ -37,7 +37,7 @@ public class KKBPayment implements Serializable {
     // response_code - код результата авторизации.
     // Должен иметь значение "00" (два нуля), в противном случае свяжитесь,
     // пожалуйста, с администратором системы авторизации
-    @XmlAttribute(name = "responseCode")
+    @XmlAttribute(name = "response_code")
     private String responseCode;
 
     // Secure- Yes/No признак, что транзакция была 3DSecure или нет

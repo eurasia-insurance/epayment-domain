@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -20,7 +19,7 @@ public class KKBBank implements Serializable {
     @XmlElementRef
     private KKBCustomer customer;
 
-    @XmlElement
+    @XmlElementRef
     private KKBCustomerSign customerSign;
 
     @XmlElementRef

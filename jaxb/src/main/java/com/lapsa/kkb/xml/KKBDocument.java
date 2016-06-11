@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -16,7 +15,7 @@ public class KKBDocument implements Serializable {
     @XmlElementRef
     private KKBMerchant merchant;
 
-    @XmlElement(name = "merchant_sign")
+    @XmlElementRef
     private KKBMerchantSign merchantSign;
 
     @XmlElementRef
@@ -41,5 +40,21 @@ public class KKBDocument implements Serializable {
 
     public void setMerchantSign(KKBMerchantSign merchantSign) {
 	this.merchantSign = merchantSign;
+    }
+
+    public KKBBank getBank() {
+	return bank;
+    }
+
+    public void setBank(KKBBank bank) {
+	this.bank = bank;
+    }
+
+    public KKBBankSign getBankSign() {
+	return bankSign;
+    }
+
+    public void setBankSign(KKBBankSign bankSign) {
+	this.bankSign = bankSign;
     }
 }
