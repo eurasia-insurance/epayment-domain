@@ -66,7 +66,7 @@ public class KKBDocumentTest {
 
 	KKBMerchantSign sign = new KKBMerchantSign();
 	TEST_DOCUMENT_OBJECT.setMerchantSign(sign);
-	sign.setType(KKBSignType.RSA);
+	sign.setSignType(KKBSignType.RSA);
 	sign.setSignature(new byte[] { -89, 110, 98, -42, -75, 7, -19, 43, 103, -124, -25, -25, -112, 116, -114, 30, 11,
 		-82, 60, -57, -113, 104, 101, -19, -120, -15, -124, 58, -78, 68, -31, -70, 31, -42, 1, 85, 31, 95, 102,
 		-124, 60, -121, -115, -11, -102, -24, -25, -119, -13, 71, -30, 119, 43, -43, 127, 85, -8, 123, 12, -113,

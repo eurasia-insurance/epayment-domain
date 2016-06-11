@@ -4,7 +4,7 @@
          <!-- Описание данного блока см. в пункте "Описание XML документа для отправки в систему авторизации"-->
          <merchant cert_id="7269C18D00010000005E" name="Shop Name">
             <order order_id="000282" amount="3100" currency="398">
-               <department merchant_id="90028101" amount="3100" rl="ASDFG" />
+               <department merchant_id="90028101" amount="3100" RL="ASDFG" />
             </order>
          </merchant>
          <merchant_sign type="RSA"/>
@@ -12,7 +12,6 @@
       </customer>
       <!-- Блок подписи документа покупателем -->
       <customer_sign type="SSL">
-      4817C411000100000084 
 <!--       // type - тип подписи -->
 <!--          4817C411000100000084 //Если Тип подписи SSL то это серийный номер сертификата,  -->
 <!--          //Если Тип подписи RSA то это цифровая подпись -->
