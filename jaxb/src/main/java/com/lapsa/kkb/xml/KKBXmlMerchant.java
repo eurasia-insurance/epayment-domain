@@ -1,6 +1,7 @@
 package com.lapsa.kkb.xml;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
@@ -10,6 +11,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.lapsa.kkb.xml.adapter.KKBCertificateSeriaNumberToHEXStringXmlAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
@@ -19,7 +23,8 @@ public class KKBXmlMerchant implements Serializable {
 
     // cert_id - Серийный номер сертификата
     @XmlAttribute(name = "cert_id")
-    private String certificateSerialId;
+    @XmlJavaTypeAdapter(KKBCertificateSeriaNumberToHEXStringXmlAdapter.class)
+    private BigInteger certificateSerialNumber;
 
     // name - имя магазина(сайта)
     @XmlAttribute(name = "name")
@@ -30,12 +35,12 @@ public class KKBXmlMerchant implements Serializable {
 
     // GENERATED
 
-    public String getCertificateSerialId() {
-	return certificateSerialId;
+    public BigInteger getCertificateSerialNumber() {
+	return certificateSerialNumber;
     }
 
-    public void setCertificateSerialId(String certificateSerialId) {
-	this.certificateSerialId = certificateSerialId;
+    public void setCertificateSerialNumber(BigInteger certificateSerialNumber) {
+	this.certificateSerialNumber = certificateSerialNumber;
     }
 
     public String getName() {

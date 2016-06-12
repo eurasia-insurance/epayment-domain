@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import java.io.StringWriter;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -39,9 +40,10 @@ public class KKBDocumentResponseOKTest {
     private static final KKBXmlDocument TEST_DOCUMENT_AS_OBJECT;
 
     private static final String TEST_DOCUMENT_AS_PLAINTEXT = ""
-	    + "<document><bank name=\"Kazkommertsbank JSC\">"
+	    + "<document>"
+	    + "<bank name=\"Kazkommertsbank JSC\">"
 	    + "<customer mail=\"klient@mymail.com\" name=\"John Cardholder\" phone=\"223322\">"
-	    + "<merchant cert_id=\"7269C18D00010000005E\" name=\"Shop Name\">"
+	    + "<merchant cert_id=\"7269c18d00010000005e\" name=\"Shop Name\">"
 	    + "<order order_id=\"000282\" currency=\"398\" amount=\"3100\">"
 	    + "<department RL=\"ASDFG\" merchant_id=\"90028101\" amount=\"3100\"/>"
 	    + "</order>"
@@ -57,7 +59,7 @@ public class KKBDocumentResponseOKTest {
 	    + "reference=\"109600746891\" response_code=\"00\" Secure=\"No\" amount=\"320.5\"/>"
 	    + "</results>"
 	    + "</bank>"
-	    + "<bank_sign cert_id=\"00c183d690\" type=\"SHA/RSA\">"
+	    + "<bank_sign cert_id=\"c183d690\" type=\"SHA/RSA\">"
 	    + "JI3RZMEvexNlDmKsOQhe0pzHuKijnbhvnLu99qh7h+Ju8HvSfGNbEJxXUL58"
 	    + "M94tXvu7w0BXSY7MHePGqz32JuMLAncuzyMwq845linW/sH/WvbZ+6SSYfxD"
 	    + "MnvgX0S/pKxbhSXs7lGVBngXOwq7Bhsk8GcDUkWAM5UAsKpEKoI="
@@ -79,7 +81,7 @@ public class KKBDocumentResponseOKTest {
 
 	KKBXmlMerchant sourceMerchant = new KKBXmlMerchant();
 	customer.setSourceMerchant(sourceMerchant);
-	sourceMerchant.setCertificateSerialId("7269C18D00010000005E");
+	sourceMerchant.setCertificateSerialNumber(new BigInteger("7269C18D00010000005E", 16));
 	sourceMerchant.setName("Shop Name");
 
 	KKBXmlOrder order = new KKBXmlOrder();
@@ -125,7 +127,7 @@ public class KKBDocumentResponseOKTest {
 
 	KKBXmlBankSign bankSign = new KKBXmlBankSign();
 	TEST_DOCUMENT_AS_OBJECT.setBankSign(bankSign);
-	bankSign.setCertificateSerialId("00c183d690");
+	bankSign.setCertificateSerialNumber(new BigInteger("c183d690", 16));
 	bankSign.setSignType(KKBXmlSignType.SHA_RSA);
 	bankSign.setSignature(new byte[] { 36, -115, -47, 100, -63, 47, 123, 19, 101, 14, 98, -84, 57, 8, 94, -46, -100,
 		-57, -72, -88, -93, -99, -72, 111, -100, -69, -67, -10, -88, 123, -121, -30, 110, -16, 123, -46, 124,
@@ -143,6 +145,7 @@ public class KKBDocumentResponseOKTest {
     @Test
     public void testSerializeDocument() throws JAXBException {
 	String documentString = getDocumentString(TEST_DOCUMENT_AS_OBJECT, false);
+	System.out.println(documentString);
 	assertThat(documentString, allOf(not(nullValue()), is(TEST_DOCUMENT_AS_PLAINTEXT)));
     }
 

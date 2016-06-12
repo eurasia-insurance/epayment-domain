@@ -1,6 +1,7 @@
 package com.lapsa.kkb.xml;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -8,6 +9,9 @@ import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.lapsa.kkb.xml.adapter.KKBCertificateSeriaNumberToHEXStringXmlAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
@@ -17,13 +21,14 @@ public class KKBXmlBankSign extends KKBXmlGenericSign implements Serializable {
 
     // cert_id - серийный номер сертификата
     @XmlAttribute(name = "cert_id")
-    private String certificateSerialId;
+    @XmlJavaTypeAdapter(KKBCertificateSeriaNumberToHEXStringXmlAdapter.class)
+    private BigInteger certificateSerialNumber;
 
-    public String getCertificateSerialId() {
-	return certificateSerialId;
+    public BigInteger getCertificateSerialNumber() {
+	return certificateSerialNumber;
     }
 
-    public void setCertificateSerialId(String certificateSerialId) {
-	this.certificateSerialId = certificateSerialId;
+    public void setCertificateSerialNumber(BigInteger certificateSerialNumber) {
+	this.certificateSerialNumber = certificateSerialNumber;
     }
 }
