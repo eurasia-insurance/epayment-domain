@@ -3,15 +3,18 @@ package com.lapsa.kkb.xml;
 import java.io.Serializable;
 import java.util.Currency;
 
+import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.lapsa.fin.FinCurrency;
 
-@XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
+@XmlRootElement
 public abstract class KKBXmlGenericAmountAndCurrency extends KKBXmlGenericAmount implements Serializable {
     private static final long serialVersionUID = 2825883640597086167L;
 

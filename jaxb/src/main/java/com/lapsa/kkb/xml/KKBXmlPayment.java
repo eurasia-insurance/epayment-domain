@@ -2,7 +2,9 @@ package com.lapsa.kkb.xml;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorOrder;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -12,6 +14,7 @@ import com.lapsa.country.Country;
 import com.lapsa.country.CountryXmlAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlRootElement(name = "payment")
 public class KKBXmlPayment extends KKBXmlGenericAmount implements Serializable {
     private static final long serialVersionUID = 7475444480605786934L;
