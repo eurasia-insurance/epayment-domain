@@ -12,12 +12,15 @@ public class KKBTimestampXmlAdapter extends XmlAdapter<String, Date> {
 
     @Override
     public Date unmarshal(String v) throws Exception {
-	return format.parse(v);
+	if (v == null)
+	    return null;
+	return format.parse(v.trim());
     }
 
     @Override
     public String marshal(Date v) throws Exception {
+	if (v == null)
+	    return null;
 	return format.format(v);
     }
-
 }
