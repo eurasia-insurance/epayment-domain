@@ -17,7 +17,7 @@
 
 	<modules>
 		<module>jaxb</module>
-		<module>core</module>
+		<module>services</module>
 	</modules>
 
 	<properties>
@@ -35,7 +35,7 @@
 			</dependency>
 			<dependency>
 				<groupId>com.lapsa.kkb-lib</groupId>
-				<artifactId>kkb-core</artifactId>
+				<artifactId>kkb-services</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<!-- internal -->
