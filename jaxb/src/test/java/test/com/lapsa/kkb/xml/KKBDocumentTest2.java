@@ -43,6 +43,10 @@ public class KKBDocumentTest2 {
 	System.out.println(loaded.getBank().getCustomerSign());
 	
 	dumpDocument(loaded, true);
+	
+	
+	String customerSign = loaded.getBank().getCustomerSign().getSignatureEncoded();
+	System.out.println(customerSign);
     }
 
     @SuppressWarnings("unused")
