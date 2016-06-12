@@ -23,7 +23,7 @@ public class KKBXmlBank implements Serializable {
     private KKBXmlCustomerSign customerSign;
 
     @XmlElementRef
-    private KKBResults results;
+    private KKBXmlResults results;
 
     // GENERATED
 
@@ -51,11 +51,11 @@ public class KKBXmlBank implements Serializable {
 	this.customerSign = customerSign;
     }
 
-    public KKBResults getResults() {
+    public KKBXmlResults getResults() {
 	return results;
     }
 
-    public void setResults(KKBResults results) {
+    public void setResults(KKBXmlResults results) {
 	this.results = results;
     }
 }

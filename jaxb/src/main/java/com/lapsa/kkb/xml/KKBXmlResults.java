@@ -15,7 +15,7 @@ import com.lapsa.kkb.xml.adapter.KKBTimestampXmlAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "results")
-public class KKBResults implements Serializable {
+public class KKBXmlResults implements Serializable {
     private static final long serialVersionUID = 6908878974430643451L;
 
     // timestamp - время проведения платежа

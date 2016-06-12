@@ -14,13 +14,12 @@ import com.lapsa.kkb.xml.adapter.KKBAmountXmlAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "order")
-public class KKBOrder implements Serializable {
+public class KKBXmlOrder implements Serializable {
 
     private static final long serialVersionUID = -2920050474132203303L;
 
     // order_id - Номер заказа(должен состоять не менее чем из 6 ЧИСЛОВЫХ
     // знаков, максимально -15)
-
     @XmlAttribute(name = "order_id")
     private String orderId;
 

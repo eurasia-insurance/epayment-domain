@@ -22,6 +22,7 @@
 
 	<properties>
 		<international-lib.version>2.0-pre-rc3-SNAPSHOT</international-lib.version>
+		<fin-lib.version>1.0-pre-rc1-SNAPSHOT</fin-lib.version>
 	</properties>
 
 	<dependencyManagement>
@@ -42,6 +43,11 @@
 				<groupId>com.lapsa.international-lib</groupId>
 				<artifactId>international-core</artifactId>
 				<version>${international-lib.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.lapsa.fin-lib</groupId>
+				<artifactId>fin-core</artifactId>
+				<version>${fin-lib.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

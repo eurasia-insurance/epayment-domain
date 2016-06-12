@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "document")
-public class KKBDocument implements Serializable {
+public class KKBXmlDocument implements Serializable {
     private static final long serialVersionUID = 6600231531045791922L;
 
     @XmlElementRef

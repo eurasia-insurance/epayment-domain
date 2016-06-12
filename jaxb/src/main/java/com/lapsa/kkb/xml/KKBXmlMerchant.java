@@ -23,7 +23,7 @@ public class KKBXmlMerchant implements Serializable {
     private String name;
 
     @XmlElementRef
-    private List<KKBOrder> orders;
+    private List<KKBXmlOrder> orders;
 
     // GENERATED
 
@@ -43,11 +43,11 @@ public class KKBXmlMerchant implements Serializable {
 	this.name = name;
     }
 
-    public List<KKBOrder> getOrders() {
+    public List<KKBXmlOrder> getOrders() {
 	return orders;
     }
 
-    public void setOrders(List<KKBOrder> orders) {
+    public void setOrders(List<KKBXmlOrder> orders) {
 	this.orders = orders;
     }
 

@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "response")
-public class KKBResponse implements Serializable {
+public class KKBXmlResponse implements Serializable {
     private static final long serialVersionUID = -4672326400778882641L;
 
     // order_id - номер заказа

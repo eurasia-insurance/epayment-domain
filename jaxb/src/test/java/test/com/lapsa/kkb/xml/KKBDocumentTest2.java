@@ -18,10 +18,10 @@ import org.junit.Test;
 
 import com.lapsa.kkb.xml.KKBXmlBank;
 import com.lapsa.kkb.xml.KKBXmlDepartment;
-import com.lapsa.kkb.xml.KKBDocument;
+import com.lapsa.kkb.xml.KKBXmlDocument;
 import com.lapsa.kkb.xml.KKBXmlMerchant;
 import com.lapsa.kkb.xml.KKBXmlMerchantSign;
-import com.lapsa.kkb.xml.KKBOrder;
+import com.lapsa.kkb.xml.KKBXmlOrder;
 import com.lapsa.kkb.xml.KKBXmlSignType;
 
 public class KKBDocumentTest2 {
@@ -32,14 +32,14 @@ public class KKBDocumentTest2 {
 
     @Before
     public void init() throws JAXBException {
-	jaxbContext = JAXBContext.newInstance(KKBXmlMerchant.class, KKBXmlBank.class, KKBDocument.class);
+	jaxbContext = JAXBContext.newInstance(KKBXmlMerchant.class, KKBXmlBank.class, KKBXmlDocument.class);
     }
 
     @Test
     public void testLoadDocument() throws JAXBException {
 	System.out.println();
 	System.out.println("Loaded document");
-	KKBDocument loaded = loadDocument(EXAMPLE_DOCUMENT_AUTH_XML);
+	KKBXmlDocument loaded = loadDocument(EXAMPLE_DOCUMENT_AUTH_XML);
 	System.out.println(loaded.getBank().getCustomerSign());
 	
 	dumpDocument(loaded, true);
@@ -50,7 +50,7 @@ public class KKBDocumentTest2 {
     }
 
     @SuppressWarnings("unused")
-    private String getBankString(KKBDocument document) throws JAXBException {
+    private String getBankString(KKBXmlDocument document) throws JAXBException {
 	Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
@@ -59,11 +59,11 @@ public class KKBDocumentTest2 {
 	return sw.toString();
     }
 
-    private void dumpDocument(KKBDocument document, boolean formatted) throws JAXBException {
+    private void dumpDocument(KKBXmlDocument document, boolean formatted) throws JAXBException {
 	System.out.println(getDocumentString(document, formatted));
     }
 
-    private String getDocumentString(KKBDocument document, boolean formatted) throws JAXBException {
+    private String getDocumentString(KKBXmlDocument document, boolean formatted) throws JAXBException {
 	Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formatted);
 	jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
@@ -72,10 +72,10 @@ public class KKBDocumentTest2 {
 	return sw.toString();
     }
 
-    private KKBDocument loadDocument(String resourceName) throws JAXBException {
-	File resourceFile = new File(KKBDocument.class.getResource(resourceName).getFile());
+    private KKBXmlDocument loadDocument(String resourceName) throws JAXBException {
+	File resourceFile = new File(KKBXmlDocument.class.getResource(resourceName).getFile());
 	Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-	KKBDocument document = (KKBDocument) jaxbUnmarshaller.unmarshal(resourceFile);
+	KKBXmlDocument document = (KKBXmlDocument) jaxbUnmarshaller.unmarshal(resourceFile);
 	return document;
     }
 }
