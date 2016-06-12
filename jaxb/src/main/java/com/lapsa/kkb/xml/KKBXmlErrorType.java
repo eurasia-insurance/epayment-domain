@@ -10,5 +10,5 @@ public enum KKBXmlErrorType {
     @XmlEnumValue(value = "system") SYSTEM,
     // auth - ошибка авторизации, в данном случае указывается код ошибки в
     // атрибуте code
-    @XmlEnumValue(value = "auth") AUTH;
+    @XmlEnumValue(value = "auth") AUTHORIZATION;
 }
