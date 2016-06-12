@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "bank_sign")
-public class KKBBankSign extends KKBBaseSign implements Serializable {
+public class KKBBankSign extends KKBGenericSign implements Serializable {
     private static final long serialVersionUID = -4925501165429637554L;
 
     // cert_id - серийный номер сертификата
