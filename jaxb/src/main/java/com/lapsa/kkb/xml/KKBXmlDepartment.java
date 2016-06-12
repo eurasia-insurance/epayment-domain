@@ -8,9 +8,11 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.lapsa.kkb.xml.adapter.KKBAmountXmlAdapter;
+
 @XmlRootElement(name = "department")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class KKBDepartment implements Serializable {
+public class KKBXmlDepartment implements Serializable {
     private static final long serialVersionUID = -1021696352173990619L;
 
     // merchant_id - ID продавца в платежной системе

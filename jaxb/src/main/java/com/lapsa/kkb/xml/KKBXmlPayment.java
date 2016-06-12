@@ -10,10 +10,11 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.lapsa.country.Country;
 import com.lapsa.country.CountryXmlAdapter;
+import com.lapsa.kkb.xml.adapter.KKBAmountXmlAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "payment")
-public class KKBPayment implements Serializable {
+public class KKBXmlPayment implements Serializable {
     private static final long serialVersionUID = 7475444480605786934L;
 
     // Результат транзакции
@@ -42,7 +43,7 @@ public class KKBPayment implements Serializable {
 
     // Secure- Yes/No признак, что транзакция была 3DSecure или нет
     @XmlAttribute(name = "Secure")
-    private KKBSecureType secureType;
+    private KKBXmlSecureType secureType;
 
     // card_bin- Страна эмитент карты
     @XmlAttribute(name = "card_bin")
@@ -95,11 +96,11 @@ public class KKBPayment implements Serializable {
 	this.responseCode = responseCode;
     }
 
-    public KKBSecureType getSecureType() {
+    public KKBXmlSecureType getSecureType() {
 	return secureType;
     }
 
-    public void setSecureType(KKBSecureType secureType) {
+    public void setSecureType(KKBXmlSecureType secureType) {
 	this.secureType = secureType;
     }
 

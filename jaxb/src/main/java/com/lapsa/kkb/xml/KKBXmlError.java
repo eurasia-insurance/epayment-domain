@@ -10,9 +10,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.lapsa.kkb.xml.adapter.KKBTimestampXmlAdapter;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "error")
-public class KKBError implements Serializable {
+public class KKBXmlError implements Serializable {
     private static final long serialVersionUID = -5333156242528681085L;
 
     // type - тип ошибки:
@@ -21,11 +23,11 @@ public class KKBError implements Serializable {
     // auth - ошибка авторизации, в данном случае указывается код ошибки в
     // атрибуте code
     @XmlAttribute(name = "type")
-    private KKBErrorType type;
+    private KKBXmlErrorType type;
 
     // time - время отправки ответа
     @XmlAttribute(name = "time")
-    @XmlJavaTypeAdapter(value = KKBTimeStampXmlAdapter.class)
+    @XmlJavaTypeAdapter(value = KKBTimestampXmlAdapter.class)
     private Date time;
 
     // code - код ошибки для типа ошибки auth, в случае ошибки типа system
@@ -39,11 +41,11 @@ public class KKBError implements Serializable {
 
     // GENERATED
 
-    public KKBErrorType getType() {
+    public KKBXmlErrorType getType() {
 	return type;
     }
 
-    public void setType(KKBErrorType type) {
+    public void setType(KKBXmlErrorType type) {
 	this.type = type;
     }
 

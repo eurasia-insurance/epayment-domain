@@ -16,12 +16,12 @@ import javax.xml.bind.Unmarshaller;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.lapsa.kkb.xml.KKBDepartment;
+import com.lapsa.kkb.xml.KKBXmlDepartment;
 import com.lapsa.kkb.xml.KKBDocument;
-import com.lapsa.kkb.xml.KKBMerchant;
-import com.lapsa.kkb.xml.KKBMerchantSign;
+import com.lapsa.kkb.xml.KKBXmlMerchant;
+import com.lapsa.kkb.xml.KKBXmlMerchantSign;
 import com.lapsa.kkb.xml.KKBOrder;
-import com.lapsa.kkb.xml.KKBSignType;
+import com.lapsa.kkb.xml.KKBXmlSignType;
 
 public class KKBDocumentTest {
 
@@ -44,7 +44,7 @@ public class KKBDocumentTest {
     static {
 	TEST_DOCUMENT_OBJECT = new KKBDocument();
 
-	KKBMerchant merchant = new KKBMerchant();
+	KKBXmlMerchant merchant = new KKBXmlMerchant();
 	TEST_DOCUMENT_OBJECT.setMerchant(merchant);
 	merchant.setCertificateSerialId("00c183d70b");
 	merchant.setName("Shop Name");
@@ -56,7 +56,7 @@ public class KKBDocumentTest {
 	order.setAmount(3100);
 	order.setCurrencyCode(398);
 
-	KKBDepartment department = new KKBDepartment();
+	KKBXmlDepartment department = new KKBXmlDepartment();
 	order.setDepartments(new ArrayList<>());
 	order.getDepartments().add(department);
 	department.setMerchantId("92061101");
@@ -64,9 +64,9 @@ public class KKBDocumentTest {
 	department.setPhone("22233355");
 	department.setAirticketBookingNumber("ASDFG");
 
-	KKBMerchantSign sign = new KKBMerchantSign();
+	KKBXmlMerchantSign sign = new KKBXmlMerchantSign();
 	TEST_DOCUMENT_OBJECT.setMerchantSign(sign);
-	sign.setSignType(KKBSignType.RSA);
+	sign.setSignType(KKBXmlSignType.RSA);
 	sign.setSignature(new byte[] { -89, 110, 98, -42, -75, 7, -19, 43, 103, -124, -25, -25, -112, 116, -114, 30, 11,
 		-82, 60, -57, -113, 104, 101, -19, -120, -15, -124, 58, -78, 68, -31, -70, 31, -42, 1, 85, 31, 95, 102,
 		-124, 60, -121, -115, -11, -102, -24, -25, -119, -13, 71, -30, 119, 43, -43, 127, 85, -8, 123, 12, -113,
@@ -81,7 +81,7 @@ public class KKBDocumentTest {
 
     @Before
     public void init() throws JAXBException {
-	jaxbContext = JAXBContext.newInstance(KKBMerchant.class, KKBDocument.class);
+	jaxbContext = JAXBContext.newInstance(KKBXmlMerchant.class, KKBDocument.class);
     }
 
     @Test

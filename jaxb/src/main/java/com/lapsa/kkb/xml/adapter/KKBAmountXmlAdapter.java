@@ -1,4 +1,4 @@
-package com.lapsa.kkb.xml;
+package com.lapsa.kkb.xml.adapter;
 
 import java.math.RoundingMode;
 import java.text.NumberFormat;

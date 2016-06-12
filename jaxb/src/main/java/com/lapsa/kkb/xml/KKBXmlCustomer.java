@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "customer")
-public class KKBCustomer implements Serializable {
+public class KKBXmlCustomer implements Serializable {
     private static final long serialVersionUID = -2444954410632492009L;
 
     // Имя покупателя указанное в системе авторизации
@@ -27,11 +27,11 @@ public class KKBCustomer implements Serializable {
 
     // исходный запрос
     @XmlElementRef
-    private KKBMerchant sourceMerchant;
+    private KKBXmlMerchant sourceMerchant;
 
     // подпись исходного запроса
     @XmlElementRef
-    private KKBMerchantSign sourceMerchantSign;
+    private KKBXmlMerchantSign sourceMerchantSign;
 
     // GENERATED
 
@@ -59,19 +59,19 @@ public class KKBCustomer implements Serializable {
 	this.phone = phone;
     }
 
-    public KKBMerchant getSourceMerchant() {
+    public KKBXmlMerchant getSourceMerchant() {
 	return sourceMerchant;
     }
 
-    public void setSourceMerchant(KKBMerchant sourceMerchant) {
+    public void setSourceMerchant(KKBXmlMerchant sourceMerchant) {
 	this.sourceMerchant = sourceMerchant;
     }
 
-    public KKBMerchantSign getSourceMerchantSign() {
+    public KKBXmlMerchantSign getSourceMerchantSign() {
 	return sourceMerchantSign;
     }
 
-    public void setSourceMerchantSign(KKBMerchantSign sourceMerchantSign) {
+    public void setSourceMerchantSign(KKBXmlMerchantSign sourceMerchantSign) {
 	this.sourceMerchantSign = sourceMerchantSign;
     }
 

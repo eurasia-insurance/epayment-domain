@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 
 @XmlEnum
-public enum KKBSignType {
+public enum KKBXmlSignType {
     // Если Тип подписи RSA то это цифровая подпись
     @XmlEnumValue(value = "RSA") RSA,
 

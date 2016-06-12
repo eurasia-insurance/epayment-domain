@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "session")
-public class KKBSession implements Serializable {
+public class KKBXmlSession implements Serializable {
 
     private static final long serialVersionUID = -5333156242528681085L;
 

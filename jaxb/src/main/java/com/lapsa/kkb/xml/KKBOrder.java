@@ -10,6 +10,8 @@ import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.lapsa.kkb.xml.adapter.KKBAmountXmlAdapter;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "order")
 public class KKBOrder implements Serializable {
@@ -32,7 +34,7 @@ public class KKBOrder implements Serializable {
     private int currencyCode;
 
     @XmlElementRef
-    private List<KKBDepartment> departments;
+    private List<KKBXmlDepartment> departments;
 
     // GENERATED
 
@@ -60,11 +62,11 @@ public class KKBOrder implements Serializable {
 	this.currencyCode = currencyCode;
     }
 
-    public List<KKBDepartment> getDepartments() {
+    public List<KKBXmlDepartment> getDepartments() {
 	return departments;
     }
 
-    public void setDepartments(List<KKBDepartment> departments) {
+    public void setDepartments(List<KKBXmlDepartment> departments) {
 	this.departments = departments;
     }
 }

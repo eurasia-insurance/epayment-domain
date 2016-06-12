@@ -1,4 +1,4 @@
-package com.lapsa.kkb.xml;
+package com.lapsa.kkb.xml.adapter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -6,7 +6,7 @@ import java.util.Date;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class KKBTimeStampXmlAdapter extends XmlAdapter<String, Date> {
+public class KKBTimestampXmlAdapter extends XmlAdapter<String, Date> {
 
     private static final DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 

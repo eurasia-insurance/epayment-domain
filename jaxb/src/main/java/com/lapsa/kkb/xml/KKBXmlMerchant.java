@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "merchant")
-public class KKBMerchant implements Serializable {
+public class KKBXmlMerchant implements Serializable {
     private static final long serialVersionUID = -671497891323516467L;
 
     // cert_id - Серийный номер сертификата

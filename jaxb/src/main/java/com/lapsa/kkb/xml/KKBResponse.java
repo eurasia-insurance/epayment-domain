@@ -18,10 +18,10 @@ public class KKBResponse implements Serializable {
     private String orderId;
 
     @XmlElementRef
-    private KKBError error;
+    private KKBXmlError error;
 
     @XmlElementRef
-    private KKBSession session;
+    private KKBXmlSession session;
 
     // GENERATED
 
@@ -33,19 +33,19 @@ public class KKBResponse implements Serializable {
 	this.orderId = orderId;
     }
 
-    public KKBError getError() {
+    public KKBXmlError getError() {
 	return error;
     }
 
-    public void setError(KKBError error) {
+    public void setError(KKBXmlError error) {
 	this.error = error;
     }
 
-    public KKBSession getSession() {
+    public KKBXmlSession getSession() {
 	return session;
     }
 
-    public void setSession(KKBSession session) {
+    public void setSession(KKBXmlSession session) {
 	this.session = session;
     }
 

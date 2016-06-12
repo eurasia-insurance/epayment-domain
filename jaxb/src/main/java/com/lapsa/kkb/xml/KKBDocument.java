@@ -13,48 +13,48 @@ public class KKBDocument implements Serializable {
     private static final long serialVersionUID = 6600231531045791922L;
 
     @XmlElementRef
-    private KKBMerchant merchant;
+    private KKBXmlMerchant merchant;
 
     @XmlElementRef
-    private KKBMerchantSign merchantSign;
+    private KKBXmlMerchantSign merchantSign;
 
     @XmlElementRef
-    private KKBBank bank;
+    private KKBXmlBank bank;
 
     @XmlElementRef
-    private KKBBankSign bankSign;
+    private KKBXmlBankSign bankSign;
 
     // GENERATED
 
-    public KKBMerchant getMerchant() {
+    public KKBXmlMerchant getMerchant() {
 	return merchant;
     }
 
-    public void setMerchant(KKBMerchant merchant) {
+    public void setMerchant(KKBXmlMerchant merchant) {
 	this.merchant = merchant;
     }
 
-    public KKBMerchantSign getMerchantSign() {
+    public KKBXmlMerchantSign getMerchantSign() {
 	return merchantSign;
     }
 
-    public void setMerchantSign(KKBMerchantSign merchantSign) {
+    public void setMerchantSign(KKBXmlMerchantSign merchantSign) {
 	this.merchantSign = merchantSign;
     }
 
-    public KKBBank getBank() {
+    public KKBXmlBank getBank() {
 	return bank;
     }
 
-    public void setBank(KKBBank bank) {
+    public void setBank(KKBXmlBank bank) {
 	this.bank = bank;
     }
 
-    public KKBBankSign getBankSign() {
+    public KKBXmlBankSign getBankSign() {
 	return bankSign;
     }
 
-    public void setBankSign(KKBBankSign bankSign) {
+    public void setBankSign(KKBXmlBankSign bankSign) {
 	this.bankSign = bankSign;
     }
 }

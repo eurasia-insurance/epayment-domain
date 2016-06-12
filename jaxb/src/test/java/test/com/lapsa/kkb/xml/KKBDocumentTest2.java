@@ -16,13 +16,13 @@ import javax.xml.bind.Unmarshaller;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.lapsa.kkb.xml.KKBBank;
-import com.lapsa.kkb.xml.KKBDepartment;
+import com.lapsa.kkb.xml.KKBXmlBank;
+import com.lapsa.kkb.xml.KKBXmlDepartment;
 import com.lapsa.kkb.xml.KKBDocument;
-import com.lapsa.kkb.xml.KKBMerchant;
-import com.lapsa.kkb.xml.KKBMerchantSign;
+import com.lapsa.kkb.xml.KKBXmlMerchant;
+import com.lapsa.kkb.xml.KKBXmlMerchantSign;
 import com.lapsa.kkb.xml.KKBOrder;
-import com.lapsa.kkb.xml.KKBSignType;
+import com.lapsa.kkb.xml.KKBXmlSignType;
 
 public class KKBDocumentTest2 {
 
@@ -32,7 +32,7 @@ public class KKBDocumentTest2 {
 
     @Before
     public void init() throws JAXBException {
-	jaxbContext = JAXBContext.newInstance(KKBMerchant.class, KKBBank.class, KKBDocument.class);
+	jaxbContext = JAXBContext.newInstance(KKBXmlMerchant.class, KKBXmlBank.class, KKBDocument.class);
     }
 
     @Test

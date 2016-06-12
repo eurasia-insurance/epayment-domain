@@ -12,21 +12,21 @@ import javax.xml.bind.annotation.XmlValue;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public abstract class KKBGenericSign implements Serializable {
+public abstract class KKBXmlGenericSign implements Serializable {
 
     private static final long serialVersionUID = -2302481811822001881L;
 
-    private KKBSignType signType;
+    private KKBXmlSignType signType;
 
     private byte[] signature;
 
     // type - тип подписи
     @XmlAttribute(name = "type")
-    public KKBSignType getSignType() {
+    public KKBXmlSignType getSignType() {
 	return signType;
     }
 
-    public void setSignType(KKBSignType signType) {
+    public void setSignType(KKBXmlSignType signType) {
 	this.signType = signType;
     }
 

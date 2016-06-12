@@ -10,17 +10,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "bank")
-public class KKBBank implements Serializable {
+public class KKBXmlBank implements Serializable {
     private static final long serialVersionUID = -5468834860872828233L;
 
     @XmlAttribute(name = "name")
     private String name;
 
     @XmlElementRef
-    private KKBCustomer customer;
+    private KKBXmlCustomer customer;
 
     @XmlElementRef
-    private KKBCustomerSign customerSign;
+    private KKBXmlCustomerSign customerSign;
 
     @XmlElementRef
     private KKBResults results;
@@ -35,19 +35,19 @@ public class KKBBank implements Serializable {
 	this.name = name;
     }
 
-    public KKBCustomer getCustomer() {
+    public KKBXmlCustomer getCustomer() {
 	return customer;
     }
 
-    public void setCustomer(KKBCustomer customer) {
+    public void setCustomer(KKBXmlCustomer customer) {
 	this.customer = customer;
     }
 
-    public KKBCustomerSign getCustomerSign() {
+    public KKBXmlCustomerSign getCustomerSign() {
 	return customerSign;
     }
 
-    public void setCustomerSign(KKBCustomerSign customerSign) {
+    public void setCustomerSign(KKBXmlCustomerSign customerSign) {
 	this.customerSign = customerSign;
     }
 

@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 
 @XmlEnum
-public enum KKBErrorType {
+public enum KKBXmlErrorType {
     // system - ошибка при работе в системе авторизации, например неправильно
     // введеный параметр
     @XmlEnumValue(value = "system") SYSTEM,

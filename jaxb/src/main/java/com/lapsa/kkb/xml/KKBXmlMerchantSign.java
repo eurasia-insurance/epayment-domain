@@ -8,6 +8,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "merchant_sign")
-public class KKBMerchantSign extends KKBGenericSign implements Serializable {
+public class KKBXmlMerchantSign extends KKBXmlGenericSign implements Serializable {
     private static final long serialVersionUID = 6758256294210679603L;
 }

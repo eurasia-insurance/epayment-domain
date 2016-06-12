@@ -11,6 +11,8 @@ import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.lapsa.kkb.xml.adapter.KKBTimestampXmlAdapter;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "results")
 public class KKBResults implements Serializable {
@@ -18,11 +20,11 @@ public class KKBResults implements Serializable {
 
     // timestamp - время проведения платежа
     @XmlAttribute(name = "timestamp")
-    @XmlJavaTypeAdapter(value = KKBTimeStampXmlAdapter.class)
+    @XmlJavaTypeAdapter(value = KKBTimestampXmlAdapter.class)
     private Date timestamp;
 
     @XmlElementRef
-    private List<KKBPayment> payments;
+    private List<KKBXmlPayment> payments;
 
     // GENERATED
 
@@ -34,11 +36,11 @@ public class KKBResults implements Serializable {
 	this.timestamp = timestamp;
     }
 
-    public List<KKBPayment> getPayments() {
+    public List<KKBXmlPayment> getPayments() {
 	return payments;
     }
 
-    public void setPayments(List<KKBPayment> payments) {
+    public void setPayments(List<KKBXmlPayment> payments) {
 	this.payments = payments;
     }
 
