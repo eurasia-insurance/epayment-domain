@@ -6,23 +6,15 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import com.lapsa.kkb.xml.adapter.KKBAmountXmlAdapter;
 
 @XmlRootElement(name = "department")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class KKBXmlDepartment implements Serializable {
+public class KKBXmlDepartment extends KKBXmlGenericAmount implements Serializable {
     private static final long serialVersionUID = -1021696352173990619L;
 
     // merchant_id - ID продавца в платежной системе
     @XmlAttribute(name = "merchant_id")
     private String merchantId;
-
-    // amount - сумма оплаты данному продавцу
-    @XmlAttribute(name = "amount")
-    @XmlJavaTypeAdapter(KKBAmountXmlAdapter.class)
-    private Double amount;
 
     // abonent_id - дополнительные поля для продавца, можно не указывать
     @XmlAttribute(name = "abonent_id")
@@ -49,14 +41,6 @@ public class KKBXmlDepartment implements Serializable {
 
     public void setMerchantId(String merchantId) {
 	this.merchantId = merchantId;
-    }
-
-    public double getAmount() {
-	return amount;
-    }
-
-    public void setAmount(double amount) {
-	this.amount = amount;
     }
 
     public String getAbonentId() {

@@ -10,22 +10,16 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.lapsa.country.Country;
 import com.lapsa.country.CountryXmlAdapter;
-import com.lapsa.kkb.xml.adapter.KKBAmountXmlAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "payment")
-public class KKBXmlPayment implements Serializable {
+public class KKBXmlPayment extends KKBXmlGenericAmount implements Serializable {
     private static final long serialVersionUID = 7475444480605786934L;
 
     // Результат транзакции
     // merchant_id - ID продавца в платежной системе
     @XmlAttribute(name = "merchant_id")
     private String merchantId;
-
-    // amount - сумма проведенной транзакции
-    @XmlAttribute(name = "amount")
-    @XmlJavaTypeAdapter(KKBAmountXmlAdapter.class)
-    private Double amount;
 
     // reference - номер обращения к платежной системе
     @XmlAttribute(name = "reference")
@@ -62,14 +56,6 @@ public class KKBXmlPayment implements Serializable {
 
     public void setMerchantId(String merchantId) {
 	this.merchantId = merchantId;
-    }
-
-    public Double getAmount() {
-	return amount;
-    }
-
-    public void setAmount(Double amount) {
-	this.amount = amount;
     }
 
     public String getReference() {
