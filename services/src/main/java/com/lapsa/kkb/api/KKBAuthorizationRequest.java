@@ -3,6 +3,7 @@ package com.lapsa.kkb.api;
 import com.lapsa.fin.FinCurrency;
 
 public class KKBAuthorizationRequest {
+
     private String orderId;
     private double amount;
     private FinCurrency currency;
