@@ -1,6 +1,7 @@
 package com.lapsa.kkb.xml;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -23,7 +24,7 @@ public class KKBXmlOrder extends KKBXmlGenericAmountAndCurrency implements Seria
     private String orderId;
 
     @XmlElementRef
-    private KKBXmlDepartment department;
+    private List<KKBXmlDepartment> departments;
 
     // GENERATED
 
@@ -35,11 +36,11 @@ public class KKBXmlOrder extends KKBXmlGenericAmountAndCurrency implements Seria
 	this.orderId = orderId;
     }
 
-    public KKBXmlDepartment getDepartment() {
-	return department;
+    public List<KKBXmlDepartment> getDepartments() {
+	return departments;
     }
 
-    public void setDepartment(KKBXmlDepartment department) {
-	this.department = department;
+    public void setDepartments(List<KKBXmlDepartment> departments) {
+	this.departments = departments;
     }
 }
