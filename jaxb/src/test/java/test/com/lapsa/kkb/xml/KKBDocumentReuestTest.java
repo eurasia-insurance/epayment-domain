@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.math.BigInteger;
-import java.util.ArrayList;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -54,15 +53,13 @@ public class KKBDocumentReuestTest {
 	merchant.setName("Shop Name");
 
 	KKBXmlOrder order = new KKBXmlOrder();
-	merchant.setOrders(new ArrayList<>());
-	merchant.getOrders().add(order);
+	merchant.setOrder(order);
 	order.setOrderId("000282");
 	order.setAmount(3100);
 	order.setFinCurrency(FinCurrency.KZT);
 
 	KKBXmlDepartment department = new KKBXmlDepartment();
-	order.setDepartments(new ArrayList<>());
-	order.getDepartments().add(department);
+	order.setDepartment(department);
 	department.setMerchantId("92061101");
 	department.setAmount(1300);
 	department.setPhone("22233355");

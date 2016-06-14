@@ -2,7 +2,6 @@ package com.lapsa.kkb.xml;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -31,7 +30,7 @@ public class KKBXmlMerchant implements Serializable {
     private String name;
 
     @XmlElementRef
-    private List<KKBXmlOrder> orders;
+    private KKBXmlOrder order;
 
     // GENERATED
 
@@ -51,12 +50,12 @@ public class KKBXmlMerchant implements Serializable {
 	this.name = name;
     }
 
-    public List<KKBXmlOrder> getOrders() {
-	return orders;
+    public KKBXmlOrder getOrder() {
+	return order;
     }
 
-    public void setOrders(List<KKBXmlOrder> orders) {
-	this.orders = orders;
+    public void setOrder(KKBXmlOrder order) {
+	this.order = order;
     }
 
 }

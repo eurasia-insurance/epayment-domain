@@ -7,7 +7,6 @@ import java.io.StringWriter;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.xml.bind.JAXBContext;
@@ -85,15 +84,13 @@ public class KKBDocumentResponseOKTest {
 	sourceMerchant.setName("Shop Name");
 
 	KKBXmlOrder order = new KKBXmlOrder();
-	sourceMerchant.setOrders(new ArrayList<>());
-	sourceMerchant.getOrders().add(order);
+	sourceMerchant.setOrder(order);
 	order.setOrderId("000282");
 	order.setFinCurrency(FinCurrency.KZT);
 	order.setAmount(3100);
 
 	KKBXmlDepartment department = new KKBXmlDepartment();
-	order.setDepartments(new ArrayList<>());
-	order.getDepartments().add(department);
+	order.setDepartment(department);
 	department.setMerchantId("90028101");
 	department.setAmount(3100);
 	department.setAirticketBookingNumber("ASDFG");
@@ -114,8 +111,7 @@ public class KKBDocumentResponseOKTest {
 	results.setTimestamp(timestamp);
 
 	KKBXmlPayment payment = new KKBXmlPayment();
-	results.setPayments(new ArrayList<>());
-	results.getPayments().add(payment);
+	results.setPayment(payment);
 	payment.setAmount(320.5);
 	payment.setApprovalCode("730190");
 	payment.setCardCountry(Country.KAZ);

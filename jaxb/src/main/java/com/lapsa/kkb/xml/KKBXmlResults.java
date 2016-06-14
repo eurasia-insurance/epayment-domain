@@ -2,7 +2,6 @@ package com.lapsa.kkb.xml;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -27,7 +26,7 @@ public class KKBXmlResults implements Serializable {
     private Date timestamp;
 
     @XmlElementRef
-    private List<KKBXmlPayment> payments;
+    private KKBXmlPayment payment;
 
     // GENERATED
 
@@ -39,12 +38,12 @@ public class KKBXmlResults implements Serializable {
 	this.timestamp = timestamp;
     }
 
-    public List<KKBXmlPayment> getPayments() {
-	return payments;
+    public KKBXmlPayment getPayment() {
+	return payment;
     }
 
-    public void setPayments(List<KKBXmlPayment> payments) {
-	this.payments = payments;
+    public void setPayment(KKBXmlPayment payment) {
+	this.payment = payment;
     }
 
 }
