@@ -47,6 +47,10 @@ public class KKBXmlPayment extends KKBXmlGenericAmount implements Serializable {
     @XmlJavaTypeAdapter(CountryXmlAdapter.class)
     private Country cardCountry;
 
+    // card - маскированный номер карты
+    @XmlAttribute(name = "card")
+    private String cardNumberMasked;
+
     // c_hash- Хэш карты
     @XmlAttribute(name = "c_hash")
     private String cardHash;
@@ -99,6 +103,14 @@ public class KKBXmlPayment extends KKBXmlGenericAmount implements Serializable {
 
     public void setCardCountry(Country cardCountry) {
 	this.cardCountry = cardCountry;
+    }
+
+    public String getCardNumberMasked() {
+	return cardNumberMasked;
+    }
+
+    public void setCardNumberMasked(String cardNumberMasked) {
+	this.cardNumberMasked = cardNumberMasked;
     }
 
     public String getCardHash() {
