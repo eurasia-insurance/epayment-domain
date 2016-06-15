@@ -1,0 +1,12 @@
+package com.lapsa.kkb.api;
+
+import com.lapsa.kkb.core.KKBPaymentOrder;
+
+public interface KKBPaymentOrderService {
+    KKBPaymentOrder parseResponse(String response)
+	    throws KKBServiceError, KKBFormatException;
+
+    void validate(KKBPaymentOrder requestOrder, KKBPaymentOrder responseOrder);
+
+    String encodeRequest(KKBPaymentOrder request) throws KKBServiceError;
+}

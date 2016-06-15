@@ -1,6 +1,6 @@
 package com.lapsa.kkb.api;
 
-public class KKBSignatureOperationFailed extends Exception {
+public class KKBSignatureOperationFailed extends KKBServiceError {
     private static final long serialVersionUID = 2385227097319192621L;
 
     public KKBSignatureOperationFailed() {

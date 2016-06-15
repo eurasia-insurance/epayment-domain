@@ -1,13 +1,15 @@
-package com.lapsa.kkb.api;
+package com.lapsa.kkb.core;
 
 import java.io.Serializable;
 
-public class KKBAuthorizationPayment implements Serializable {
+public class KKBPaymentOperation implements Serializable {
     private static final long serialVersionUID = 214150764325937287L;
 
     private double amount;
     private String merchantId;
-    private KKBAuthorizationPaymentResult result;
+    private KKBPaymentOrder payment;
+
+    private KKBPaymentOperationResult result;
 
     public double getAmount() {
 	return amount;
@@ -25,11 +27,21 @@ public class KKBAuthorizationPayment implements Serializable {
 	this.merchantId = merchantId;
     }
 
-    public KKBAuthorizationPaymentResult getResult() {
+    public KKBPaymentOperationResult getResult() {
 	return result;
     }
 
-    public void setResult(KKBAuthorizationPaymentResult result) {
+    public void setResult(KKBPaymentOperationResult result) {
 	this.result = result;
     }
+
+    public KKBPaymentOrder getPayment() {
+	return payment;
+    }
+
+    @Deprecated
+    public void setPayment(KKBPaymentOrder payment) {
+	this.payment = payment;
+    }
+
 }

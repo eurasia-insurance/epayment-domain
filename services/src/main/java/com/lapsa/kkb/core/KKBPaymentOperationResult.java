@@ -1,10 +1,10 @@
-package com.lapsa.kkb.api;
+package com.lapsa.kkb.core;
 
 import java.io.Serializable;
 
 import com.lapsa.country.Country;
 
-public class KKBAuthorizationPaymentResult implements Serializable {
+public class KKBPaymentOperationResult implements Serializable {
     private static final long serialVersionUID = -5554861649966310216L;
 
     private String reference;
