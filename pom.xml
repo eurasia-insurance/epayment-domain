@@ -10,7 +10,7 @@
 
 	<groupId>com.lapsa.kkb-lib</groupId>
 	<artifactId>parent</artifactId>
-	<version>1.0-pre-rc1-SNAPSHOT</version>
+	<version>1.0-rc1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>KKB Lib</name>
