@@ -8,5 +8,5 @@ public interface KKBPaymentOrderService {
 
     void validate(KKBPaymentOrder requestOrder, KKBPaymentOrder responseOrder);
 
-    String encodeRequest(KKBPaymentOrder request) throws KKBServiceError;
+    String composeRequest(KKBPaymentOrder request) throws KKBServiceError;
 }
