@@ -16,6 +16,7 @@
 	<name>KKB Lib</name>
 
 	<modules>
+		<module>core</module>
 		<module>services</module>
 	</modules>
 
@@ -27,6 +28,11 @@
 	<dependencyManagement>
 		<dependencies>
 			<!-- own -->
+			<dependency>
+				<groupId>com.lapsa.kkb-lib</groupId>
+				<artifactId>kkb-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>com.lapsa.kkb-lib</groupId>
 				<artifactId>kkb-services</artifactId>

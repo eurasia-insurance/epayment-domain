@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.lapsa.fin.FinCurrency;
-import com.lapsa.kkb.api.KKBFormatException;
 
 public class KKBPaymentOrder implements Serializable {
     private static final long serialVersionUID = 1769054616339347695L;
@@ -32,18 +31,18 @@ public class KKBPaymentOrder implements Serializable {
     }
 
     @SuppressWarnings("deprecation")
-    public void addOperation(KKBPaymentOperation operation) throws KKBFormatException {
+    public void addOperation(KKBPaymentOperation operation) {
 	if (operations.containsKey(operation.getMerchantId()))
-	    throw new KKBFormatException(
+	    throw new RuntimeException(
 		    String.format("Operation merchangId = '%1$s' already exists", operation.getMerchantId()));
 	operations.put(operation.getMerchantId(), operation);
 	operation.setPayment(this);
     }
 
     @SuppressWarnings("deprecation")
-    public void removeOperation(KKBPaymentOperation operation) throws KKBFormatException {
+    public void removeOperation(KKBPaymentOperation operation) {
 	if (!operations.containsKey(operation.getMerchantId()))
-	    throw new KKBFormatException(
+	    throw new RuntimeException(
 		    String.format("Operation merchangId = '' is not presents", operation.getMerchantId()));
 	operations.remove(operation.getMerchantId());
 	operation.setPayment(null);

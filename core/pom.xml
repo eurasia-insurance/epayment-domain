@@ -8,35 +8,24 @@
 		<version>1.0-rc1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>kkb-services</artifactId>
+	<artifactId>kkb-core</artifactId>
 	<packaging>jar</packaging>
 
-	<name>KKB Lib : Services API</name>
+	<name>KKB Lib : Core &amp; POJO</name>
 
 	<dependencies>
-		<!-- own -->
+		<!-- internal -->
 		<dependency>
-			<groupId>com.lapsa.kkb-lib</groupId>
-			<artifactId>kkb-core</artifactId>
+			<groupId>com.lapsa.fin-lib</groupId>
+			<artifactId>fin-core</artifactId>
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>
-		<!-- Java EE -->
 		<dependency>
-			<groupId>javax.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<!-- test -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.hamcrest</groupId>
-			<artifactId>hamcrest-all</artifactId>
-			<scope>test</scope>
+			<groupId>com.lapsa.international-lib</groupId>
+			<artifactId>international-core</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
 		</dependency>
 	</dependencies>
 </project>
