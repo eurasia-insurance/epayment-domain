@@ -1,4 +1,4 @@
-package com.lapsa.kkb.api;
+package com.lapsa.kkb.services;
 
 public class KKBServiceError extends Exception {
     private static final long serialVersionUID = 4268932787626581241L;

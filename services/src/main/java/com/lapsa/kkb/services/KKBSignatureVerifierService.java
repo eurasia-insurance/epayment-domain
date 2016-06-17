@@ -1,4 +1,4 @@
-package com.lapsa.kkb.api;
+package com.lapsa.kkb.services;
 
 import java.security.cert.X509Certificate;
 

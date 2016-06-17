@@ -1,4 +1,4 @@
-package com.lapsa.kkb.core;
+package com.lapsa.kkb.persistence;
 
 import com.lapsa.kkb.core.KKBPaymentOrder;
 

@@ -1,4 +1,4 @@
-package com.lapsa.kkb.api;
+package com.lapsa.kkb.services;
 
 public class KKBWrongSignature extends Exception {
     private static final long serialVersionUID = -4314988417703788061L;

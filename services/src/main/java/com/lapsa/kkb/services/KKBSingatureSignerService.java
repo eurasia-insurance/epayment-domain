@@ -1,4 +1,4 @@
-package com.lapsa.kkb.api;
+package com.lapsa.kkb.services;
 
 import com.lapsa.kkb.core.KKBSignature;
 

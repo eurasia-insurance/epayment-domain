@@ -1,4 +1,4 @@
-package com.lapsa.kkb.core;
+package com.lapsa.kkb.persistence;
 
 public class KKBPeristenceOperationFailed extends Exception {
 
