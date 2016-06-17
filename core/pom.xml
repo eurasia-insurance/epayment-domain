@@ -11,7 +11,7 @@
 	<artifactId>kkb-core</artifactId>
 	<packaging>jar</packaging>
 
-	<name>KKB Lib : Core &amp; POJO</name>
+	<name>KKB Lib : POJO</name>
 
 	<dependencies>
 		<!-- internal -->
