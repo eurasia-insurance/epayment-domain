@@ -18,6 +18,7 @@
 	<modules>
 		<module>core</module>
 		<module>services</module>
+		<module>persistence</module>
 	</modules>
 
 	<properties>
@@ -36,6 +37,11 @@
 			<dependency>
 				<groupId>com.lapsa.kkb-lib</groupId>
 				<artifactId>kkb-services</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.lapsa.kkb-lib</groupId>
+				<artifactId>kkb-persistence</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<!-- internal -->
