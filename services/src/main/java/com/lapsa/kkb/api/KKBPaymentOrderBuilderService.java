@@ -3,7 +3,7 @@ package com.lapsa.kkb.api;
 import com.lapsa.fin.FinCurrency;
 import com.lapsa.kkb.core.KKBPaymentOrder;
 
-public interface KKBPaymentOrderBuilder {
+public interface KKBPaymentOrderBuilderService {
     String generateNewOrderId();
 
     KKBPaymentOrder buildNewPayment(double amount);
