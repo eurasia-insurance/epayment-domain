@@ -5,7 +5,8 @@ public enum KKBPaymentStatus {
     SENT, // отправлен
     ACCEPTED, // принят и подтвержден
     DECLINED, // отклонен платежной системой
-    ENTROLLED, // проведен по счету
+    ENROLLED, // проведен по счету
+    COMPLETED, // закрыт
     ;
     //
 }

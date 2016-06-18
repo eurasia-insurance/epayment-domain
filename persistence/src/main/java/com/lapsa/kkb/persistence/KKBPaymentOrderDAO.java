@@ -1,6 +1,6 @@
 package com.lapsa.kkb.persistence;
 
-import com.lapsa.kkb.core.KKBPaymentOrder;
+import com.lapsa.kkb.core2.KKBOrder;
 
-public interface KKBPaymentOrderDAO extends KKBDAO<KKBPaymentOrder, String> {
+public interface KKBPaymentOrderDAO extends KKBDAO<KKBOrder, String> {
 }
