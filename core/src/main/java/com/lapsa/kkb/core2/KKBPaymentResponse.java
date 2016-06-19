@@ -7,7 +7,7 @@ public class KKBPaymentResponse extends BaseEntity<Integer> {
 
     private KKBOrder order;
 
-    private String xmlContent;
+    private String content;
 
     private Date received;
 
@@ -21,12 +21,12 @@ public class KKBPaymentResponse extends BaseEntity<Integer> {
 	this.order = order;
     }
 
-    public String getXmlContent() {
-	return xmlContent;
+    public String getContent() {
+	return content;
     }
 
-    public void setXmlContent(String xmlContent) {
-	this.xmlContent = xmlContent;
+    public void setContent(String content) {
+	this.content = content;
     }
 
     public Date getReceived() {

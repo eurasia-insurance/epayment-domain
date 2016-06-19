@@ -26,7 +26,7 @@ public class KKBOrder extends BaseDomain {
 
     private Date closed;
 
-    private List<KKBPaymentReuest> requests;
+    private List<KKBPaymentRequest> requests;
 
     private List<KKBPaymentResponse> responses;
 
@@ -44,14 +44,14 @@ public class KKBOrder extends BaseDomain {
 	item.setOrder(null);
     }
 
-    public void addRequest(KKBPaymentReuest request) {
+    public void addRequest(KKBPaymentRequest request) {
 	if (requests == null)
 	    requests = new ArrayList<>();
 	requests.add(request);
 	request.setOrder(this);
     }
 
-    public void removeRequest(KKBPaymentReuest request) {
+    public void removeRequest(KKBPaymentRequest request) {
 	if (requests == null)
 	    requests = new ArrayList<>();
 	requests.remove(request);
@@ -152,11 +152,11 @@ public class KKBOrder extends BaseDomain {
 	this.closed = closed;
     }
 
-    public List<KKBPaymentReuest> getRequests() {
+    public List<KKBPaymentRequest> getRequests() {
 	return requests;
     }
 
-    public void setRequests(List<KKBPaymentReuest> requests) {
+    public void setRequests(List<KKBPaymentRequest> requests) {
 	this.requests = requests;
     }
 

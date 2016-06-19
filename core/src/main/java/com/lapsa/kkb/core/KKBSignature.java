@@ -1,12 +1,13 @@
 package com.lapsa.kkb.core;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 public class KKBSignature implements Serializable {
     private static final long serialVersionUID = -7295482069867034544L;
 
     private byte[] data;
-    private byte[] signature;
+    private byte[] digest;
     private boolean inverted = true;
     private KKBSingatureStatus status = KKBSingatureStatus.UNCHECKED;
 
@@ -15,17 +16,19 @@ public class KKBSignature implements Serializable {
     }
 
     public void setData(byte[] data) {
-	status = KKBSingatureStatus.UNCHECKED;
+	if (!Arrays.equals(this.data, data))
+	    status = KKBSingatureStatus.UNCHECKED;
 	this.data = data;
     }
 
-    public byte[] getSignature() {
-	return signature;
+    public byte[] getDigest() {
+	return digest;
     }
 
-    public void setSignature(byte[] signature) {
-	status = KKBSingatureStatus.UNCHECKED;
-	this.signature = signature;
+    public void setDigest(byte[] digest) {
+	if (!Arrays.equals(this.digest, digest))
+	    status = KKBSingatureStatus.UNCHECKED;
+	this.digest = digest;
     }
 
     public boolean isInverted() {
@@ -33,7 +36,8 @@ public class KKBSignature implements Serializable {
     }
 
     public void setInverted(boolean inverted) {
-	status = KKBSingatureStatus.UNCHECKED;
+	if (this.inverted != inverted)
+	    status = KKBSingatureStatus.UNCHECKED;
 	this.inverted = inverted;
     }
 
@@ -44,5 +48,13 @@ public class KKBSignature implements Serializable {
     @Deprecated
     public void setStatus(KKBSingatureStatus status) {
 	this.status = status;
+    }
+
+    public static void main(String[] args) {
+	byte[] b1 = new byte[] { 1, 2, 3 };
+	byte[] b2 = new byte[] { 1, 2, 3 };
+
+	System.out.println(b1.equals(b2));
+	System.out.println();
     }
 }

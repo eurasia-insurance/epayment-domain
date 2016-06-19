@@ -2,12 +2,12 @@ package com.lapsa.kkb.core2;
 
 import java.util.Date;
 
-public class KKBPaymentReuest extends BaseEntity<Integer> {
+public class KKBPaymentRequest extends BaseEntity<Integer> {
     private static final long serialVersionUID = -9155395037288903019L;
 
     private KKBOrder order;
 
-    private String xmlContent;
+    private String content;
 
     private Date sent;
 
@@ -21,12 +21,12 @@ public class KKBPaymentReuest extends BaseEntity<Integer> {
 	this.order = order;
     }
 
-    public String getXmlContent() {
-	return xmlContent;
+    public String getContent() {
+	return content;
     }
 
-    public void setXmlContent(String xml) {
-	this.xmlContent = xml;
+    public void setContent(String content) {
+	this.content = content;
     }
 
     public Date getSent() {
