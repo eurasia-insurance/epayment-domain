@@ -104,6 +104,14 @@ public class KKBOrder extends BaseDomain {
 	this.cart = cart;
     }
 
+    public void calculateTotalAmount() {
+	amount = 0d;
+	if (items == null)
+	    return;
+	for (KKBOrderItem item : items)
+	    amount += item.getCost();
+    }
+
     @Override
     public int hashCode() {
 	return this.getClass().hashCode()
@@ -203,15 +211,5 @@ public class KKBOrder extends BaseDomain {
 
     public KKBCartDocument getCart() {
 	return cart;
-    }
-
-    // PRIVATE
-
-    private void calculateTotalAmount() {
-	amount = 0d;
-	if (items == null)
-	    return;
-	for (KKBOrderItem item : items)
-	    amount += item.getCost();
     }
 }
