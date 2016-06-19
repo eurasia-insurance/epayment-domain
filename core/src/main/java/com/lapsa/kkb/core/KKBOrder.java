@@ -25,27 +25,41 @@ public class KKBOrder extends BaseDomain {
 
     private Date closed;
 
+    private KKBCart cart;
+
     private List<KKBPaymentRequest> requests;
 
     private List<KKBPaymentResponse> responses;
 
     public void addItem(KKBOrderItem item) {
+	if (item == null)
+	    throw new NullPointerException("Value must not be null");
+	if (item.getOrder() != null)
+	    item.getOrder().removeItem(item);
 	if (items == null)
 	    items = new ArrayList<>();
 	items.add(item);
 	item.setOrder(this);
+
 	calculateTotalAmount();
     }
 
     public void removeItem(KKBOrderItem item) {
-	if (items == null)
-	    items = new ArrayList<>();
+	if (item == null)
+	    throw new NullPointerException("Value must not be null");
+	if (items == null) // nothing to remove from
+	    return;
 	items.remove(item);
 	item.setOrder(null);
+
 	calculateTotalAmount();
     }
 
     public void addRequest(KKBPaymentRequest request) {
+	if (request == null)
+	    throw new NullPointerException("Value must not be null");
+	if (request.getOrder() != null)
+	    request.getOrder().removeRequest(request);
 	if (requests == null)
 	    requests = new ArrayList<>();
 	requests.add(request);
@@ -53,24 +67,41 @@ public class KKBOrder extends BaseDomain {
     }
 
     public void removeRequest(KKBPaymentRequest request) {
-	if (requests == null)
-	    requests = new ArrayList<>();
+	if (request == null)
+	    throw new NullPointerException("Value must not be null");
+	if (requests == null) // nothing to remove from
+	    return;
 	requests.remove(request);
 	request.setOrder(null);
     }
 
     public void addResponse(KKBPaymentResponse response) {
+	if (response == null)
+	    throw new NullPointerException("Value must not be null");
+	if (response.getOrder() != null)
+	    response.getOrder().removeResponse(response);
 	if (responses == null)
 	    responses = new ArrayList<>();
 	responses.add(response);
 	response.setOrder(this);
     }
 
-    public void removeResponse(KKBPaymentResponse request) {
-	if (responses == null)
-	    responses = new ArrayList<>();
-	responses.remove(request);
-	request.setOrder(null);
+    public void removeResponse(KKBPaymentResponse response) {
+	if (response == null)
+	    throw new NullPointerException("Value must not be null");
+	if (responses == null) // nothing to remove from
+	    return;
+	responses.remove(response);
+	response.setOrder(null);
+    }
+
+    public void setCart(KKBCart cart) {
+	if (cart == null)
+	    throw new NullPointerException("Value must not be null");
+	if (cart.getOrder() != null)
+	    cart.getOrder().setCart(null);
+	cart.setOrder(this);
+	this.cart = cart;
     }
 
     @Override
@@ -168,6 +199,10 @@ public class KKBOrder extends BaseDomain {
 
     public void setResponses(List<KKBPaymentResponse> responses) {
 	this.responses = responses;
+    }
+
+    public KKBCart getCart() {
+	return cart;
     }
 
     // PRIVATE
