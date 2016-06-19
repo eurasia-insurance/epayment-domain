@@ -25,11 +25,11 @@ public class KKBOrder extends BaseDomain {
 
     private Date closed;
 
-    private KKBCart cart;
+    private KKBCartDocument cart;
 
-    private List<KKBPaymentRequest> requests;
+    private List<KKBPaymentRequestDocument> requests;
 
-    private List<KKBPaymentResponse> responses;
+    private List<KKBPaymentResponseDocument> responses;
 
     public void addItem(KKBOrderItem item) {
 	if (item == null)
@@ -55,7 +55,7 @@ public class KKBOrder extends BaseDomain {
 	calculateTotalAmount();
     }
 
-    public void addRequest(KKBPaymentRequest request) {
+    public void addRequest(KKBPaymentRequestDocument request) {
 	if (request == null)
 	    throw new NullPointerException("Value must not be null");
 	if (request.getOrder() != null)
@@ -66,7 +66,7 @@ public class KKBOrder extends BaseDomain {
 	request.setOrder(this);
     }
 
-    public void removeRequest(KKBPaymentRequest request) {
+    public void removeRequest(KKBPaymentRequestDocument request) {
 	if (request == null)
 	    throw new NullPointerException("Value must not be null");
 	if (requests == null) // nothing to remove from
@@ -75,7 +75,7 @@ public class KKBOrder extends BaseDomain {
 	request.setOrder(null);
     }
 
-    public void addResponse(KKBPaymentResponse response) {
+    public void addResponse(KKBPaymentResponseDocument response) {
 	if (response == null)
 	    throw new NullPointerException("Value must not be null");
 	if (response.getOrder() != null)
@@ -86,7 +86,7 @@ public class KKBOrder extends BaseDomain {
 	response.setOrder(this);
     }
 
-    public void removeResponse(KKBPaymentResponse response) {
+    public void removeResponse(KKBPaymentResponseDocument response) {
 	if (response == null)
 	    throw new NullPointerException("Value must not be null");
 	if (responses == null) // nothing to remove from
@@ -95,7 +95,7 @@ public class KKBOrder extends BaseDomain {
 	response.setOrder(null);
     }
 
-    public void setCart(KKBCart cart) {
+    public void setCart(KKBCartDocument cart) {
 	if (cart == null)
 	    throw new NullPointerException("Value must not be null");
 	if (cart.getOrder() != null)
@@ -185,23 +185,23 @@ public class KKBOrder extends BaseDomain {
 	this.closed = closed;
     }
 
-    public List<KKBPaymentRequest> getRequests() {
+    public List<KKBPaymentRequestDocument> getRequests() {
 	return requests;
     }
 
-    public void setRequests(List<KKBPaymentRequest> requests) {
+    public void setRequests(List<KKBPaymentRequestDocument> requests) {
 	this.requests = requests;
     }
 
-    public List<KKBPaymentResponse> getResponses() {
+    public List<KKBPaymentResponseDocument> getResponses() {
 	return responses;
     }
 
-    public void setResponses(List<KKBPaymentResponse> responses) {
+    public void setResponses(List<KKBPaymentResponseDocument> responses) {
 	this.responses = responses;
     }
 
-    public KKBCart getCart() {
+    public KKBCartDocument getCart() {
 	return cart;
     }
 
