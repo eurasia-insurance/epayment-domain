@@ -34,6 +34,7 @@ public class KKBOrder extends BaseDomain {
 	    items = new ArrayList<>();
 	items.add(item);
 	item.setOrder(this);
+	calculateTotalAmount();
     }
 
     public void removeItem(KKBOrderItem item) {
@@ -41,6 +42,7 @@ public class KKBOrder extends BaseDomain {
 	    items = new ArrayList<>();
 	items.remove(item);
 	item.setOrder(null);
+	calculateTotalAmount();
     }
 
     public void addRequest(KKBPaymentRequest request) {
@@ -99,6 +101,7 @@ public class KKBOrder extends BaseDomain {
 	return amount;
     }
 
+    @Deprecated
     public void setAmount(double amount) {
 	this.amount = amount;
     }
@@ -165,5 +168,15 @@ public class KKBOrder extends BaseDomain {
 
     public void setResponses(List<KKBPaymentResponse> responses) {
 	this.responses = responses;
+    }
+
+    // PRIVATE
+
+    private void calculateTotalAmount() {
+	amount = 0d;
+	if (items == null)
+	    return;
+	for (KKBOrderItem item : items)
+	    amount += item.getCost();
     }
 }
