@@ -1,4 +1,4 @@
-package com.lapsa.kkb.core2;
+package com.lapsa.kkb.core;
 
 import java.io.Serializable;
 import java.util.UUID;

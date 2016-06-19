@@ -1,4 +1,4 @@
-package com.lapsa.kkb.core2;
+package com.lapsa.kkb.core;
 
 public class KKBOrderItem extends BaseEntity<Integer> {
     private static final long serialVersionUID = -7214383627734413167L;

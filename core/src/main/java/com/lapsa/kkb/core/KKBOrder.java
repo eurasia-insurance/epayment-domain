@@ -1,11 +1,10 @@
-package com.lapsa.kkb.core2;
+package com.lapsa.kkb.core;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.lapsa.fin.FinCurrency;
-import com.lapsa.kkb.core.KKBPaymentStatus;
 
 public class KKBOrder extends BaseDomain {
     private static final long serialVersionUID = 8043063701133705294L;
