@@ -1,9 +1,8 @@
 package com.lapsa.kkb.core;
 
-import java.io.Serializable;
 import java.util.Arrays;
 
-public class KKBSignature implements Serializable {
+public class KKBSignedData extends BaseDomain {
     private static final long serialVersionUID = -7295482069867034544L;
 
     private byte[] data;

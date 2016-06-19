@@ -2,7 +2,7 @@ package com.lapsa.kkb.services;
 
 import java.security.cert.X509Certificate;
 
-import com.lapsa.kkb.core.KKBSignature;
+import com.lapsa.kkb.core.KKBSignedData;
 
 public interface KKBSignatureVerifierService {
     void verify(byte[] data, byte[] signature) throws KKBServiceError, KKBWrongSignature;
@@ -13,5 +13,5 @@ public interface KKBSignatureVerifierService {
     
     String getSignatureAlgorithm();
 
-    void verify(KKBSignature signedData) throws KKBServiceError, KKBWrongSignature;
+    void verify(KKBSignedData signedData) throws KKBServiceError, KKBWrongSignature;
 }
