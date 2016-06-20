@@ -48,12 +48,4 @@ public class KKBSignedData extends BaseDomain {
     public void setStatus(KKBSingatureStatus status) {
 	this.status = status;
     }
-
-    public static void main(String[] args) {
-	byte[] b1 = new byte[] { 1, 2, 3 };
-	byte[] b2 = new byte[] { 1, 2, 3 };
-
-	System.out.println(b1.equals(b2));
-	System.out.println();
-    }
 }
