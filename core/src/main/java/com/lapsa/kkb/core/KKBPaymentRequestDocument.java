@@ -7,6 +7,14 @@ public class KKBPaymentRequestDocument extends KKBDocument {
 
     // GENERATED
 
+    public KKBPaymentRequestDocument() {
+	super();
+    }
+
+    public KKBPaymentRequestDocument(String content) {
+	super(content);
+    }
+
     public KKBOrder getOrder() {
 	return order;
     }

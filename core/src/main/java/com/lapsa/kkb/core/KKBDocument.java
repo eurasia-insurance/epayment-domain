@@ -11,6 +11,13 @@ public abstract class KKBDocument extends BaseEntity<Integer> {
 
     // GENERATED
 
+    public KKBDocument() {
+    }
+
+    public KKBDocument(String content) {
+	this.content = content;
+    }
+
     public String getContent() {
 	return content;
     }

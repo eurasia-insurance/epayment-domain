@@ -7,6 +7,14 @@ public class KKBPaymentResponseDocument extends KKBDocument {
 
     // GENERATED
 
+    public KKBPaymentResponseDocument() {
+	super();
+    }
+
+    public KKBPaymentResponseDocument(String content) {
+	super(content);
+    }
+
     public KKBOrder getOrder() {
 	return order;
     }

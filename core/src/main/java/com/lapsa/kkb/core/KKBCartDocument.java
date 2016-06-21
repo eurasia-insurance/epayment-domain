@@ -7,6 +7,14 @@ public class KKBCartDocument extends KKBDocument {
 
     // GENERATED
 
+    public KKBCartDocument() {
+	super();
+    }
+
+    public KKBCartDocument(String content) {
+	super(content);
+    }
+
     public KKBOrder getOrder() {
 	return order;
     }
