@@ -9,6 +9,8 @@ public abstract class KKBDocument extends BaseEntity<Integer> {
 
     private Date created;
 
+    private KKBOrder order;
+
     // GENERATED
 
     public KKBDocument() {
@@ -32,5 +34,14 @@ public abstract class KKBDocument extends BaseEntity<Integer> {
 
     public void setCreated(Date created) {
 	this.created = created;
+    }
+
+    public KKBOrder getOrder() {
+	return order;
+    }
+
+    @Deprecated
+    public void setOrder(KKBOrder order) {
+	this.order = order;
     }
 }
