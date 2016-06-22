@@ -15,4 +15,6 @@ public interface KKBResponseService {
 
     void validateResponse(KKBPaymentRequestDocument request, KKBPaymentResponseDocument response)
 	    throws KKBFormatException, KKBValidationErrorException;
+
+    KKBPaymentResponseDocument parseResponseDocument(String response) throws KKBFormatException;
 }
