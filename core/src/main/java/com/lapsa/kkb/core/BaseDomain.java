@@ -3,6 +3,9 @@ package com.lapsa.kkb.core;
 import java.io.Serializable;
 import java.util.UUID;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 public abstract class BaseDomain implements Serializable {
     private static final long serialVersionUID = 3664529817399340371L;
 
@@ -14,10 +17,18 @@ public abstract class BaseDomain implements Serializable {
     protected abstract int getMultiplier();
 
     @Override
-    public abstract int hashCode();
+    public int hashCode() {
+	return HashCodeBuilder.reflectionHashCode(getPrime(), getMultiplier(), this, false);
+    }
 
     @Override
-    public abstract boolean equals(Object other);
+    public boolean equals(Object other) {
+	if (other == null || other.getClass() != getClass())
+	    return false;
+	if (other == this)
+	    return true;
+	return EqualsBuilder.reflectionEquals(this, other, false);
+    }
 
     public final UUID getInstanceUUID() {
 	return instanceUUID;

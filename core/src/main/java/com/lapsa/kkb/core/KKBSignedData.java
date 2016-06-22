@@ -2,9 +2,6 @@ package com.lapsa.kkb.core;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 public class KKBSignedData extends BaseDomain {
     private static final long serialVersionUID = -7295482069867034544L;
     private static final int PRIME = 17;
@@ -23,31 +20,6 @@ public class KKBSignedData extends BaseDomain {
     @Override
     protected int getMultiplier() {
 	return MULTIPLIER;
-    }
-
-    @Override
-    public int hashCode() {
-	return new HashCodeBuilder(getPrime(), getMultiplier())
-		.append(data)
-		.append(digest)
-		.append(inverted)
-		.append(status)
-		.toHashCode();
-    }
-
-    @Override
-    public boolean equals(Object other) {
-	if (other == null || other.getClass() != getClass())
-	    return false;
-	if (other == this)
-	    return true;
-	KKBSignedData that = (KKBSignedData) other;
-	return new EqualsBuilder()
-		.append(data, that.data)
-		.append(digest, that.digest)
-		.append(inverted, that.inverted)
-		.append(status, that.status)
-		.isEquals();
     }
 
     public byte[] getData() {

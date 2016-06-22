@@ -2,9 +2,6 @@ package com.lapsa.kkb.core;
 
 import java.util.Date;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 public abstract class KKBDocument extends BaseEntity<Integer> {
     private static final long serialVersionUID = -9155395037288903019L;
 
@@ -13,31 +10,6 @@ public abstract class KKBDocument extends BaseEntity<Integer> {
     private Date created;
 
     private KKBOrder order;
-
-    @Override
-    public int hashCode() {
-	return new HashCodeBuilder(getPrime(), getMultiplier())
-		.appendSuper(super.hashCode())
-		.append(content)
-		.append(created)
-		.append(order)
-		.toHashCode();
-    }
-
-    @Override
-    public boolean equals(Object other) {
-	if (other == null || other.getClass() != getClass())
-	    return false;
-	if (other == this)
-	    return true;
-	KKBDocument that = (KKBDocument) other;
-	return new EqualsBuilder()
-		.appendSuper(super.equals(that))
-		.append(content, that.content)
-		.append(created, that.created)
-		.append(order, that.order)
-		.isEquals();
-    }
 
     // GENERATED
 
