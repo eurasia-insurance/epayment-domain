@@ -1,5 +1,6 @@
 package com.lapsa.kkb.services;
 
+import com.lapsa.kkb.core.KKBOrder;
 import com.lapsa.kkb.core.KKBPaymentRequestDocument;
 import com.lapsa.kkb.core.KKBPaymentResponseDocument;
 
@@ -16,5 +17,5 @@ public interface KKBResponseService {
     void validateResponse(KKBPaymentRequestDocument request, KKBPaymentResponseDocument response)
 	    throws KKBFormatException, KKBValidationErrorException;
 
-    KKBPaymentResponseDocument parseResponseDocument(String response) throws KKBFormatException;
+    void validateResponse(KKBOrder order) throws KKBFormatException, KKBValidationErrorException;
 }
