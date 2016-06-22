@@ -55,6 +55,14 @@
 				<artifactId>fin-core</artifactId>
 				<version>${fin-lib.version}</version>
 			</dependency>
+			<!-- external -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>3.4</version>
+				<scope>compile</scope>
+				<optional>false</optional>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 

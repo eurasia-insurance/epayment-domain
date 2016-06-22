@@ -9,18 +9,15 @@ public abstract class BaseDomain implements Serializable {
     protected transient final UUID instanceUUID = UUID.randomUUID();
     protected transient final String instanceWebSafeUUID = "UUID" + instanceUUID.toString().replace("-", "");
 
-    @Override
-    public int hashCode() {
-	return this.getClass().hashCode()
-		* instanceUUID.hashCode();
-    }
+    protected abstract int getPrime();
+
+    protected abstract int getMultiplier();
 
     @Override
-    public boolean equals(Object obj) {
-	return obj != null
-		&& this.getClass().isInstance(obj)
-		&& (instanceUUID.equals(this.getClass().cast(obj).instanceUUID));
-    }
+    public abstract int hashCode();
+
+    @Override
+    public abstract boolean equals(Object other);
 
     public final UUID getInstanceUUID() {
 	return instanceUUID;
