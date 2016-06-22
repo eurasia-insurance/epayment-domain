@@ -18,7 +18,10 @@ public abstract class BaseDomain implements Serializable {
 
     @Override
     public int hashCode() {
-	return HashCodeBuilder.reflectionHashCode(getPrime(), getMultiplier(), this, false);
+	return new HashCodeBuilder(getPrime(), getMultiplier())
+		.append(instanceUUID)
+		.toHashCode();
+
     }
 
     @Override
@@ -27,7 +30,11 @@ public abstract class BaseDomain implements Serializable {
 	    return false;
 	if (other == this)
 	    return true;
-	return EqualsBuilder.reflectionEquals(this, other, false);
+	BaseDomain that = (BaseDomain) other;
+	return new EqualsBuilder()
+		.append(instanceUUID, that.instanceUUID)
+		.isEquals();
+
     }
 
     public final UUID getInstanceUUID() {
