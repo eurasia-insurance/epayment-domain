@@ -1,5 +1,6 @@
 package com.lapsa.kkb.core;
 
+import java.util.Base64;
 import java.util.Date;
 
 public abstract class KKBDocument extends BaseEntity<Integer> {
@@ -10,6 +11,12 @@ public abstract class KKBDocument extends BaseEntity<Integer> {
     private Date created;
 
     private KKBOrder order;
+
+    public String getContentBase64() {
+	if (content == null)
+	    return null;
+	return Base64.getEncoder().encodeToString(content.getBytes());
+    }
 
     // GENERATED
 
