@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.lapsa.fin.FinCurrency;
+import com.lapsa.localization.LocalizationLanguage;
 
 public class KKBOrder extends BaseDomain {
     private static final long serialVersionUID = 8043063701133705294L;
@@ -18,6 +19,10 @@ public class KKBOrder extends BaseDomain {
     private FinCurrency currency;
 
     private List<KKBOrderItem> items;
+
+    private String consumerEmail;
+
+    private LocalizationLanguage consumerLanguage;
 
     private KKBPaymentStatus status;
 
@@ -130,8 +135,25 @@ public class KKBOrder extends BaseDomain {
 	return items;
     }
 
+    @Deprecated
     public void setItems(List<KKBOrderItem> items) {
 	this.items = items;
+    }
+
+    public String getConsumerEmail() {
+	return consumerEmail;
+    }
+
+    public void setConsumerEmail(String consumerEmail) {
+	this.consumerEmail = consumerEmail;
+    }
+
+    public LocalizationLanguage getConsumerLanguage() {
+	return consumerLanguage;
+    }
+
+    public void setConsumerLanguage(LocalizationLanguage consumerLanguage) {
+	this.consumerLanguage = consumerLanguage;
     }
 
     public KKBPaymentStatus getStatus() {
