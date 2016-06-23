@@ -14,14 +14,4 @@ public class KKBPaymentResponseDocument extends KKBDocument {
     protected int getMultiplier() {
 	return MULTIPLIER;
     }
-
-    // GENERATED
-
-    public KKBPaymentResponseDocument() {
-	super();
-    }
-
-    public KKBPaymentResponseDocument(String content) {
-	super(content);
-    }
 }

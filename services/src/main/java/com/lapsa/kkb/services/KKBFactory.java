@@ -5,5 +5,5 @@ import com.lapsa.kkb.core.KKBPaymentResponseDocument;
 public interface KKBFactory {
     String generateNewOrderId();
 
-    KKBPaymentResponseDocument buildResponseDocument(String response);
+    KKBPaymentResponseDocument buildResponseDocument(String response) throws KKBFormatException;
 }
