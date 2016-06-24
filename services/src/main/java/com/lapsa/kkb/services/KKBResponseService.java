@@ -11,6 +11,8 @@ public interface KKBResponseService {
 
     void validateSignature(String response) throws KKBServiceError, KKBFormatException, KKBWrongSignature;
 
+    void validateResponseXmlFormat(KKBPaymentResponseDocument response) throws KKBFormatException;
+    
     void validateSignature(KKBPaymentResponseDocument response)
 	    throws KKBServiceError, KKBFormatException, KKBWrongSignature;
 
