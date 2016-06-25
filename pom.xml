@@ -30,17 +30,17 @@
 		<dependencies>
 			<!-- own -->
 			<dependency>
-				<groupId>com.lapsa.kkb-lib</groupId>
+				<groupId>${project.groupId}</groupId>
 				<artifactId>kkb-core</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.lapsa.kkb-lib</groupId>
+				<groupId>${project.groupId}</groupId>
 				<artifactId>kkb-services</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.lapsa.kkb-lib</groupId>
+				<groupId>${project.groupId}</groupId>
 				<artifactId>kkb-persistence</artifactId>
 				<version>${project.version}</version>
 			</dependency>
