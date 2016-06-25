@@ -11,7 +11,7 @@
 	<artifactId>kkb-services</artifactId>
 	<packaging>jar</packaging>
 
-	<name>KKB Lib : Services API</name>
+	<name>KKB Lib : Helper Services API</name>
 
 	<dependencies>
 		<!-- own -->
