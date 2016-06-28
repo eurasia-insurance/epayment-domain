@@ -1,6 +1,6 @@
 package com.lapsa.kkb.core;
 
-public class KKBOrderItem extends BaseEntity<Integer> {
+public class KKBOrderItem extends KKBBaseEntity<Integer> {
     private static final long serialVersionUID = -7214383627734413167L;
     private static final int PRIME = 7;
     private static final int MULTIPLIER = 7;

@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public abstract class BaseEntity<T> extends BaseDomain implements Serializable {
+public abstract class KKBBaseEntity<T> extends KKBBaseDomain implements Serializable {
     private static final long serialVersionUID = 2914122165051543297L;
 
     protected T id;
@@ -31,7 +31,7 @@ public abstract class BaseEntity<T> extends BaseDomain implements Serializable {
 	    return true;
 
 	@SuppressWarnings("unchecked")
-	BaseEntity<T> that = (BaseEntity<T>) other;
+	KKBBaseEntity<T> that = (KKBBaseEntity<T>) other;
 	EqualsBuilder eb = new EqualsBuilder();
 	if (id == null)
 	    return eb.appendSuper(super.equals(that)).isEquals();

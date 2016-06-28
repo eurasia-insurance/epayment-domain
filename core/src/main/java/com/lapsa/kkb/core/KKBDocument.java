@@ -3,7 +3,7 @@ package com.lapsa.kkb.core;
 import java.util.Base64;
 import java.util.Date;
 
-public abstract class KKBDocument extends BaseEntity<Integer> {
+public abstract class KKBDocument extends KKBBaseEntity<Integer> {
     private static final long serialVersionUID = -9155395037288903019L;
 
     private String content;

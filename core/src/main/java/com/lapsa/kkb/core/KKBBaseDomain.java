@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public abstract class BaseDomain implements Serializable {
+public abstract class KKBBaseDomain implements Serializable {
     private static final long serialVersionUID = 3664529817399340371L;
 
     protected transient final UUID instanceUUID = UUID.randomUUID();
@@ -30,7 +30,7 @@ public abstract class BaseDomain implements Serializable {
 	    return false;
 	if (other == this)
 	    return true;
-	BaseDomain that = (BaseDomain) other;
+	KKBBaseDomain that = (KKBBaseDomain) other;
 	return new EqualsBuilder()
 		.append(instanceUUID, that.instanceUUID)
 		.isEquals();

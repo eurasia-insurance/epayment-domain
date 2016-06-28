@@ -2,7 +2,7 @@ package com.lapsa.kkb.core;
 
 import java.util.Arrays;
 
-public class KKBSignedData extends BaseDomain {
+public class KKBSignedData extends KKBBaseDomain {
     private static final long serialVersionUID = -7295482069867034544L;
     private static final int PRIME = 17;
     private static final int MULTIPLIER = 17;

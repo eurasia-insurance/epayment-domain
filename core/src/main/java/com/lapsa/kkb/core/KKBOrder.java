@@ -7,7 +7,7 @@ import java.util.List;
 import com.lapsa.fin.FinCurrency;
 import com.lapsa.localization.LocalizationLanguage;
 
-public class KKBOrder extends BaseDomain {
+public class KKBOrder extends KKBBaseDomain {
     private static final long serialVersionUID = 8043063701133705294L;
     private static final int PRIME = 5;
     private static final int MULTIPLIER = 5;
