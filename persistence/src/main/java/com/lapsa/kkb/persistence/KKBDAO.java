@@ -5,5 +5,9 @@ public interface KKBDAO<T, I> {
 
     T findByIdByPassCache(final I id) throws KKBEntityNotFound, KKBPeristenceOperationFailed;
 
+    void deleteId(I id) throws KKBEntityNotFound, KKBPeristenceOperationFailed;
+
+    <Z extends T> void delete(Z entity) throws KKBPeristenceOperationFailed;
+
     <Z extends T> Z save(Z entity) throws KKBPeristenceOperationFailed;
 }
