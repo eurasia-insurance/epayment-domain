@@ -38,6 +38,8 @@ public class KKBOrder extends KKBBaseDomain {
 
     private KKBPaymentResponseDocument lastResponse;
 
+    private String externalId;
+
     @Override
     protected int getPrime() {
 	return PRIME;
@@ -198,6 +200,14 @@ public class KKBOrder extends KKBBaseDomain {
 
     public KKBPaymentResponseDocument getLastResponse() {
 	return lastResponse;
+    }
+
+    public String getExternalId() {
+	return externalId;
+    }
+
+    public void setExternalId(String externalId) {
+	this.externalId = externalId;
     }
 
 }
