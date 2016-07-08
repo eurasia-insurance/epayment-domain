@@ -23,6 +23,7 @@ public class KKBOrder extends KKBBaseDomain {
     private String consumerEmail;
 
     private LocalizationLanguage consumerLanguage;
+    private String consumerName;
 
     private KKBPaymentStatus status;
 
@@ -208,6 +209,14 @@ public class KKBOrder extends KKBBaseDomain {
 
     public void setExternalId(String externalId) {
 	this.externalId = externalId;
+    }
+
+    public void setConsumerName(String consumerName) {
+	this.consumerName = consumerName;
+    }
+
+    public String getConsumerName() {
+	return consumerName;
     }
 
 }
