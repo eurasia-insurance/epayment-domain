@@ -22,8 +22,8 @@
 	</modules>
 
 	<properties>
-		<international-lib.version>2.0</international-lib.version>
-		<fin-lib.version>1.0-SNAPSHOT</fin-lib.version>
+		<international-lib.version>2.0.1</international-lib.version>
+		<fin-lib.version>1.0</fin-lib.version>
 	</properties>
 
 	<dependencyManagement>
