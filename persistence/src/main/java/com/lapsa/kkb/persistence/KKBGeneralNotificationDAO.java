@@ -4,6 +4,6 @@ import java.util.List;
 
 import com.lapsa.kkb.core.KKBNotification;
 
-public interface GeneralKKBNotificationDAO<T extends KKBNotification> extends KKBDAO<T, Integer> {
+public interface KKBGeneralNotificationDAO<T extends KKBNotification> extends KKBGeneralDAO<T, Integer> {
     List<T> findAllPending();
 }
