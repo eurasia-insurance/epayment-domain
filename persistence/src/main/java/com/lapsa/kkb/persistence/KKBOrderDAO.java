@@ -5,9 +5,9 @@ import java.util.List;
 import com.lapsa.kkb.core.KKBOrder;
 
 public interface KKBOrderDAO extends KKBGeneralDAO<KKBOrder, String> {
-    List<KKBOrder> findAllAuthorizated();
+    List<KKBOrder> findAllAuthorizated() throws KKBPeristenceOperationFailed;
 
-    List<KKBOrder> findAllAuthorizatedWithExternalId();
+    List<KKBOrder> findAllAuthorizatedWithExternalId() throws KKBPeristenceOperationFailed;
 
-    List<KKBOrder> findAllWithoutExternalId();
+    List<KKBOrder> findAllWithoutExternalId() throws KKBPeristenceOperationFailed;
 }
