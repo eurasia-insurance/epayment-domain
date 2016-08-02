@@ -1,6 +1,6 @@
 package com.lapsa.kkb.persistence;
 
-public class KKBPeristenceOperationFailed extends Exception {
+public class KKBPeristenceOperationFailed extends RuntimeException {
 
     private static final long serialVersionUID = 161779605475547163L;
 
