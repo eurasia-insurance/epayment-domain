@@ -6,6 +6,7 @@ public enum KKBPaymentStatus {
     AUTHORIZATION_FAILED, // отклонен платежной системой
     ENROLLED, // проведен по счету
     COMPLETED, // закрыт
+    CANCELED, // отменен
     ;
     //
 }
