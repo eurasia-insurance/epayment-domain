@@ -73,14 +73,14 @@
 	</dependencyManagement>
 
 	<scm>
-		<connection>scm:git:https://gitrepo.theeurasia.kz/lapsa/kkb-lib.git</connection>
-		<developerConnection>scm:git:https://gitrepo.theeurasia.kz/lapsa/kkb-lib.git</developerConnection>
+		<connection>scm:git:http://gitlab.lapsa.tech/lapsa/kkb-lib.git</connection>
+		<developerConnection>scm:git:http://gitlab.lapsa.tech/lapsa/kkb-lib.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 
 	<issueManagement>
 		<system>gitlab</system>
-		<url>https://gitrepo.theeurasia.kz/lapsa/kkb-lib/issues</url>
+		<url>http://gitlab.lapsa.tech/lapsa/kkb-lib/issues</url>
 	</issueManagement>
 
 </project>
