@@ -7,10 +7,10 @@
 		<version>1.3-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>kkb-persistence</artifactId>
+	<artifactId>kkb-dao</artifactId>
 	<packaging>jar</packaging>
 
-	<name>KKB Lib : Persistence API</name>
+	<name>KKB Lib : DAO API</name>
 
 	<dependencies>
 		<!-- own -->
