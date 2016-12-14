@@ -18,7 +18,7 @@
 		<module>core</module>
 		<module>mesenger</module>
 		<module>services</module>
-		<module>persistence</module>
+		<module>dao</module>
 	</modules>
 
 	<properties>
