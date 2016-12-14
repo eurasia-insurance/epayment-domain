@@ -11,6 +11,7 @@ public abstract class KKBOrderNotification extends KKBNotification {
 	return order;
     }
 
+    @Deprecated
     public void setOrder(KKBOrder order) {
 	this.order = order;
     }
