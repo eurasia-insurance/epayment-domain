@@ -1,4 +1,4 @@
-package com.lapsa.kkb.persistence;
+package com.lapsa.kkb.dao;
 
 public interface KKBGeneralDAO<T, I> {
     T findById(I id) throws KKBEntityNotFound, KKBPeristenceOperationFailed;

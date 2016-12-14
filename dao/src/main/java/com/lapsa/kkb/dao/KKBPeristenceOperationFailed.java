@@ -1,4 +1,4 @@
-package com.lapsa.kkb.persistence;
+package com.lapsa.kkb.dao;
 
 public class KKBPeristenceOperationFailed extends RuntimeException {
 

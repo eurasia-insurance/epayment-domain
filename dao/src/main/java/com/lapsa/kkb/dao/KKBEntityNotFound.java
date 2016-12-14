@@ -1,4 +1,4 @@
-package com.lapsa.kkb.persistence;
+package com.lapsa.kkb.dao;
 
 public class KKBEntityNotFound extends Exception {
     private static final long serialVersionUID = -2183850752424900639L;
