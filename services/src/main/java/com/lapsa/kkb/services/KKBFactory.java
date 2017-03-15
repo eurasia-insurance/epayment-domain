@@ -12,6 +12,8 @@ public interface KKBFactory {
 
     KKBOrder generateNewOrder(FinCurrency currency, double cost, String product);
 
+    KKBOrder generateNewOrder(String orderId, FinCurrency currency, double cost, String product);
+
     KKBOrderItem generateNewOrderItem(String product, double cost, int quantity, KKBOrder order);
 
     KKBOrderItem generateNewOrderItem(String product, double cost, int quantity);
