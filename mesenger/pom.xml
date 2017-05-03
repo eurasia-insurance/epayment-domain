@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.lapsa.kkb-lib</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.5-SNAPSHOT</version>
+		<version>3.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>kkb-mesenger</artifactId>
