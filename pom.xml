@@ -23,8 +23,8 @@
 
 	<properties>
 		<!-- APIs -->
-		<international-lib.version>3.0-SNAPSHOT</international-lib.version>
-		<fin-lib.version>2.0-SNAPSHOT</fin-lib.version>
+		<international-lib.version>3.0</international-lib.version>
+		<fin-lib.version>2.0</fin-lib.version>
 	</properties>
 
 	<dependencyManagement>
