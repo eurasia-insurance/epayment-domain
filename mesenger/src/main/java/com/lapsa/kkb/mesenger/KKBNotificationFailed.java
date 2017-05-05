@@ -1,26 +1,26 @@
 package com.lapsa.kkb.mesenger;
 
-public class NotificationFailed extends RuntimeException {
+public class KKBNotificationFailed extends RuntimeException {
 
     private static final long serialVersionUID = -5063540628264203040L;
 
-    public NotificationFailed() {
+    public KKBNotificationFailed() {
 	super();
     }
 
-    public NotificationFailed(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public KKBNotificationFailed(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
 	super(message, cause, enableSuppression, writableStackTrace);
     }
 
-    public NotificationFailed(String message, Throwable cause) {
+    public KKBNotificationFailed(String message, Throwable cause) {
 	super(message, cause);
     }
 
-    public NotificationFailed(String message) {
+    public KKBNotificationFailed(String message) {
 	super(message);
     }
 
-    public NotificationFailed(Throwable cause) {
+    public KKBNotificationFailed(Throwable cause) {
 	super(cause);
     }
 }

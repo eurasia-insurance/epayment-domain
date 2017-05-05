@@ -1,5 +1,5 @@
 package com.lapsa.kkb.mesenger;
 
-public enum NotificationRecipientType {
+public enum KKBNotificationRecipientType {
     COMPANY, REQUESTER;
 }
