@@ -1,6 +1,6 @@
 package com.lapsa.kkb.mesenger;
 
-public class KKBNotificationFailed extends Exception {
+public class KKBNotificationFailed extends RuntimeException {
 
     private static final long serialVersionUID = -5063540628264203040L;
 

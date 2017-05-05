@@ -41,8 +41,6 @@ public class KKBOrder extends KKBBaseDomain {
 
     private String externalId;
 
-    private List<KKBOrderNotification> notifications = new ArrayList<>();;
-
     @Override
     protected int getPrime() {
 	return PRIME;
@@ -107,29 +105,6 @@ public class KKBOrder extends KKBBaseDomain {
 	    return;
 	for (KKBOrderItem item : items)
 	    amount += item.getCost();
-    }
-
-    @SuppressWarnings("deprecation")
-    public KKBOrderNotification addNotification(KKBOrderNotification notification) {
-	if (notification == null)
-	    throw new NullPointerException("Value must not be null");
-	if (notification.getOrder() != null)
-	    notification.getOrder().removeNotification(notification);
-	if (notifications == null)
-	    notifications = new ArrayList<>();
-	notifications.add(notification);
-	notification.setOrder(this);
-	return notification;
-    }
-
-    @SuppressWarnings("deprecation")
-    public KKBOrderNotification removeNotification(KKBOrderNotification notification) {
-	if (notification == null)
-	    throw new NullPointerException("Value must not be null");
-	notification.setOrder(null);
-	if (notifications != null)
-	    notifications.remove(notification);
-	return notification;
     }
 
     // GENERATED
@@ -242,14 +217,5 @@ public class KKBOrder extends KKBBaseDomain {
 
     public String getConsumerName() {
 	return consumerName;
-    }
-
-    public List<KKBOrderNotification> getNotifications() {
-	return notifications;
-    }
-
-    @Deprecated
-    public void setNotifications(List<KKBOrderNotification> notifications) {
-	this.notifications = notifications;
     }
 }
