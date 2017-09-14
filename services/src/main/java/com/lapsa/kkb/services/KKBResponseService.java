@@ -1,6 +1,6 @@
 package com.lapsa.kkb.services;
 
-import java.util.Date;
+import java.time.Instant;
 
 import com.lapsa.kkb.core.KKBOrder;
 import com.lapsa.kkb.core.KKBPaymentRequestDocument;
@@ -14,8 +14,8 @@ public interface KKBResponseService {
     String parsePaymentReferences(String response) throws KKBServiceError, KKBFormatException;
     String parsePaymentReferences(KKBPaymentResponseDocument response) throws KKBServiceError, KKBFormatException;
 
-    Date parsePaymentTimestamp(KKBPaymentResponseDocument response) throws KKBServiceError, KKBFormatException;
-    Date parsePaymentTimestamp(String response) throws KKBServiceError, KKBFormatException;
+    Instant parsePaymentTimestamp(KKBPaymentResponseDocument response) throws KKBServiceError, KKBFormatException;
+    Instant parsePaymentTimestamp(String response) throws KKBServiceError, KKBFormatException;
 
     void validateSignature(KKBPaymentResponseDocument response)
 	    throws KKBServiceError, KKBFormatException, KKBWrongSignature;
