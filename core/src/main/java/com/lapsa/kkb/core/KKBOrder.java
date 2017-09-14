@@ -8,7 +8,7 @@ import com.lapsa.fin.FinCurrency;
 import com.lapsa.localization.LocalizationLanguage;
 
 public class KKBOrder extends KKBBaseDomain {
-    private static final long serialVersionUID = 8043063701133705294L;
+    private static final long serialVersionUID = 1L;
     private static final int PRIME = 5;
     private static final int MULTIPLIER = 5;
 
@@ -32,6 +32,10 @@ public class KKBOrder extends KKBBaseDomain {
     private Date updated;
 
     private Date closed;
+
+    private Date paid;
+
+    private String paymentReference;
 
     private KKBCartDocument lastCart;
 
@@ -217,5 +221,21 @@ public class KKBOrder extends KKBBaseDomain {
 
     public String getConsumerName() {
 	return consumerName;
+    }
+
+    public Date getPaid() {
+	return paid;
+    }
+
+    public void setPaid(Date paid) {
+	this.paid = paid;
+    }
+
+    public String getPaymentReference() {
+	return paymentReference;
+    }
+
+    public void setPaymentReference(String paymentReference) {
+	this.paymentReference = paymentReference;
     }
 }
