@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.lapsa.fin.FinCurrency;
-import com.lapsa.localization.LocalizationLanguage;
+import com.lapsa.international.localization.LocalizationLanguage;
 
 public class KKBOrder extends KKBBaseDomain {
     private static final long serialVersionUID = 1L;
