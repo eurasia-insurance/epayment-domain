@@ -24,7 +24,7 @@
 	<properties>
 		<!-- APIs -->
 		<international-lib.version>3.2-SNAPSHOT</international-lib.version>
-		<fin-lib.version>2.0</fin-lib.version>
+		<fin-lib.version>2.1-SNAPSHOT</fin-lib.version>
 	</properties>
 
 	<dependencyManagement>
