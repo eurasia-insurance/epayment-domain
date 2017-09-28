@@ -9,7 +9,7 @@ import com.lapsa.kkb.core.KKBPaymentResponseDocument;
 
 public interface KKBFactory {
     String generateNewOrderId();
-    
+
     URL generatePaymentPageUrl(String orderId);
 
     KKBPaymentResponseDocument buildResponseDocument(String response) throws KKBFormatException;
