@@ -46,7 +46,7 @@ public abstract class KKBBaseEntity<T> extends KKBBaseDomain implements Serializ
 	return id;
     }
 
-    protected void setId(T id) {
+    public void setId(T id) {
 	this.id = id;
     }
 
