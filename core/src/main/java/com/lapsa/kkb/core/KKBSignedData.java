@@ -63,7 +63,7 @@ public class KKBSignedData extends KKBBaseDomain {
 	return status;
     }
 
-    protected void setStatus(KKBSignatureStatus status) {
+    public void setStatus(KKBSignatureStatus status) {
 	this.status = status;
     }
 
