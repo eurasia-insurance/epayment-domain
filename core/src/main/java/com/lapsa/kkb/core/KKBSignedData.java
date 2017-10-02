@@ -1,16 +1,18 @@
 package com.lapsa.kkb.core;
 
+import static com.lapsa.kkb.core.DisplayNameElements.*;
+
 import java.util.Arrays;
+import java.util.Locale;
+import java.util.StringJoiner;
+
+import com.lapsa.commons.elements.Localized;
+import com.lapsa.commons.function.MyOptionals;
 
 public class KKBSignedData extends KKBBaseDomain {
     private static final long serialVersionUID = -7295482069867034544L;
     private static final int PRIME = 17;
     private static final int MULTIPLIER = 17;
-
-    private byte[] data;
-    private byte[] digest;
-    private boolean inverted = true;
-    private KKBSingatureStatus status = KKBSingatureStatus.UNCHECKED;
 
     @Override
     protected int getPrime() {
@@ -22,13 +24,18 @@ public class KKBSignedData extends KKBBaseDomain {
 	return MULTIPLIER;
     }
 
+    protected byte[] data;
+    protected byte[] digest;
+    protected boolean inverted = true;
+    protected KKBSignatureStatus status = KKBSignatureStatus.UNCHECKED;
+
     public byte[] getData() {
 	return data;
     }
 
     public void setData(byte[] data) {
 	if (!Arrays.equals(this.data, data))
-	    status = KKBSingatureStatus.UNCHECKED;
+	    status = KKBSignatureStatus.UNCHECKED;
 	this.data = data;
     }
 
@@ -38,7 +45,7 @@ public class KKBSignedData extends KKBBaseDomain {
 
     public void setDigest(byte[] digest) {
 	if (!Arrays.equals(this.digest, digest))
-	    status = KKBSingatureStatus.UNCHECKED;
+	    status = KKBSignatureStatus.UNCHECKED;
 	this.digest = digest;
     }
 
@@ -48,16 +55,34 @@ public class KKBSignedData extends KKBBaseDomain {
 
     public void setInverted(boolean inverted) {
 	if (this.inverted != inverted)
-	    status = KKBSingatureStatus.UNCHECKED;
+	    status = KKBSignatureStatus.UNCHECKED;
 	this.inverted = inverted;
     }
 
-    public KKBSingatureStatus getStatus() {
+    public KKBSignatureStatus getStatus() {
 	return status;
     }
 
-    @Deprecated
-    public void setStatus(KKBSingatureStatus status) {
+    protected void setStatus(KKBSignatureStatus status) {
 	this.status = status;
     }
+
+    @Override
+    public String displayName(DisplayNameVariant variant, Locale locale) {
+	StringBuilder sb = new StringBuilder();
+
+	sb.append(PAYMENT_SIGNED_DATA.displayName(variant, locale));
+
+	StringJoiner sj = new StringJoiner(", ", " ", "");
+	sj.setEmptyValue("");
+
+	MyOptionals.of(status) //
+		.map(Localized.toDisplayNameMapper(variant, locale) //
+			.andThen(FIELD_STATUS.fieldAsCaptionMapper(variant, locale))) //
+		.ifPresent(sj::add);
+
+	return sb.append(sj.toString()) //
+		.toString();
+    }
+
 }

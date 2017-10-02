@@ -1,16 +1,16 @@
 package com.lapsa.kkb.core;
 
+import java.time.Instant;
 import java.util.Base64;
-import java.util.Date;
 
 public abstract class KKBDocument extends KKBBaseEntity<Integer> {
     private static final long serialVersionUID = -9155395037288903019L;
 
-    private String content;
+    protected String content;
 
-    private Date created;
+    protected Instant created;
 
-    private KKBOrder order;
+    protected KKBOrder order;
 
     public String getContentBase64() {
 	if (content == null)
@@ -35,11 +35,11 @@ public abstract class KKBDocument extends KKBBaseEntity<Integer> {
 	this.content = content;
     }
 
-    public Date getCreated() {
+    public Instant getCreated() {
 	return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(Instant created) {
 	this.created = created;
     }
 
@@ -47,8 +47,7 @@ public abstract class KKBDocument extends KKBBaseEntity<Integer> {
 	return order;
     }
 
-    @Deprecated
-    public void setOrder(KKBOrder order) {
+    protected void setOrder(KKBOrder order) {
 	this.order = order;
     }
 }

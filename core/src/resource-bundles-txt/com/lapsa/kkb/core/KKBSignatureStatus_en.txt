@@ -1,0 +1,3 @@
+com.lapsa.kkb.core.KKBSignatureStatus.UNCHECKED = Unchecked
+com.lapsa.kkb.core.KKBSignatureStatus.CHECKED_VALID = Checked and valid
+com.lapsa.kkb.core.KKBSignatureStatus.CHECKED_INVALID = Checked and invalid

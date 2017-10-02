@@ -1,0 +1,11 @@
+com.lapsa.kkb.core.DisplayNameElements.CARD_DOCUMENT = =KAZ= Корзина
+com.lapsa.kkb.core.DisplayNameElements.FIELD_CREATED = =KAZ= создано
+com.lapsa.kkb.core.DisplayNameElements.FIELD_STATUS = =KAZ= статус
+com.lapsa.kkb.core.DisplayNameElements.ORDER = =KAZ= Платеж
+com.lapsa.kkb.core.DisplayNameElements.ORDER_ITEM = =KAZ= Предмет платежа
+com.lapsa.kkb.core.DisplayNameElements.ORDER_ITEM_NAME = =KAZ= название
+com.lapsa.kkb.core.DisplayNameElements.ORDER_ITEM_QUANTITY = =KAZ= количество
+com.lapsa.kkb.core.DisplayNameElements.PAYMENT_ERROR_DOCUMENT = =KAZ= Документ об ошибке
+com.lapsa.kkb.core.DisplayNameElements.PAYMENT_REQUEST_DOCUMENT = =KAZ= Документ запрос
+com.lapsa.kkb.core.DisplayNameElements.PAYMENT_RESPONSE_DOCUMENT = =KAZ= Документ ответ
+com.lapsa.kkb.core.DisplayNameElements.PAYMENT_SIGNED_DATA = =KAZ= Подписанные данные

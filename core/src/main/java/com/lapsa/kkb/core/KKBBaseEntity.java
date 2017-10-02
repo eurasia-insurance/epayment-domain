@@ -5,15 +5,12 @@ import java.io.Serializable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import com.lapsa.commons.function.MyOptionals;
+
 public abstract class KKBBaseEntity<T> extends KKBBaseDomain implements Serializable {
     private static final long serialVersionUID = 2914122165051543297L;
 
     protected T id;
-
-    @Override
-    public String toString() {
-	return String.format("%1$s.ID:%2$s", this.getClass().getSimpleName(), id != null ? id : "NULL");
-    }
 
     @Override
     public int hashCode() {
@@ -29,7 +26,6 @@ public abstract class KKBBaseEntity<T> extends KKBBaseDomain implements Serializ
 	    return false;
 	if (other == this)
 	    return true;
-
 	@SuppressWarnings("unchecked")
 	KKBBaseEntity<T> that = (KKBBaseEntity<T>) other;
 	EqualsBuilder eb = new EqualsBuilder();
@@ -38,14 +34,19 @@ public abstract class KKBBaseEntity<T> extends KKBBaseDomain implements Serializ
 	return eb.append(id, that.id).isEquals();
     }
 
+    //
+
+    protected String appendEntityId() {
+	return " [ID=" + MyOptionals.of(id).map(Object::toString).orElse("NONE") + "]";
+    }
+
     // GENERATED
 
     public T getId() {
 	return id;
     }
 
-    @Deprecated
-    public void setId(T id) {
+    protected void setId(T id) {
 	this.id = id;
     }
 

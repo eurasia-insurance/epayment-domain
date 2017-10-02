@@ -25,6 +25,7 @@
 		<!-- APIs -->
 		<international-lib.version>3.2-SNAPSHOT</international-lib.version>
 		<fin-lib.version>2.1-SNAPSHOT</fin-lib.version>
+		<lapsa-commons.version>2.2-SNAPSHOT</lapsa-commons.version>
 	</properties>
 
 	<dependencyManagement>
@@ -49,6 +50,17 @@
 				<groupId>${project.groupId}</groupId>
 				<artifactId>kkb-mesenger</artifactId>
 				<version>${project.version}</version>
+			</dependency>
+			<!-- internal lapsa-commons -->
+			<dependency>
+				<groupId>com.lapsa.lapsa.commons</groupId>
+				<artifactId>lapsa-commons</artifactId>
+				<version>${lapsa-commons.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.lapsa.lapsa.commons</groupId>
+				<artifactId>lapsa-commons-test</artifactId>
+				<version>${lapsa-commons.version}</version>
 			</dependency>
 			<!-- internal -->
 			<dependency>
