@@ -14,7 +14,7 @@ import com.lapsa.commons.function.MyOptionals;
 import com.lapsa.fin.FinCurrency;
 import com.lapsa.international.localization.LocalizationLanguage;
 
-public class KKBOrder extends KKBBaseEntity<String> {
+public class KKBOrder extends KKBBaseDomain {
     private static final long serialVersionUID = 1L;
     private static final int PRIME = 5;
     private static final int MULTIPLIER = 5;
@@ -28,6 +28,8 @@ public class KKBOrder extends KKBBaseEntity<String> {
     protected int getMultiplier() {
 	return MULTIPLIER;
     }
+
+    protected String id;
 
     protected double amount;
 
@@ -120,7 +122,7 @@ public class KKBOrder extends KKBBaseEntity<String> {
 		.ifPresent(sj::add);
 
 	return sb.append(sj.toString()) //
-		.append(appendEntityId()) //
+		.append(KKBBaseEntity.appendEntityId(id)) //
 		.toString();
     }
 
@@ -240,5 +242,13 @@ public class KKBOrder extends KKBBaseEntity<String> {
 
     public void setPaymentReference(String paymentReference) {
 	this.paymentReference = paymentReference;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    protected void setId(String id) {
+        this.id = id;
     }
 }

@@ -36,7 +36,11 @@ public abstract class KKBBaseEntity<T> extends KKBBaseDomain implements Serializ
 
     //
 
-    protected String appendEntityId() {
+    String appendEntityId() {
+	return appendEntityId(id);
+    }
+
+    static String appendEntityId(Object id) {
 	return " [ID=" + MyOptionals.of(id).map(Object::toString).orElse("NONE") + "]";
     }
 
