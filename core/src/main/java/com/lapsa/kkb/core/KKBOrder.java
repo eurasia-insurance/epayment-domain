@@ -19,6 +19,13 @@ public class KKBOrder extends KKBBaseDomain {
     private static final int PRIME = 5;
     private static final int MULTIPLIER = 5;
 
+    public KKBOrder() {
+    }
+
+    public KKBOrder(String id) {
+	this.id = id;
+    }
+
     @Override
     protected int getPrime() {
 	return PRIME;
