@@ -82,8 +82,6 @@ public class KKBOrder extends KKBBaseDomain {
 
     public void removeItem(KKBOrderItem item) {
 	Objects.requireNonNull(item, "item");
-	if (items == null) // nothing to remove from
-	    return;
 	items.remove(item);
 	item.setOrder(null);
 	calculateTotalAmount();
@@ -96,7 +94,7 @@ public class KKBOrder extends KKBBaseDomain {
     }
 
     public void setLastResponse(KKBPaymentResponseDocument lastResponse) {
-	Objects.requireNonNull(lastCart, "lastResponse");
+	Objects.requireNonNull(lastResponse, "lastResponse");
 	lastResponse.setOrder(this);
 	this.lastResponse = lastResponse;
     }
@@ -252,10 +250,10 @@ public class KKBOrder extends KKBBaseDomain {
     }
 
     public String getId() {
-        return id;
+	return id;
     }
 
     protected void setId(String id) {
-        this.id = id;
+	this.id = id;
     }
 }
