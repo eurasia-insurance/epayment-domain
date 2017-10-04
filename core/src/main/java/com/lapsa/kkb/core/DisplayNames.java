@@ -8,8 +8,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.FormatStyle;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.function.Function;
+
+import com.lapsa.commons.function.MyObjects;
 
 public final class DisplayNames {
 
@@ -30,28 +31,28 @@ public final class DisplayNames {
     }
 
     public static DateTimeFormatter localDateTimeFormatter(Locale locale) {
-	Objects.requireNonNull(locale, "locale");
+	MyObjects.requireNonNull(locale, "locale");
 	return new DateTimeFormatterBuilder() //
 		.appendLocalized(FormatStyle.MEDIUM, FormatStyle.MEDIUM) //
 		.toFormatter(locale);
     }
 
     public static DateTimeFormatter localDateFormatter(Locale locale) {
-	Objects.requireNonNull(locale, "locale");
+	MyObjects.requireNonNull(locale, "locale");
 	return new DateTimeFormatterBuilder() //
 		.appendLocalized(FormatStyle.MEDIUM, null) //
 		.toFormatter(locale);
     }
 
     public static DateTimeFormatter localTimeFormatter(Locale locale) {
-	Objects.requireNonNull(locale, "locale");
+	MyObjects.requireNonNull(locale, "locale");
 	return new DateTimeFormatterBuilder() //
 		.appendLocalized(null, FormatStyle.MEDIUM) //
 		.toFormatter(locale);
     }
 
     public static DateTimeFormatter instantFormatter(Locale locale) {
-	Objects.requireNonNull(locale, "locale");
+	MyObjects.requireNonNull(locale, "locale");
 	return new DateTimeFormatterBuilder() //
 		.appendInstant() //
 		.toFormatter(locale);

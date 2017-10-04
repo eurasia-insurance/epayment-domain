@@ -6,10 +6,10 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.stream.Stream;
 
+import com.lapsa.commons.function.MyObjects;
 import com.lapsa.commons.function.MyOptionals;
 import com.lapsa.fin.FinCurrency;
 import com.lapsa.international.localization.LocalizationLanguage;
@@ -70,7 +70,7 @@ public class KKBOrder extends KKBBaseDomain {
     protected String externalId;
 
     public void addItem(KKBOrderItem item) {
-	Objects.requireNonNull(item, "item");
+	MyObjects.requireNonNull(item, "item");
 	if (item.getOrder() != null)
 	    item.getOrder().removeItem(item);
 	if (items == null)
@@ -81,26 +81,26 @@ public class KKBOrder extends KKBBaseDomain {
     }
 
     public void removeItem(KKBOrderItem item) {
-	Objects.requireNonNull(item, "item");
+	MyObjects.requireNonNull(item, "item");
 	items.remove(item);
 	item.setOrder(null);
 	calculateTotalAmount();
     }
 
     public void setLastCart(KKBCartDocument lastCart) {
-	Objects.requireNonNull(lastCart, "lastCart");
+	MyObjects.requireNonNull(lastCart, "lastCart");
 	lastCart.setOrder(this);
 	this.lastCart = lastCart;
     }
 
     public void setLastResponse(KKBPaymentResponseDocument lastResponse) {
-	Objects.requireNonNull(lastResponse, "lastResponse");
+	MyObjects.requireNonNull(lastResponse, "lastResponse");
 	lastResponse.setOrder(this);
 	this.lastResponse = lastResponse;
     }
 
     public void setLastRequest(KKBPaymentRequestDocument lastRequest) {
-	Objects.requireNonNull(lastRequest, "lastRequest");
+	MyObjects.requireNonNull(lastRequest, "lastRequest");
 	lastRequest.setOrder(this);
 	this.lastRequest = lastRequest;
     }
