@@ -1,0 +1,3 @@
+com.lapsa.kkb.core.KKBSignatureStatus.UNCHECKED = =KAZ= непроверено
+com.lapsa.kkb.core.KKBSignatureStatus.CHECKED_VALID = =KAZ= проверено и ОК
+com.lapsa.kkb.core.KKBSignatureStatus.CHECKED_INVALID = =KAZ= проверено и НЕ ОК

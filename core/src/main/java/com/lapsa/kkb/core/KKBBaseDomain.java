@@ -6,8 +6,10 @@ import java.util.UUID;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public abstract class KKBBaseDomain implements Serializable {
-    private static final long serialVersionUID = 3664529817399340371L;
+import com.lapsa.commons.elements.Localized;
+
+public abstract class KKBBaseDomain implements Serializable, Localized {
+    private static final long serialVersionUID = 1L;
 
     protected transient final UUID instanceUUID = UUID.randomUUID();
     protected transient final String instanceWebSafeUUID = "UUID" + instanceUUID.toString().replace("-", "");
@@ -17,11 +19,15 @@ public abstract class KKBBaseDomain implements Serializable {
     protected abstract int getMultiplier();
 
     @Override
+    public String toString() {
+	return displayName();
+    }
+
+    @Override
     public int hashCode() {
 	return new HashCodeBuilder(getPrime(), getMultiplier())
 		.append(instanceUUID)
 		.toHashCode();
-
     }
 
     @Override
@@ -34,7 +40,6 @@ public abstract class KKBBaseDomain implements Serializable {
 	return new EqualsBuilder()
 		.append(instanceUUID, that.instanceUUID)
 		.isEquals();
-
     }
 
     public final UUID getInstanceUUID() {

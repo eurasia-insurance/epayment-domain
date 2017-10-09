@@ -13,7 +13,19 @@
 	<name>KKB Lib : POJO</name>
 
 	<dependencies>
-		<!-- internal -->
+		<!-- tech -->
+		<dependency>
+			<groupId>tech.lapsa.java</groupId>
+			<artifactId>java-commons</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
+		<dependency>
+			<groupId>tech.lapsa.java</groupId>
+			<artifactId>java-commons-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- oldies -->
 		<dependency>
 			<groupId>com.lapsa.fin-lib</groupId>
 			<artifactId>fin-core</artifactId>

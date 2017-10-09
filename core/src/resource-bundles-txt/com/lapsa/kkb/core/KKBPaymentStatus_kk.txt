@@ -1,0 +1,6 @@
+com.lapsa.kkb.core.KKBPaymentStatus.NEW = =KAZ= новый
+com.lapsa.kkb.core.KKBPaymentStatus.AUTHORIZATION_PASS = =KAZ= принят и подтвержден
+com.lapsa.kkb.core.KKBPaymentStatus.AUTHORIZATION_FAILED = =KAZ= отклонен платежной системой
+com.lapsa.kkb.core.KKBPaymentStatus.ENROLLED = =KAZ= проведен по счету
+com.lapsa.kkb.core.KKBPaymentStatus.COMPLETED = =KAZ= закрыт
+com.lapsa.kkb.core.KKBPaymentStatus.CANCELED = =KAZ= отменен

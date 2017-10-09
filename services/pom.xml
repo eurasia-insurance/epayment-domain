@@ -15,7 +15,7 @@
 	<dependencies>
 		<!-- own -->
 		<dependency>
-			<groupId>com.lapsa.kkb-lib</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>kkb-core</artifactId>
 			<scope>compile</scope>
 			<optional>false</optional>

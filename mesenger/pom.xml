@@ -20,9 +20,6 @@
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>
-		<!-- internal -->
-		<!-- JavaEE -->
-		<!-- test -->
 	</dependencies>
 
 </project>
