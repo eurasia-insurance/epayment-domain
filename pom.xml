@@ -2,8 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.lapsa.maven.pom</groupId>
-		<artifactId>javaee7-app-parent</artifactId>
+		<groupId>tech.lapsa.maven</groupId>
+		<artifactId>maven-general</artifactId>
 		<version>3.0-SNAPSHOT</version>
 	</parent>
 
@@ -23,8 +23,9 @@
 
 	<properties>
 		<!-- BOMS -->
-		<lapsa-bom.version>1.0-SNAPSHOT</lapsa-bom.version>
-		<!-- APIs -->
+		<javax-javaee-bom.version>7.0-SNAPSHOT</javax-javaee-bom.version>
+		<java-commons-root.version>1.0-SNAPSHOT</java-commons-root.version>
+		<!-- oldies -->
 		<international-lib.version>3.2-SNAPSHOT</international-lib.version>
 		<fin-lib.version>2.1-SNAPSHOT</fin-lib.version>
 	</properties>
@@ -33,11 +34,18 @@
 		<dependencies>
 			<!-- BOMS -->
 			<dependency>
-				<groupId>tech.lapsa.lapsa</groupId>
-				<artifactId>lapsa-bom</artifactId>
-				<version>${lapsa-bom.version}</version>
-				<type>pom</type>
+				<groupId>tech.lapsa.javax</groupId>
+				<artifactId>javax-javaee-bom</artifactId>
+				<version>${javax-javaee-bom.version}</version>
 				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>tech.lapsa.java</groupId>
+				<artifactId>java-commons-root</artifactId>
+				<version>${java-commons-root.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
 			</dependency>
 			<!-- own -->
 			<dependency>
@@ -60,7 +68,7 @@
 				<artifactId>kkb-mesenger</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			<!-- internal -->
+			<!-- oldies -->
 			<dependency>
 				<groupId>com.lapsa.international-lib</groupId>
 				<artifactId>international-core</artifactId>
