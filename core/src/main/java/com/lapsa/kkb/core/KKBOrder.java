@@ -111,7 +111,7 @@ public class KKBOrder extends KKBBaseDomain {
     void calculateTotalAmount() {
 	amount = MyOptionals.streamOf(items)
 		.orElseGet(Stream::empty)
-		.mapToDouble(KKBOrderItem::getCost)
+		.mapToDouble(KKBOrderItem::getTotal)
 		.sum();
     }
 

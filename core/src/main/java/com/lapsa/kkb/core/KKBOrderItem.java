@@ -55,6 +55,10 @@ public class KKBOrderItem extends KKBBaseEntity<Integer> {
 		.toString();
     }
 
+    public double getTotal() {
+	return cost * quantity;
+    }
+
     // GENERATED
 
     public KKBOrder getOrder() {
