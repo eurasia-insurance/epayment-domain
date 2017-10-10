@@ -1,9 +1,9 @@
 package com.lapsa.kkb.services;
 
-import java.net.URL;
+import java.net.URI;
 
 public interface KKBEpayConfigurationService {
-    URL getEpayURL();
+    URI getEpayURI();
 
     String getTemplateName();
 }
