@@ -87,18 +87,21 @@ public class KKBOrder extends KKBBaseDomain {
 	calculateTotalAmount();
     }
 
+    @Deprecated
     public void setLastCart(KKBCartDocument lastCart) {
 	MyObjects.requireNonNull(lastCart, "lastCart");
 	lastCart.setOrder(this);
 	this.lastCart = lastCart;
     }
 
+    @Deprecated
     public void setLastResponse(KKBPaymentResponseDocument lastResponse) {
 	MyObjects.requireNonNull(lastResponse, "lastResponse");
 	lastResponse.setOrder(this);
 	this.lastResponse = lastResponse;
     }
 
+    @Deprecated
     public void setLastRequest(KKBPaymentRequestDocument lastRequest) {
 	MyObjects.requireNonNull(lastRequest, "lastRequest");
 	lastRequest.setOrder(this);

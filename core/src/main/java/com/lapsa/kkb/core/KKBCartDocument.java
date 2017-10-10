@@ -7,6 +7,7 @@ import java.util.StringJoiner;
 
 import com.lapsa.commons.function.MyOptionals;
 
+@Deprecated
 public class KKBCartDocument extends KKBDocument {
     private static final long serialVersionUID = 3602329001760876393L;
     private static final int PRIME = 3;
