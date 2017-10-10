@@ -7,6 +7,7 @@ import java.util.StringJoiner;
 
 import com.lapsa.commons.function.MyOptionals;
 
+@Deprecated
 public class KKBPaymentResponseDocument extends KKBDocument {
     private static final long serialVersionUID = -3421596583719107336L;
     private static final int PRIME = 13;
