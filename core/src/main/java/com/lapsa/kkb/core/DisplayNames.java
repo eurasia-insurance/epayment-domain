@@ -10,7 +10,7 @@ import java.time.format.FormatStyle;
 import java.util.Locale;
 import java.util.function.Function;
 
-import com.lapsa.commons.function.MyObjects;
+import tech.lapsa.java.commons.function.MyObjects;
 
 public final class DisplayNames {
 

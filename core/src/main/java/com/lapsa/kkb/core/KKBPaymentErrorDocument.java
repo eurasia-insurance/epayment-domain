@@ -5,7 +5,7 @@ import static com.lapsa.kkb.core.DisplayNameElements.*;
 import java.util.Locale;
 import java.util.StringJoiner;
 
-import com.lapsa.commons.function.MyOptionals;
+import tech.lapsa.java.commons.function.MyOptionals;
 
 public class KKBPaymentErrorDocument extends KKBDocument {
     private static final long serialVersionUID = -3421596583719107336L;

@@ -9,10 +9,11 @@ import java.util.Locale;
 import java.util.StringJoiner;
 import java.util.stream.Stream;
 
-import com.lapsa.commons.function.MyObjects;
-import com.lapsa.commons.function.MyOptionals;
 import com.lapsa.fin.FinCurrency;
 import com.lapsa.international.localization.LocalizationLanguage;
+
+import tech.lapsa.java.commons.function.MyObjects;
+import tech.lapsa.java.commons.function.MyOptionals;
 
 public class KKBOrder extends KKBBaseDomain {
     private static final long serialVersionUID = 1L;

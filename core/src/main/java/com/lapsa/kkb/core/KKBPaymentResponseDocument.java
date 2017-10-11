@@ -5,7 +5,7 @@ import static com.lapsa.kkb.core.DisplayNameElements.*;
 import java.util.Locale;
 import java.util.StringJoiner;
 
-import com.lapsa.commons.function.MyOptionals;
+import tech.lapsa.java.commons.function.MyOptionals;
 
 @Deprecated
 public class KKBPaymentResponseDocument extends KKBDocument {
