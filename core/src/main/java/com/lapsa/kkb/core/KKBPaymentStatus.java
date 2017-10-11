@@ -1,6 +1,6 @@
 package com.lapsa.kkb.core;
 
-import com.lapsa.commons.elements.LocalizedElement;
+import tech.lapsa.java.commons.localization.LocalizedElement;
 
 public enum KKBPaymentStatus implements LocalizedElement {
     NEW, // новый

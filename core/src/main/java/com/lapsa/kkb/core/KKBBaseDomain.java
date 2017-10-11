@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import com.lapsa.commons.elements.Localized;
+import tech.lapsa.java.commons.localization.Localized;
 
 public abstract class KKBBaseDomain implements Serializable, Localized {
     private static final long serialVersionUID = 1L;

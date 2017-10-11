@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import com.lapsa.commons.function.MyOptionals;
+import tech.lapsa.java.commons.function.MyOptionals;
 
 public abstract class KKBBaseEntity<T> extends KKBBaseDomain implements Serializable {
     private static final long serialVersionUID = 2914122165051543297L;

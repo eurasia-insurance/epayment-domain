@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.StringJoiner;
 
-import com.lapsa.commons.elements.Localized;
-import com.lapsa.commons.function.MyOptionals;
+import tech.lapsa.java.commons.function.MyOptionals;
+import tech.lapsa.java.commons.localization.Localized;
 
 public class KKBSignedData extends KKBBaseDomain {
     private static final long serialVersionUID = -7295482069867034544L;

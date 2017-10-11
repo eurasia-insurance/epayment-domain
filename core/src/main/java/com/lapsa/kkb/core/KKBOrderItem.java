@@ -6,7 +6,7 @@ import java.util.Locale;
 import java.util.StringJoiner;
 import java.util.function.Function;
 
-import com.lapsa.commons.function.MyOptionals;
+import tech.lapsa.java.commons.function.MyOptionals;
 
 public class KKBOrderItem extends KKBBaseEntity<Integer> {
     private static final long serialVersionUID = -7214383627734413167L;
