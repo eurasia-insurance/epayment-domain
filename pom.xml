@@ -8,7 +8,7 @@
 	</parent>
 
 	<groupId>com.lapsa.kkb-lib</groupId>
-	<artifactId>parent</artifactId>
+	<artifactId>kkb-root</artifactId>
 	<version>3.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
@@ -37,15 +37,15 @@
 				<groupId>tech.lapsa.javax</groupId>
 				<artifactId>javax-javaee-bom</artifactId>
 				<version>${javax-javaee-bom.version}</version>
-				<scope>import</scope>
 				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>tech.lapsa.java</groupId>
 				<artifactId>java-commons-root</artifactId>
 				<version>${java-commons-root.version}</version>
-				<scope>import</scope>
 				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 			<!-- own -->
 			<dependency>
@@ -71,13 +71,17 @@
 			<!-- oldies -->
 			<dependency>
 				<groupId>com.lapsa.international-lib</groupId>
-				<artifactId>international-core</artifactId>
+				<artifactId>international-root</artifactId>
 				<version>${international-lib.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>com.lapsa.fin-lib</groupId>
-				<artifactId>fin-core</artifactId>
+				<artifactId>fin-root</artifactId>
 				<version>${fin-lib.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 			<!-- external -->
 			<dependency>
