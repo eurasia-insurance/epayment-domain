@@ -9,8 +9,6 @@ import com.lapsa.kkb.core.KKBOrderItem;
 public interface KKBFactory {
     String generateNewOrderId();
 
-    URI generatePaymentPageUrl(String orderId);
-
     KKBOrder generateNewOrder(FinCurrency currency, double cost, String product);
 
     KKBOrder generateNewOrder(String orderId, FinCurrency currency, double cost, String product);
