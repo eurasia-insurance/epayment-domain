@@ -24,7 +24,7 @@ public class KKBCartDocument extends KKBDocument {
     }
 
     @Override
-    public String displayName(LocalizationVariant variant, Locale locale) {
+    public String localized(LocalizationVariant variant, Locale locale) {
 	StringBuilder sb = new StringBuilder();
 
 	sb.append(CARD_DOCUMENT.localized(variant, locale));

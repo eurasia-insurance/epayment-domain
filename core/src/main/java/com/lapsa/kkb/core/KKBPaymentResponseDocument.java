@@ -24,7 +24,7 @@ public class KKBPaymentResponseDocument extends KKBDocument {
     }
 
     @Override
-    public String displayName(LocalizationVariant variant, Locale locale) {
+    public String localized(LocalizationVariant variant, Locale locale) {
 	StringBuilder sb = new StringBuilder();
 
 	sb.append(PAYMENT_RESPONSE_DOCUMENT.localized(variant, locale));

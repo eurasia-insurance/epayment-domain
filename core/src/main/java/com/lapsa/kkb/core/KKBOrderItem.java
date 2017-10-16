@@ -32,7 +32,7 @@ public class KKBOrderItem extends KKBBaseEntity<Integer> {
     protected double cost;
 
     @Override
-    public String displayName(LocalizationVariant variant, Locale locale) {
+    public String localized(LocalizationVariant variant, Locale locale) {
 	StringBuilder sb = new StringBuilder();
 
 	sb.append(ORDER_ITEM.localized(variant, locale));
