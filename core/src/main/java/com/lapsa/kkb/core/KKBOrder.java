@@ -117,10 +117,10 @@ public class KKBOrder extends KKBBaseDomain {
     }
 
     @Override
-    public String displayName(DisplayNameVariant variant, Locale locale) {
+    public String displayName(LocalizationVariant variant, Locale locale) {
 	StringBuilder sb = new StringBuilder();
 
-	sb.append(ORDER.displayName(variant, locale));
+	sb.append(ORDER.localized(variant, locale));
 
 	StringJoiner sj = new StringJoiner(", ", " ", "");
 	sj.setEmptyValue("");
