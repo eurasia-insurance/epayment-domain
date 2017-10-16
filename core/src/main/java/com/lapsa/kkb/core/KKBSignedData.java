@@ -68,16 +68,16 @@ public class KKBSignedData extends KKBBaseDomain {
     }
 
     @Override
-    public String displayName(DisplayNameVariant variant, Locale locale) {
+    public String displayName(LocalizationVariant variant, Locale locale) {
 	StringBuilder sb = new StringBuilder();
 
-	sb.append(PAYMENT_SIGNED_DATA.displayName(variant, locale));
+	sb.append(PAYMENT_SIGNED_DATA.localized(variant, locale));
 
 	StringJoiner sj = new StringJoiner(", ", " ", "");
 	sj.setEmptyValue("");
 
 	MyOptionals.of(status) //
-		.map(Localized.toDisplayNameMapper(variant, locale) //
+		.map(Localized.toLocalizedMapper(variant, locale) //
 			.andThen(FIELD_STATUS.fieldAsCaptionMapper(variant, locale))) //
 		.ifPresent(sj::add);
 

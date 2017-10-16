@@ -24,10 +24,10 @@ public class KKBCartDocument extends KKBDocument {
     }
 
     @Override
-    public String displayName(DisplayNameVariant variant, Locale locale) {
+    public String displayName(LocalizationVariant variant, Locale locale) {
 	StringBuilder sb = new StringBuilder();
 
-	sb.append(CARD_DOCUMENT.displayName(variant, locale));
+	sb.append(CARD_DOCUMENT.localized(variant, locale));
 
 	StringJoiner sj = new StringJoiner(", ", " ", "");
 	sj.setEmptyValue("");
