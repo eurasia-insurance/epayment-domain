@@ -8,29 +8,95 @@ import com.lapsa.kkb.core.KKBPaymentResponseDocument;
 
 public interface KKBResponseService {
 
+    //
+
     String parseOrderId(String response) throws KKBServiceError, KKBFormatException;
+
     String parseOrderId(KKBPaymentResponseDocument response) throws KKBServiceError, KKBFormatException;
-    String parseOrderId(KKBPaymentResponseDocument response, boolean formatVerified);
+
+    default String parseOrderIdNoFormatCheck(KKBPaymentResponseDocument response) {
+	try {
+	    return parseOrderId(response);
+	} catch (KKBFormatException e) {
+	    throw new IllegalStateException("Invalid format", e);
+	}
+    }
+
+    //
 
     String parsePaymentReferences(String response) throws KKBServiceError, KKBFormatException;
+
     String parsePaymentReferences(KKBPaymentResponseDocument response) throws KKBServiceError, KKBFormatException;
-    String parsePaymentReferences(KKBPaymentResponseDocument response, boolean formatVerified);
+
+    default String parsePaymentReferencesNoFormatCheck(KKBPaymentResponseDocument response) {
+	try {
+	    return parsePaymentReferences(response);
+	} catch (KKBFormatException e) {
+	    throw new IllegalStateException("Invalid format", e);
+	}
+    }
+
+    //
+
+    Instant parsePaymentTimestamp(String response) throws KKBServiceError, KKBFormatException;
 
     Instant parsePaymentTimestamp(KKBPaymentResponseDocument response) throws KKBServiceError, KKBFormatException;
-    Instant parsePaymentTimestamp(String response) throws KKBServiceError, KKBFormatException;
-    Instant parsePaymentTimestamp(KKBPaymentResponseDocument response, boolean formatVerified);
+
+    default Instant parsePaymentTimestampNoFormatCheck(KKBPaymentResponseDocument response) {
+	try {
+	    return parsePaymentTimestamp(response);
+	} catch (KKBFormatException e) {
+	    throw new IllegalStateException("Invalid format", e);
+	}
+    }
+
+    //
+
+    void validateSignature(String response) throws KKBServiceError, KKBFormatException, KKBWrongSignature;
 
     void validateSignature(KKBPaymentResponseDocument response)
 	    throws KKBServiceError, KKBFormatException, KKBWrongSignature;
-    void validateSignature(String response) throws KKBServiceError, KKBFormatException, KKBWrongSignature;
-    void validateSignature(KKBPaymentResponseDocument response, boolean formatVerified)
-	    throws KKBServiceError, KKBWrongSignature;
+
+    default void validateSignatureNoFormatCheck(KKBPaymentResponseDocument response)
+	    throws KKBServiceError, KKBWrongSignature {
+	try {
+	    validateSignature(response);
+	} catch (KKBFormatException e) {
+	    throw new IllegalStateException("Invalid format", e);
+	}
+    }
+
+    //
 
     void validateResponseXmlFormat(KKBPaymentResponseDocument response) throws KKBFormatException;
 
-    void validateResponse(KKBPaymentRequestDocument request, KKBPaymentResponseDocument response)
+    //
+
+    void validateResponseWithRequest(KKBPaymentRequestDocument request, KKBPaymentResponseDocument response)
 	    throws KKBFormatException, KKBValidationErrorException;
 
-    void validateResponse(KKBOrder order) throws KKBFormatException, KKBValidationErrorException;
-    void validateResponse(KKBOrder order, boolean formatVerified) throws KKBValidationErrorException;
+    default void validateResponseWithRequestNoFormatCheck(KKBPaymentRequestDocument request,
+	    KKBPaymentResponseDocument response)
+	    throws KKBValidationErrorException {
+	try {
+	    validateResponseWithRequest(request, response);
+	} catch (KKBFormatException e) {
+	    throw new IllegalStateException("Invalid format", e);
+	}
+    }
+
+    //
+
+    @Deprecated
+    void validateResponseWithRequest(KKBOrder order) throws KKBFormatException, KKBValidationErrorException;
+
+    @Deprecated
+    default void validateResponseWithRequestNoCheck(KKBOrder order)
+	    throws KKBValidationErrorException {
+	try {
+	    validateResponseWithRequest(order);
+	} catch (KKBFormatException e) {
+	    throw new IllegalStateException("Invalid format", e);
+	}
+    }
 }
