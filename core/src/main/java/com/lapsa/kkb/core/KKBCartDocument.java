@@ -6,6 +6,7 @@ import java.util.Locale;
 import java.util.StringJoiner;
 
 import tech.lapsa.java.commons.function.MyOptionals;
+import tech.lapsa.java.commons.localization.Localizeds;
 
 @Deprecated
 public class KKBCartDocument extends KKBDocument {
@@ -33,7 +34,7 @@ public class KKBCartDocument extends KKBDocument {
 	sj.setEmptyValue("");
 
 	MyOptionals.of(created) //
-		.map(DisplayNames.instantMapper(locale) //
+		.map(Localizeds.instantMapper(locale) //
 			.andThen(FIELD_CREATED.fieldAsCaptionMapper(variant, locale))) //
 		.ifPresent(sj::add);
 

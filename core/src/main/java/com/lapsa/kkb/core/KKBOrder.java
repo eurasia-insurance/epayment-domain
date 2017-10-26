@@ -14,6 +14,7 @@ import com.lapsa.international.localization.LocalizationLanguage;
 
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
+import tech.lapsa.java.commons.localization.Localizeds;
 
 public class KKBOrder extends KKBBaseDomain {
     private static final long serialVersionUID = 1L;
@@ -126,7 +127,7 @@ public class KKBOrder extends KKBBaseDomain {
 	sj.setEmptyValue("");
 
 	MyOptionals.of(created) //
-		.map(DisplayNames.instantMapper(locale) //
+		.map(Localizeds.instantMapper(locale) //
 			.andThen(FIELD_CREATED.fieldAsCaptionMapper(variant, locale))) //
 		.ifPresent(sj::add);
 
