@@ -1,6 +1,0 @@
-com.lapsa.kkb.core.KKBPaymentStatus.NEW = новый
-com.lapsa.kkb.core.KKBPaymentStatus.AUTHORIZATION_PASS = принят и подтвержден
-com.lapsa.kkb.core.KKBPaymentStatus.AUTHORIZATION_FAILED = отклонен платежной системой
-com.lapsa.kkb.core.KKBPaymentStatus.ENROLLED = проведен по счету
-com.lapsa.kkb.core.KKBPaymentStatus.COMPLETED = закрыт
-com.lapsa.kkb.core.KKBPaymentStatus.CANCELED = отменен
