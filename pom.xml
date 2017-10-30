@@ -1,16 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.lapsa.kkb-lib</groupId>
-		<artifactId>kkb-root</artifactId>
-		<version>3.2-SNAPSHOT</version>
+		<groupId>tech.lapsa.maven</groupId>
+		<artifactId>maven-general</artifactId>
+		<version>3.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>kkb-core</artifactId>
-	<packaging>jar</packaging>
+	<groupId>tech.lapsa.epayment</groupId>
+	<artifactId>epayment-domain</artifactId>
+	<version>4.0-SNAPSHOT</version>
 
-	<name>KKB Lib : POJO</name>
+	<name>Epayment Lib : Domain</name>
+
+	<properties>
+		<!-- BOMS -->
+		<java-commons.version>1.0-SNAPSHOT</java-commons.version>
+		<!-- tech -->
+		<qazkom-xml.version>1.0-SNAPSHOT</qazkom-xml.version>
+		<!-- oldies -->
+		<international-lib.version>3.2-SNAPSHOT</international-lib.version>
+		<kz-lib.version>3.1-SNAPSHOT</kz-lib.version>
+		<fin-lib.version>2.1-SNAPSHOT</fin-lib.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- BOMS -->
+			<dependency>
+				<groupId>tech.lapsa.java</groupId>
+				<artifactId>java-commons-root</artifactId>
+				<version>${java-commons.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- tech -->
+			<dependency>
+				<groupId>tech.lapsa.qazkom</groupId>
+				<artifactId>qazkom-xml</artifactId>
+				<version>${qazkom-xml.version}</version>
+			</dependency>
+			<!-- oldies -->
+			<dependency>
+				<groupId>com.lapsa.international-lib</groupId>
+				<artifactId>international-root</artifactId>
+				<version>${international-lib.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.lapsa.kz-lib</groupId>
+				<artifactId>kz-root</artifactId>
+				<version>${kz-lib.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.lapsa.fin-lib</groupId>
+				<artifactId>fin-root</artifactId>
+				<version>${fin-lib.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 		<!-- tech -->
@@ -25,10 +79,23 @@
 			<artifactId>java-commons-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- tech -->
+		<dependency>
+			<groupId>tech.lapsa.qazkom</groupId>
+			<artifactId>qazkom-xml</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
 		<!-- oldies -->
 		<dependency>
 			<groupId>com.lapsa.fin-lib</groupId>
 			<artifactId>fin-core</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.lapsa.kz-lib</groupId>
+			<artifactId>kz-core</artifactId>
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>
@@ -38,12 +105,17 @@
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>
-		<!-- external -->
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<scope>compile</scope>
-			<optional>false</optional>
-		</dependency>
 	</dependencies>
+
+	<scm>
+		<connection>scm:git:https://gitlab.lapsa.tech/lapsa/epayment/domain.git</connection>
+		<developerConnection>scm:git:https://gitlab.lapsa.tech/lapsa/epayment/domain.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+	<issueManagement>
+		<system>gitlab</system>
+		<url>https://gitlab.lapsa.tech/lapsa/epayment/domain/issues</url>
+	</issueManagement>
+
 </project>
