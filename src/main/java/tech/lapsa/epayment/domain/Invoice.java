@@ -77,10 +77,10 @@ public class Invoice extends AEntity<Integer> {
 
     // consumer
 
-    protected String consumer;
+    protected String consumerEmail;
 
     public String getConsumerEmail() {
-	return consumer;
+	return consumerEmail;
     }
 
     // consumerName
