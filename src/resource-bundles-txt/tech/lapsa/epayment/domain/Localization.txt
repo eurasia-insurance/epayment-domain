@@ -1,0 +1,5 @@
+tech.lapsa.epayment.domain.Localization.QAZKOM_ORDER = Платежный ордер Epay
+tech.lapsa.epayment.domain.Localization.QAZKOM_PAYMENT = Платеж Epay
+tech.lapsa.epayment.domain.Localization.FIELD_CREATED = создан
+tech.lapsa.epayment.domain.Localization.FIELD_ORDER_NUMBER = номер
+tech.lapsa.epayment.domain.Localization.FIELD_PAYMENT_AMOUNT = оплачено

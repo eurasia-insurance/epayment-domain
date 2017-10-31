@@ -4,33 +4,48 @@ import java.time.Instant;
 import java.util.Base64;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.StringJoiner;
 import java.util.UUID;
 
 import tech.lapsa.java.commons.function.MyOptionals;
+import tech.lapsa.java.commons.localization.Localizeds;
 import tech.lapsa.qazkom.xml.XmlDocuments;
 import tech.lapsa.qazkom.xml.mapping.XmlDocumentOrder;
 
-public class QazkomOrder extends AEntity<Long> {
+public class QazkomOrder extends AEntity<Integer> {
 
     private static final long serialVersionUID = 1L;
 
-    public static Long idAsLong() {
+    public static Long orderNumberAsLong() {
 	UUID uuid = UUID.randomUUID();
 	return Math.abs(uuid.getLeastSignificantBits() / 10000);
     }
 
-    public static String idAsString() {
-	return String.valueOf(idAsLong());
-    }
-
-    public QazkomOrder() {
-	super(idAsLong(), 11);
+    public static String orderNumberAsString() {
+	return String.valueOf(orderNumberAsLong());
     }
 
     @Override
     public String localized(LocalizationVariant variant, Locale locale) {
-	// TODO Auto-generated method stub
-	return QazkomOrder.class.getName();
+	StringBuilder sb = new StringBuilder();
+
+	sb.append(Localization.QAZKOM_ORDER.localized(variant, locale));
+
+	StringJoiner sj = new StringJoiner(", ", " ", "");
+	sj.setEmptyValue("");
+
+	MyOptionals.of(orderNumber) //
+		.map(Localization.FIELD_ORDER_NUMBER.fieldAsCaptionMapper(variant, locale)) //
+		.ifPresent(sj::add);
+
+	MyOptionals.of(created) //
+		.map(Localizeds.instantMapper(locale)) //
+		.map(Localization.FIELD_CREATED.fieldAsCaptionMapper(variant, locale)) //
+		.ifPresent(sj::add);
+
+	return sb.append(sj.toString()) //
+		.append(appendEntityId()) //
+		.toString();
     }
 
     // created
@@ -39,6 +54,14 @@ public class QazkomOrder extends AEntity<Long> {
 
     public Instant getCreated() {
 	return created;
+    }
+
+    // orderNumber
+
+    protected String orderNumber;
+
+    public String getOrderNumber() {
+	return orderNumber;
     }
 
     // forInvoice
