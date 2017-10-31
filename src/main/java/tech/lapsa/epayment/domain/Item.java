@@ -1,6 +1,7 @@
 package tech.lapsa.epayment.domain;
 
 import java.util.Locale;
+import java.util.StringJoiner;
 
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.localization.Localized;
@@ -15,8 +16,32 @@ public class Item extends AEntity<Integer> {
 
     @Override
     public String localized(LocalizationVariant variant, Locale locale) {
-	// TODO Auto-generated method stub
-	return Item.class.getName();
+	StringBuilder sb = new StringBuilder();
+
+	sb.append(MyOptionals.of(name) //
+		.orElseGet(() -> Localization.ITEM_EMPTY.localized(variant, locale)));
+
+	StringJoiner sj = new StringJoiner(", ", " ", "");
+	sj.setEmptyValue("");
+
+	MyOptionals.of(price) //
+		.map(x -> x.toString()) //
+		.map(Localization.FIELD_ITEM_PRICE.fieldAsCaptionMapper(variant, locale)) //
+		.ifPresent(sj::add);
+
+	MyOptionals.of(quantity) //
+		.map(x -> x.toString()) //
+		.map(Localization.FIELD_ITEM_QUANTITY.fieldAsCaptionMapper(variant, locale)) //
+		.ifPresent(sj::add);
+
+	MyOptionals.of(getTotal()) //
+		.map(x -> x.toString()) //
+		.map(Localization.FIELD_ITEM_TOTAL.fieldAsCaptionMapper(variant, locale)) //
+		.ifPresent(sj::add);
+
+	return sb.append(sj.toString()) //
+		.append(appendEntityId()) //
+		.toString();
     }
 
     // name
