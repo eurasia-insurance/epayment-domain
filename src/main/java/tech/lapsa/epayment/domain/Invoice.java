@@ -83,28 +83,28 @@ public class Invoice extends AEntity<Integer> {
 	return payerEmail;
     }
 
-    // payerName
+    // consumerName
 
-    protected String payerName;
+    protected String consumerName;
 
-    public String getPayerName() {
-	return payerName;
+    public String getConsumerName() {
+	return consumerName;
     }
 
-    // payerTaxpayerNumber
+    // consumerTaxpayerNumber
 
-    protected TaxpayerNumber payerTaxpayerNumber;
+    protected TaxpayerNumber consumerTaxpayerNumber;
 
-    public TaxpayerNumber getPayerTaxpayerNumber() {
-	return payerTaxpayerNumber;
+    public TaxpayerNumber getConsumerTaxpayerNumber() {
+	return consumerTaxpayerNumber;
     }
 
-    // payerPreferLanguage
+    // consumerPreferLanguage
 
-    protected LocalizationLanguage payerPreferLanguage;
+    protected LocalizationLanguage consumerPreferLanguage;
 
-    public LocalizationLanguage getPayerPreferLanguage() {
-	return payerPreferLanguage;
+    public LocalizationLanguage getConsumerPreferLanguage() {
+	return consumerPreferLanguage;
     }
 
     // externalId
@@ -134,7 +134,7 @@ public class Invoice extends AEntity<Integer> {
 
     // controllers
 
-    public void paidBy(APayment payment) {
+    public Invoice paidBy(APayment payment) {
 	if (status != InvoiceStatus.READY)
 	    throw new IllegalStateException("Invoice is not ready. It could be or expired or paid already");
 	MyObjects.requireNonNull(payment, "payment");
@@ -144,5 +144,7 @@ public class Invoice extends AEntity<Integer> {
 	status = InvoiceStatus.PAID;
 	this.payment = payment;
 	payment.forInvoice = this;
+
+	return this;
     }
 }
