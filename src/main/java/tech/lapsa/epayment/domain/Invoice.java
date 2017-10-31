@@ -75,12 +75,12 @@ public class Invoice extends AEntity<Integer> {
 	}
     }
 
-    // payerEmail
+    // consumer
 
-    protected String payerEmail;
+    protected String consumer;
 
-    public String getPayerEmail() {
-	return payerEmail;
+    public String getConsumerEmail() {
+	return consumer;
     }
 
     // consumerName
