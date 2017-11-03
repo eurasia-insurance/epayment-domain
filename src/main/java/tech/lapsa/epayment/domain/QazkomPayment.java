@@ -13,7 +13,6 @@ import tech.lapsa.java.commons.function.MyCollections;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localized;
-import tech.lapsa.qazkom.xml.XmlDocuments;
 import tech.lapsa.qazkom.xml.mapping.XmlBank;
 import tech.lapsa.qazkom.xml.mapping.XmlCustomer;
 import tech.lapsa.qazkom.xml.mapping.XmlDocumentPayment;
@@ -29,7 +28,7 @@ public class QazkomPayment extends APayment {
     public static QazkomPayment from(String rawXml) {
 	MyStrings.requireNonEmpty(rawXml, "rawXml");
 
-	XmlDocumentPayment document = XmlDocuments.PAYMENT.parse(rawXml);
+	XmlDocumentPayment document = XmlDocumentPayment.of(rawXml);
 
 	XmlResults results = MyOptionals.of(document.getBank()) //
 		.map(XmlBank::getResults) //
@@ -86,7 +85,7 @@ public class QazkomPayment extends APayment {
 
 	result.payerPhoneNumber = MyOptionals.of(customer) //
 		.map(XmlCustomer::getPhone) //
-		.map(PhoneNumber::parse)
+		.map(PhoneNumber::assertValid)
 		.orElse(null);
 
 	return result;
@@ -174,7 +173,7 @@ public class QazkomPayment extends APayment {
 
     public Optional<XmlDocumentPayment> optionalDocument() {
 	return MyOptionals.of(rawXml) //
-		.flatMap(XmlDocuments.PAYMENT::optionalParse);
+		.map(XmlDocumentPayment::of);
     }
 
     // payerName
