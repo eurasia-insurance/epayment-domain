@@ -95,8 +95,21 @@ public class Invoice extends AEntity<Integer> {
 
     @Override
     public String localized(LocalizationVariant variant, Locale locale) {
-	// TODO Auto-generated method stub
-	return Invoice.class.getName();
+	StringBuilder sb = new StringBuilder();
+
+	sb.append(Localization.INVOICE.localized(variant, locale));
+
+	StringJoiner sj = new StringJoiner(", ", " ", "");
+	sj.setEmptyValue("");
+
+	MyOptionals.of(status) //
+		.map(Localized.toLocalizedMapper(variant, locale))//
+		.map(Localization.FIELD_INVOICE_STATTUS.fieldAsCaptionMapper(variant, locale)) //
+		.ifPresent(sj::add);
+
+	return sb.append(sj.toString()) //
+		.append(appendEntityId()) //
+		.toString();
     }
 
     // created
@@ -127,23 +140,6 @@ public class Invoice extends AEntity<Integer> {
 
     public List<Item> getItems() {
 	return Collections.unmodifiableList(items);
-    }
-
-    public void addItem(Item item) {
-	MyObjects.requireNonNull(item, "item");
-	if (item.invoice != null)
-	    item.invoice.removeItem(item);
-	if (items == null)
-	    items = new ArrayList<>();
-	items.add(item);
-	item.invoice = this;
-    }
-
-    public void removeItem(Item item) {
-	if (items != null && items.contains(MyObjects.requireNonNull(item, "item"))) {
-	    items.remove(item);
-	    item.invoice = null;
-	}
     }
 
     // consumer

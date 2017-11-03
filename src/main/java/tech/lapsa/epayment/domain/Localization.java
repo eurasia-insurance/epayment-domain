@@ -6,6 +6,8 @@ import java.util.function.Function;
 import tech.lapsa.java.commons.localization.LocalizedElement;
 
 public enum Localization implements LocalizedElement {
+    INVOICE,
+    FIELD_INVOICE_STATTUS,
     QAZKOM_ORDER, //
     QAZKOM_PAYMENT, //
     ITEM_EMPTY,

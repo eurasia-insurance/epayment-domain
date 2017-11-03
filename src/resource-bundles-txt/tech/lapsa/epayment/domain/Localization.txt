@@ -1,3 +1,5 @@
+tech.lapsa.epayment.domain.Localization.INVOICE = Счет
+tech.lapsa.epayment.domain.Localization.FIELD_INVOICE_STATTUS = статус 
 tech.lapsa.epayment.domain.Localization.QAZKOM_ORDER = Платежный ордер Epay
 tech.lapsa.epayment.domain.Localization.QAZKOM_PAYMENT = Платеж Epay
 tech.lapsa.epayment.domain.Localization.ITEM_EMPTY = Позиция заказа
