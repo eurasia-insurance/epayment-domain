@@ -5,18 +5,89 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.StringJoiner;
 import java.util.stream.Stream;
 
 import com.lapsa.fin.FinCurrency;
 import com.lapsa.international.localization.LocalizationLanguage;
 
+import tech.lapsa.java.commons.function.MyCollectors;
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
+import tech.lapsa.java.commons.function.MyStrings;
+import tech.lapsa.java.commons.localization.Localized;
 import tech.lapsa.kz.taxpayer.TaxpayerNumber;
 
 public class Invoice extends AEntity<Integer> {
 
     private static final long serialVersionUID = 1L;
+
+    public static InvoiceBuilder builder() {
+	return new InvoiceBuilder();
+    }
+
+    public static final class InvoiceBuilder {
+	private FinCurrency currency;
+	private List<Item> items = new ArrayList<>();
+	private String consumerEmail;
+	private String consumerName;
+	private LocalizationLanguage consumerPreferLanguage;
+	private TaxpayerNumber consumerTaxpayerNumber;
+	private String externalId;
+
+	private InvoiceBuilder() {
+	}
+
+	public InvoiceBuilder withCurrencty(final FinCurrency currency) {
+	    this.currency = Objects.requireNonNull(currency, "currency");
+	    return this;
+	}
+
+	public InvoiceBuilder withConsumer(final String consumerName, final String consumerEmail,
+		final LocalizationLanguage consumerPreferLanguage, final TaxpayerNumber consuermTaxpayerNumber) {
+	    this.consumerEmail = MyStrings.requireNonEmpty(consumerEmail, "consumerEmail");
+	    this.consumerName = MyStrings.requireNonEmpty(consumerName, "consumerName");
+	    this.consumerPreferLanguage = MyObjects.requireNonNull(consumerPreferLanguage, "consumerPreferLanguage");
+	    this.consumerTaxpayerNumber = MyObjects.requireNonNull(consumerTaxpayerNumber, "consumerTaxpayerNumber");
+	    return this;
+	}
+
+	public InvoiceBuilder withItem(final Item item) {
+	    MyObjects.requireNonNull(item, "item");
+	    if (item.invoice != null)
+		throw new IllegalArgumentException("This item has binded to invoice already");
+	    items.add(MyObjects.requireNonNull(item, "item"));
+	    return this;
+	}
+
+	public InvoiceBuilder clearItems() {
+	    items = new ArrayList<>();
+	    return this;
+	}
+
+	public InvoiceBuilder withExternalId(final String externalId) {
+	    this.externalId = MyStrings.requireNonEmpty(externalId, "externalId");
+	    return this;
+	}
+
+	public Invoice build() {
+	    final Invoice invoice = new Invoice();
+	    invoice.currency = MyObjects.requireNonNull(currency, "currency");
+	    invoice.items = MyOptionals.streamOf(items) //
+		    .orElseThrow(() -> new IllegalArgumentException(
+			    "The invoice must contain as least one position of item")) //
+		    .filter(x -> MyObjects.isNull(x.invoice)) //
+		    .peek(x -> x.invoice = invoice) //
+		    .collect(MyCollectors.unmodifiableList());
+	    invoice.consumerEmail = MyStrings.requireNonEmpty(consumerEmail, "consumerEmail");
+	    invoice.consumerName = MyStrings.requireNonEmpty(consumerName, "consumerName");
+	    invoice.consumerPreferLanguage = MyObjects.requireNonNull(consumerPreferLanguage, "consumerPreferLanguage");
+	    invoice.consumerTaxpayerNumber = MyObjects.requireNonNull(consumerTaxpayerNumber, "consumerTaxpayerNumber");
+	    invoice.externalId = externalId;
+	    return invoice;
+	}
+    }
 
     public Invoice() {
 	super(3);
