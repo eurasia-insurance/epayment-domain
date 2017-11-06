@@ -39,7 +39,7 @@ public class QazkomOrder extends AEntity {
 	return new QazkomOrderBuilder();
     }
 
-    public static class QazkomOrderBuilder {
+    public static final class QazkomOrderBuilder {
 	private String orderNumber;
 	private Invoice forInvoice;
 
@@ -84,7 +84,7 @@ public class QazkomOrder extends AEntity {
 		    .orElseGet(QazkomOrder::orderNumberAsString);
 
 	    result.forInvoice = MyObjects.requireNonNull(forInvoice, "forInvoice");
-	    result.amount = MyNumbers.requireNonZero(forInvoice.getAmount(), "forInvoice.getAmount");
+	    result.amount = MyNumbers.requirePositive(forInvoice.getAmount(), "forInvoice.getAmount");
 	    result.currency = MyObjects.requireNonNull(forInvoice.currency, "forInvoice.currency");
 
 	    result.orderDoc = new QazkomXmlDocument( //

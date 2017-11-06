@@ -24,7 +24,7 @@ public class QazkomPayment extends APayment {
     private static final long serialVersionUID = 1L;
     private static final int PRIME = 7;
 
-    public static QazkomPayment from(final String rawXml) {
+    public static QazkomPayment from(final String rawXml) throws IllegalArgumentException {
 	MyStrings.requireNonEmpty(rawXml, "rawXml");
 
 	final XmlDocumentPayment document = XmlDocumentPayment.of(rawXml);

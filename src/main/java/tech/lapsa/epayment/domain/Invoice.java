@@ -7,12 +7,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.lapsa.fin.FinCurrency;
 import com.lapsa.international.localization.LocalizationLanguage;
 
-import tech.lapsa.java.commons.function.MyCollectors;
+import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
@@ -29,13 +30,25 @@ public class Invoice extends AEntity {
     }
 
     public static final class InvoiceBuilder {
+	private class Itm {
+	    private final String name;
+	    private final Integer quantity;
+	    private final Double price;
+
+	    private Itm(final String name, final Integer quantity, final Double price) {
+		this.name = name;
+		this.quantity = quantity;
+		this.price = price;
+	    }
+	}
+
 	private FinCurrency currency;
-	private List<Item> items = new ArrayList<>();
 	private String consumerEmail;
 	private String consumerName;
 	private LocalizationLanguage consumerPreferLanguage;
 	private TaxpayerNumber consumerTaxpayerNumber;
 	private String externalId;
+	private List<Itm> itms = new ArrayList<>();
 
 	private InvoiceBuilder() {
 	}
@@ -47,23 +60,29 @@ public class Invoice extends AEntity {
 
 	public InvoiceBuilder withConsumer(final String consumerName, final String consumerEmail,
 		final LocalizationLanguage consumerPreferLanguage, final TaxpayerNumber consumerTaxpayerNumber) {
-	    this.consumerEmail = MyStrings.requireNonEmpty(consumerEmail, "consumerEmail");
-	    this.consumerName = MyStrings.requireNonEmpty(consumerName, "consumerName");
-	    this.consumerPreferLanguage = MyObjects.requireNonNull(consumerPreferLanguage, "consumerPreferLanguage");
+	    withConsumer(consumerName, consumerEmail, consumerPreferLanguage);
 	    this.consumerTaxpayerNumber = MyObjects.requireNonNull(consumerTaxpayerNumber, "consumerTaxpayerNumber");
 	    return this;
 	}
 
-	public InvoiceBuilder withItem(final Item item) {
-	    MyObjects.requireNonNull(item, "item");
-	    if (item.invoice != null)
-		throw new IllegalArgumentException("This item has binded to invoice already");
-	    items.add(MyObjects.requireNonNull(item, "item"));
+	public InvoiceBuilder withConsumer(final String consumerName, final String consumerEmail,
+		final LocalizationLanguage consumerPreferLanguage) {
+	    this.consumerEmail = MyStrings.requireNonEmpty(consumerEmail, "consumerEmail");
+	    this.consumerName = MyStrings.requireNonEmpty(consumerName, "consumerName");
+	    this.consumerPreferLanguage = MyObjects.requireNonNull(consumerPreferLanguage, "consumerPreferLanguage");
+	    return this;
+	}
+
+	public InvoiceBuilder withItem(final String name, final Integer quantity, final Double price) {
+	    MyStrings.requireNonEmpty(name, "name");
+	    MyNumbers.requirePositive(quantity, "quantity");
+	    MyNumbers.requirePositive(price, "price");
+	    itms.add(new Itm(name, quantity, price));
 	    return this;
 	}
 
 	public InvoiceBuilder clearItems() {
-	    items = new ArrayList<>();
+	    itms = new ArrayList<>();
 	    return this;
 	}
 
@@ -75,16 +94,23 @@ public class Invoice extends AEntity {
 	public Invoice build() {
 	    final Invoice invoice = new Invoice();
 	    invoice.currency = MyObjects.requireNonNull(currency, "currency");
-	    invoice.items = MyOptionals.streamOf(items) //
+	    invoice.items = MyOptionals.streamOf(itms) //
 		    .orElseThrow(() -> new IllegalArgumentException(
-			    "The invoice must contain as least one position of item")) //
-		    .filter(x -> MyObjects.isNull(x.invoice)) //
-		    .peek(x -> x.invoice = invoice) //
-		    .collect(MyCollectors.unmodifiableList());
+			    "An invoice must contains at least one item")) //
+		    .map(i -> {
+			Item r = new Item();
+			r.invoice = invoice;
+			r.name = i.name;
+			r.price = i.price;
+			r.quantity = i.quantity;
+			r.invoice = invoice;
+			return r;
+		    }) //
+		    .collect(Collectors.toList());
 	    invoice.consumerEmail = MyStrings.requireNonEmpty(consumerEmail, "consumerEmail");
 	    invoice.consumerName = MyStrings.requireNonEmpty(consumerName, "consumerName");
 	    invoice.consumerPreferLanguage = MyObjects.requireNonNull(consumerPreferLanguage, "consumerPreferLanguage");
-	    invoice.consumerTaxpayerNumber = MyObjects.requireNonNull(consumerTaxpayerNumber, "consumerTaxpayerNumber");
+	    invoice.consumerTaxpayerNumber = consumerTaxpayerNumber;
 	    invoice.externalId = externalId;
 	    return invoice;
 	}
