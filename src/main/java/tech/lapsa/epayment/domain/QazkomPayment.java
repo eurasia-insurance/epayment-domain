@@ -1,9 +1,7 @@
 package tech.lapsa.epayment.domain;
 
-import java.util.Base64;
 import java.util.Currency;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.StringJoiner;
 
 import com.lapsa.fin.FinCurrency;
@@ -13,13 +11,13 @@ import tech.lapsa.java.commons.function.MyCollections;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localized;
-import tech.lapsa.qazkom.xml.mapping.XmlBank;
-import tech.lapsa.qazkom.xml.mapping.XmlCustomer;
-import tech.lapsa.qazkom.xml.mapping.XmlDocumentPayment;
-import tech.lapsa.qazkom.xml.mapping.XmlMerchant;
-import tech.lapsa.qazkom.xml.mapping.XmlOrder;
-import tech.lapsa.qazkom.xml.mapping.XmlPayment;
-import tech.lapsa.qazkom.xml.mapping.XmlResults;
+import tech.lapsa.qazkom.xml.bind.XmlBank;
+import tech.lapsa.qazkom.xml.bind.XmlCustomer;
+import tech.lapsa.qazkom.xml.bind.XmlDocumentPayment;
+import tech.lapsa.qazkom.xml.bind.XmlMerchant;
+import tech.lapsa.qazkom.xml.bind.XmlOrder;
+import tech.lapsa.qazkom.xml.bind.XmlPayment;
+import tech.lapsa.qazkom.xml.bind.XmlResults;
 
 public class QazkomPayment extends APayment {
 
@@ -46,7 +44,7 @@ public class QazkomPayment extends APayment {
 
 	QazkomPayment result = new QazkomPayment();
 
-	result.rawXml = rawXml;
+	result.paymentDoc = new QazkomXmlDocument(rawXml);
 
 	result.orderNumber = MyOptionals.of(customer) //
 		.map(XmlCustomer::getSourceMerchant) //
@@ -121,6 +119,11 @@ public class QazkomPayment extends APayment {
 		.toString();
     }
 
+    @Override
+    public Localized getMethod() {
+	return PaymentMethod.QAZKOM;
+    }
+
     // order
 
     protected QazkomOrder order;
@@ -159,25 +162,6 @@ public class QazkomPayment extends APayment {
 	return reference;
     }
 
-    // rawXml
-
-    protected String rawXml;
-
-    public String getRawXml() {
-	return rawXml;
-    }
-
-    public Optional<String> optionalBase64Xml() {
-	return MyOptionals.of(rawXml) //
-		.map(String::getBytes) //
-		.map(Base64.getEncoder()::encodeToString);
-    }
-
-    public Optional<XmlDocumentPayment> optionalDocument() {
-	return MyOptionals.of(rawXml) //
-		.map(XmlDocumentPayment::of);
-    }
-
     // payerName
 
     protected String payerName;
@@ -202,8 +186,11 @@ public class QazkomPayment extends APayment {
 	return payerPhoneNumber;
     }
 
-    @Override
-    public Localized getMethod() {
-	return PaymentMethod.QAZKOM;
+    // paymentDoc
+
+    protected QazkomXmlDocument paymentDoc;
+
+    public QazkomXmlDocument getPaymentDoc() {
+	return paymentDoc;
     }
 }

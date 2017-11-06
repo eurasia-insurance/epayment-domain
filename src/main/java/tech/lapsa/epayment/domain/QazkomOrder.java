@@ -6,9 +6,7 @@ import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.cert.X509Certificate;
 import java.time.Instant;
-import java.util.Base64;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.StringJoiner;
 import java.util.UUID;
 
@@ -18,7 +16,8 @@ import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localizeds;
-import tech.lapsa.qazkom.xml.mapping.XmlDocumentOrder;
+import tech.lapsa.qazkom.xml.bind.XmlDocumentCart;
+import tech.lapsa.qazkom.xml.bind.XmlDocumentOrder;
 
 public class QazkomOrder extends AEntity {
 
@@ -76,7 +75,7 @@ public class QazkomOrder extends AEntity {
 	    return this;
 	}
 
-	public QazkomOrder buildAndSign() {
+	public QazkomOrder build() {
 	    QazkomOrder result = new QazkomOrder();
 
 	    result.orderNumber = MyOptionals.of(orderNumber) //
@@ -86,15 +85,20 @@ public class QazkomOrder extends AEntity {
 	    result.amount = forInvoice.getAmount();
 	    result.currency = forInvoice.currency;
 
-	    XmlDocumentOrder doc = XmlDocumentOrder.builder() //
-		    .withOrderNumber(result.orderNumber) //
-		    .withAmount(result.amount) //
-		    .withCurrency(result.currency) //
-		    .withMerchchant(merchantId, merchantName) //
-		    .signWith(merchantSignature, merchantCertificate) //
-		    .build();
+	    result.orderDoc = new QazkomXmlDocument( //
+		    XmlDocumentOrder.builder() //
+			    .withOrderNumber(result.orderNumber) //
+			    .withAmount(result.amount) //
+			    .withCurrency(result.currency) //
+			    .withMerchchant(merchantId, merchantName) //
+			    .signWith(merchantSignature, merchantCertificate) //
+			    .build() //
+			    .getRawXml());
 
-	    result.rawXml = doc.getRawXml();
+	    result.cartDoc = new QazkomXmlDocument(XmlDocumentCart.builder() //
+		    .withItems(forInvoice.getItems(), Item::getName, Item::getQuantity, Item::getTotal) //
+		    .build() //
+		    .getRawXml());
 
 	    return result;
 	}
@@ -176,24 +180,20 @@ public class QazkomOrder extends AEntity {
 	return payment;
     }
 
-    // rawXml
+    // orderDoc
 
-    protected String rawXml;
+    protected QazkomXmlDocument orderDoc;
 
-    public String getRawXml() {
-	return rawXml;
+    public QazkomXmlDocument getOrderDoc() {
+	return orderDoc;
     }
 
-    public Optional<String> optionalBase64Xml() {
-	return MyOptionals.of(rawXml) //
-		.map(String::getBytes) //
-		.map(Base64.getEncoder()::encodeToString);
-    }
+    // cartDoc
 
-    public Optional<XmlDocumentOrder> optionalDocument() {
-	return MyOptionals.of(rawXml) //
-		.map(XmlDocumentOrder::of);
-	
+    protected QazkomXmlDocument cartDoc;
+
+    public QazkomXmlDocument getCartDoc() {
+	return cartDoc;
     }
 
 }
