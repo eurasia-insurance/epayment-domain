@@ -46,7 +46,7 @@ public class Invoice extends AEntity {
 	}
 
 	public InvoiceBuilder withConsumer(final String consumerName, final String consumerEmail,
-		final LocalizationLanguage consumerPreferLanguage, final TaxpayerNumber consuermTaxpayerNumber) {
+		final LocalizationLanguage consumerPreferLanguage, final TaxpayerNumber consumerTaxpayerNumber) {
 	    this.consumerEmail = MyStrings.requireNonEmpty(consumerEmail, "consumerEmail");
 	    this.consumerName = MyStrings.requireNonEmpty(consumerName, "consumerName");
 	    this.consumerPreferLanguage = MyObjects.requireNonNull(consumerPreferLanguage, "consumerPreferLanguage");
