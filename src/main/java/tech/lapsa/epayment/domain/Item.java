@@ -17,13 +17,13 @@ public class Item extends AEntity {
     }
 
     @Override
-    public String localized(LocalizationVariant variant, Locale locale) {
-	StringBuilder sb = new StringBuilder();
+    public String localized(final LocalizationVariant variant, final Locale locale) {
+	final StringBuilder sb = new StringBuilder();
 
 	sb.append(MyOptionals.of(name) //
 		.orElseGet(() -> Localization.ITEM_EMPTY.localized(variant, locale)));
 
-	StringJoiner sj = new StringJoiner(", ", " ", "");
+	final StringJoiner sj = new StringJoiner(", ", " ", "");
 	sj.setEmptyValue("");
 
 	MyOptionals.of(price) //

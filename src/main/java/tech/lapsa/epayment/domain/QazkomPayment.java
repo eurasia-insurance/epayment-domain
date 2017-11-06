@@ -24,25 +24,25 @@ public class QazkomPayment extends APayment {
     private static final long serialVersionUID = 1L;
     private static final int PRIME = 7;
 
-    public static QazkomPayment from(String rawXml) {
+    public static QazkomPayment from(final String rawXml) {
 	MyStrings.requireNonEmpty(rawXml, "rawXml");
 
-	XmlDocumentPayment document = XmlDocumentPayment.of(rawXml);
+	final XmlDocumentPayment document = XmlDocumentPayment.of(rawXml);
 
-	XmlResults results = MyOptionals.of(document.getBank()) //
+	final XmlResults results = MyOptionals.of(document.getBank()) //
 		.map(XmlBank::getResults) //
 		.orElseThrow(() -> new IllegalArgumentException("Can't parse for payment results"));
 
-	XmlPayment payment = MyOptionals.of(results.getPayments()) //
+	final XmlPayment payment = MyOptionals.of(results.getPayments()) //
 		.filter(x -> x.size() == 1) // must be exactly one record
 		.flatMap(MyCollections::firstElement) // map to first element
 		.orElseThrow(() -> new IllegalArgumentException("Can't parse for payment line"));
 
-	XmlCustomer customer = MyOptionals.of(document.getBank()) //
+	final XmlCustomer customer = MyOptionals.of(document.getBank()) //
 		.map(XmlBank::getCustomer) //
 		.orElseThrow(() -> new IllegalArgumentException("Can't parse for customer"));
 
-	QazkomPayment result = new QazkomPayment();
+	final QazkomPayment result = new QazkomPayment();
 
 	result.paymentDoc = new QazkomXmlDocument(rawXml);
 
@@ -96,12 +96,12 @@ public class QazkomPayment extends APayment {
     }
 
     @Override
-    public String localized(LocalizationVariant variant, Locale locale) {
-	StringBuilder sb = new StringBuilder();
+    public String localized(final LocalizationVariant variant, final Locale locale) {
+	final StringBuilder sb = new StringBuilder();
 
 	sb.append(Localization.QAZKOM_PAYMENT.localized(variant, locale));
 
-	StringJoiner sj = new StringJoiner(", ", " ", "");
+	final StringJoiner sj = new StringJoiner(", ", " ", "");
 	sj.setEmptyValue("");
 
 	MyOptionals.of(orderNumber) //
@@ -109,7 +109,7 @@ public class QazkomPayment extends APayment {
 		.ifPresent(sj::add);
 
 	if (amount != null && currency != null) {
-	    FinCurrency c = FinCurrency.byNumericCode(currency.getNumericCode());
+	    final FinCurrency c = FinCurrency.byNumericCode(currency.getNumericCode());
 	    sj.add(Localization.FIELD_PAYMENT_AMOUNT.fieldAsCaptionMapper(variant, locale)
 		    .apply(c.formatAmount(amount)));
 	}

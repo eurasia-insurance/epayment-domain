@@ -25,7 +25,7 @@ public class QazkomOrder extends AEntity {
     private static final int PRIME = 11;
 
     public static Long orderNumberAsLong() {
-	UUID uuid = UUID.randomUUID();
+	final UUID uuid = UUID.randomUUID();
 	return Math.abs(uuid.getLeastSignificantBits() / 10000);
     }
 
@@ -60,7 +60,7 @@ public class QazkomOrder extends AEntity {
 		throws NoSuchAlgorithmException, InvalidKeyException {
 	    MyObjects.requireNonNull(merchantKey, "merchantKey");
 	    MyStrings.requireNonEmpty(signatureAlgorithm, "signatureAlgorithm");
-	    this.merchantSignature = Signature.getInstance(signatureAlgorithm);
+	    merchantSignature = Signature.getInstance(signatureAlgorithm);
 	    merchantSignature.initSign(merchantKey);
 	    return withMerchant(merchantId, merchantName, merchantCertificate, merchantSignature);
 	}
@@ -76,7 +76,7 @@ public class QazkomOrder extends AEntity {
 	}
 
 	public QazkomOrder build() {
-	    QazkomOrder result = new QazkomOrder();
+	    final QazkomOrder result = new QazkomOrder();
 
 	    result.orderNumber = MyOptionals.of(orderNumber) //
 		    .orElseGet(QazkomOrder::orderNumberAsString);
@@ -110,12 +110,12 @@ public class QazkomOrder extends AEntity {
     }
 
     @Override
-    public String localized(LocalizationVariant variant, Locale locale) {
-	StringBuilder sb = new StringBuilder();
+    public String localized(final LocalizationVariant variant, final Locale locale) {
+	final StringBuilder sb = new StringBuilder();
 
 	sb.append(Localization.QAZKOM_ORDER.localized(variant, locale));
 
-	StringJoiner sj = new StringJoiner(", ", " ", "");
+	final StringJoiner sj = new StringJoiner(", ", " ", "");
 	sj.setEmptyValue("");
 
 	MyOptionals.of(orderNumber) //

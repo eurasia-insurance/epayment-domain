@@ -20,11 +20,11 @@ public abstract class ADomain implements Serializable, Localized {
 
     @Override
     public final int hashCode() {
-	return HashCodeBuilder.reflectionHashCode(prime(), prime(), this,false);
+	return HashCodeBuilder.reflectionHashCode(prime(), prime(), this, false);
     }
 
     @Override
-    public final boolean equals(Object other) {
+    public final boolean equals(final Object other) {
 	return EqualsBuilder.reflectionEquals(this, other, false);
     }
 

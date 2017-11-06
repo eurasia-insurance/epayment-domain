@@ -15,7 +15,7 @@ public class QazkomXmlDocument extends AEntity {
     public QazkomXmlDocument() {
     }
 
-    public QazkomXmlDocument(String rawXml) {
+    public QazkomXmlDocument(final String rawXml) {
 	this.rawXml = MyStrings.requireNonEmpty(rawXml, "rawXml");
     }
 
@@ -25,7 +25,7 @@ public class QazkomXmlDocument extends AEntity {
     }
 
     @Override
-    public String localized(LocalizationVariant variant, Locale locale) {
+    public String localized(final LocalizationVariant variant, final Locale locale) {
 	return rawXml;
     }
 

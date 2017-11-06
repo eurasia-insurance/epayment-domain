@@ -10,7 +10,7 @@ public abstract class AEntity extends ADomain {
     protected AEntity() {
     }
 
-    protected AEntity(Integer id) {
+    protected AEntity(final Integer id) {
 	this.id = MyNumbers.requireNonZero(id, "id");
     }
 
@@ -26,7 +26,7 @@ public abstract class AEntity extends ADomain {
 	return appendEntityId(id);
     }
 
-    static String appendEntityId(Object id) {
+    static String appendEntityId(final Object id) {
 	return " [ID=" + MyOptionals.of(id).map(Object::toString).orElse("NONE") + "]";
     }
 }

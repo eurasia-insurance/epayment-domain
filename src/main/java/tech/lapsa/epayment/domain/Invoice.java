@@ -96,12 +96,12 @@ public class Invoice extends AEntity {
     }
 
     @Override
-    public String localized(LocalizationVariant variant, Locale locale) {
-	StringBuilder sb = new StringBuilder();
+    public String localized(final LocalizationVariant variant, final Locale locale) {
+	final StringBuilder sb = new StringBuilder();
 
 	sb.append(Localization.INVOICE.localized(variant, locale));
 
-	StringJoiner sj = new StringJoiner(", ", " ", "");
+	final StringJoiner sj = new StringJoiner(", ", " ", "");
 	sj.setEmptyValue("");
 
 	MyOptionals.of(status) //
@@ -203,7 +203,7 @@ public class Invoice extends AEntity {
 
     // controllers
 
-    public Invoice paidBy(APayment payment) {
+    public Invoice paidBy(final APayment payment) {
 	if (status != InvoiceStatus.READY)
 	    throw new IllegalStateException("Invoice is not ready. It could be or expired or paid already");
 	MyObjects.requireNonNull(payment, "payment");
