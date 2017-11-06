@@ -20,7 +20,7 @@ import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localizeds;
 import tech.lapsa.qazkom.xml.mapping.XmlDocumentOrder;
 
-public class QazkomOrder extends AEntity<Integer> {
+public class QazkomOrder extends AEntity {
 
     private static final long serialVersionUID = 1L;
     private static final int PRIME = 11;

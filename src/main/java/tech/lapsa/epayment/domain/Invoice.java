@@ -19,7 +19,7 @@ import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localized;
 import tech.lapsa.kz.taxpayer.TaxpayerNumber;
 
-public class Invoice extends AEntity<Integer> {
+public class Invoice extends AEntity {
 
     private static final long serialVersionUID = 1L;
     private static final int PRIME = 3;

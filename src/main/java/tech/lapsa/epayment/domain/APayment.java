@@ -4,7 +4,7 @@ import java.time.Instant;
 
 import tech.lapsa.java.commons.localization.Localized;
 
-public abstract class APayment extends AEntity<Integer> {
+public abstract class APayment extends AEntity {
 
     private static final long serialVersionUID = 1L;
 

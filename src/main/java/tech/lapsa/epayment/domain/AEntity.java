@@ -1,24 +1,24 @@
 package tech.lapsa.epayment.domain;
 
-import tech.lapsa.java.commons.function.MyObjects;
+import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyOptionals;
 
-public abstract class AEntity<ID> extends ADomain {
+public abstract class AEntity extends ADomain {
 
     private static final long serialVersionUID = 1L;
 
     protected AEntity() {
     }
 
-    protected AEntity(ID id) {
-	this.id = MyObjects.requireNonNull(id, "id");
+    protected AEntity(Integer id) {
+	this.id = MyNumbers.requireNonZero(id, "id");
     }
 
     // id
 
-    protected ID id;
+    protected Integer id;
 
-    public ID getId() {
+    public Integer getId() {
 	return id;
     }
 
