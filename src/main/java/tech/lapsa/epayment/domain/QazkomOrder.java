@@ -1,9 +1,5 @@
 package tech.lapsa.epayment.domain;
 
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.Signature;
 import java.security.cert.X509Certificate;
 import java.time.Instant;
 import java.util.Locale;
@@ -18,6 +14,7 @@ import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localizeds;
+import tech.lapsa.java.commons.security.MySignatures.SigningSignature;
 import tech.lapsa.qazkom.xml.bind.XmlDocumentCart;
 import tech.lapsa.qazkom.xml.bind.XmlDocumentOrder;
 
@@ -45,7 +42,7 @@ public class QazkomOrder extends AEntity {
 
 	private String merchantId;
 	private String merchantName;
-	private Signature merchantSignature;
+	private SigningSignature merchantSignature;
 	private X509Certificate merchantCertificate;
 
 	private QazkomOrderBuilder() {
@@ -58,18 +55,7 @@ public class QazkomOrder extends AEntity {
 
 	public QazkomOrderBuilder withMerchant(final String merchantId, final String merchantName,
 		final X509Certificate merchantCertificate,
-		final PrivateKey merchantKey, final String signatureAlgorithm)
-		throws NoSuchAlgorithmException, InvalidKeyException {
-	    MyObjects.requireNonNull(merchantKey, "merchantKey");
-	    MyStrings.requireNonEmpty(signatureAlgorithm, "signatureAlgorithm");
-	    merchantSignature = Signature.getInstance(signatureAlgorithm);
-	    merchantSignature.initSign(merchantKey);
-	    return withMerchant(merchantId, merchantName, merchantCertificate, merchantSignature);
-	}
-
-	public QazkomOrderBuilder withMerchant(final String merchantId, final String merchantName,
-		final X509Certificate merchantCertificate,
-		final Signature merchantSignature) {
+		final SigningSignature merchantSignature) {
 	    this.merchantId = MyStrings.requireNonEmpty(merchantId, "merchantId");
 	    this.merchantName = MyStrings.requireNonEmpty(merchantName, "merchantName");
 	    this.merchantSignature = MyObjects.requireNonNull(merchantSignature, "merchantSignature");

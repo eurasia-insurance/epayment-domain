@@ -6,7 +6,6 @@ import static org.junit.Assert.*;
 import java.io.InputStream;
 import java.security.KeyStore;
 import java.security.PrivateKey;
-import java.security.Signature;
 import java.security.cert.X509Certificate;
 
 import org.junit.BeforeClass;
@@ -24,6 +23,7 @@ import tech.lapsa.java.commons.security.MyKeyStores.StoreType;
 import tech.lapsa.java.commons.security.MyPrivateKeys;
 import tech.lapsa.java.commons.security.MySignatures;
 import tech.lapsa.java.commons.security.MySignatures.Algorithm;
+import tech.lapsa.java.commons.security.MySignatures.SigningSignature;
 import tech.lapsa.kz.taxpayer.TaxpayerNumber;
 
 public class QazkomOrderBuilderTest {
@@ -35,7 +35,7 @@ public class QazkomOrderBuilderTest {
     private static final Algorithm ALGORITHM = Algorithm.SHA1withRSA;
 
     private static X509Certificate certificate;
-    private static Signature sigForSignature;
+    private static SigningSignature sigForSignature;
 
     @BeforeClass
     public static void loadKeys() throws Exception {
