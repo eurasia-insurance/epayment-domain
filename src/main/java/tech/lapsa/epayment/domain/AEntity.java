@@ -7,25 +7,11 @@ public abstract class AEntity<ID> extends ADomain {
 
     private static final long serialVersionUID = 1L;
 
-    public AEntity() {
-	super(13);
+    protected AEntity() {
     }
-    
-    protected AEntity(ID id, int prime, int multiplier) {
-	super(prime, multiplier);
+
+    protected AEntity(ID id) {
 	this.id = MyObjects.requireNonNull(id, "id");
-    }
-
-    protected AEntity(int prime, int multiplier) {
-	super(prime, multiplier);
-    }
-
-    protected AEntity(int prime) {
-	this(prime, prime);
-    }
-
-    protected AEntity(ID id, int prime) {
-	this(id, prime, prime);
     }
 
     // id

@@ -22,6 +22,7 @@ import tech.lapsa.kz.taxpayer.TaxpayerNumber;
 public class Invoice extends AEntity<Integer> {
 
     private static final long serialVersionUID = 1L;
+    private static final int PRIME = 3;
 
     public static InvoiceBuilder builder() {
 	return new InvoiceBuilder();
@@ -89,8 +90,9 @@ public class Invoice extends AEntity<Integer> {
 	}
     }
 
-    public Invoice() {
-	super(3);
+    @Override
+    protected int prime() {
+	return PRIME;
     }
 
     @Override

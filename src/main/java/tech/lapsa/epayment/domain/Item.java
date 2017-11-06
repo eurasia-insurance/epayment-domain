@@ -9,9 +9,11 @@ import tech.lapsa.java.commons.localization.Localized;
 public class Item extends AEntity<Integer> {
 
     private static final long serialVersionUID = 1L;
+    private static final int PRIME = 5;
 
-    public Item() {
-	super(5);
+    @Override
+    protected int prime() {
+	return PRIME;
     }
 
     @Override

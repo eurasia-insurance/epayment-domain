@@ -24,6 +24,7 @@ import tech.lapsa.qazkom.xml.mapping.XmlResults;
 public class QazkomPayment extends APayment {
 
     private static final long serialVersionUID = 1L;
+    private static final int PRIME = 7;
 
     public static QazkomPayment from(String rawXml) {
 	MyStrings.requireNonEmpty(rawXml, "rawXml");
@@ -91,8 +92,9 @@ public class QazkomPayment extends APayment {
 	return result;
     }
 
-    public QazkomPayment() {
-	super(7);
+    @Override
+    protected int prime() {
+	return PRIME;
     }
 
     @Override

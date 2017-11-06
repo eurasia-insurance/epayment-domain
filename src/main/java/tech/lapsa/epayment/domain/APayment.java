@@ -8,18 +8,6 @@ public abstract class APayment extends AEntity<Integer> {
 
     private static final long serialVersionUID = 1L;
 
-    public APayment() {
-	this(17);
-    }
-
-    protected APayment(int prime, int multiplier) {
-	super(prime, multiplier);
-    }
-
-    protected APayment(int prime) {
-	this(prime, prime);
-    }
-
     // created
 
     protected Instant created = Instant.now();

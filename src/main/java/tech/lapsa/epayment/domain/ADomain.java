@@ -11,26 +11,16 @@ public abstract class ADomain implements Serializable, Localized {
 
     private static final long serialVersionUID = 1L;
 
-    private final int PRIME;
-    private final int MULTIPLIER;
-
-    protected ADomain(int prime, int multiplier) {
-	this.PRIME = prime;
-	this.MULTIPLIER = multiplier;
-    }
-
-    protected ADomain(int prime) {
-	this(prime, prime);
-    }
-
     @Override
     public String toString() {
 	return regular();
     }
 
+    protected abstract int prime();
+
     @Override
     public final int hashCode() {
-	return HashCodeBuilder.reflectionHashCode(PRIME, MULTIPLIER, this, false);
+	return HashCodeBuilder.reflectionHashCode(prime(), prime(), this,false);
     }
 
     @Override

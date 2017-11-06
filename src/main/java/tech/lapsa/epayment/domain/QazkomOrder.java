@@ -23,6 +23,7 @@ import tech.lapsa.qazkom.xml.mapping.XmlDocumentOrder;
 public class QazkomOrder extends AEntity<Integer> {
 
     private static final long serialVersionUID = 1L;
+    private static final int PRIME = 11;
 
     public static Long orderNumberAsLong() {
 	UUID uuid = UUID.randomUUID();
@@ -97,6 +98,11 @@ public class QazkomOrder extends AEntity<Integer> {
 
 	    return result;
 	}
+    }
+
+    @Override
+    protected int prime() {
+	return PRIME;
     }
 
     @Override
