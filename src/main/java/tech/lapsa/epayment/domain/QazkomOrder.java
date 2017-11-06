@@ -12,6 +12,8 @@ import java.util.UUID;
 
 import com.lapsa.fin.FinCurrency;
 
+import tech.lapsa.java.commons.function.MyCollections;
+import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
@@ -82,21 +84,24 @@ public class QazkomOrder extends AEntity {
 		    .orElseGet(QazkomOrder::orderNumberAsString);
 
 	    result.forInvoice = MyObjects.requireNonNull(forInvoice, "forInvoice");
-	    result.amount = forInvoice.getAmount();
-	    result.currency = forInvoice.currency;
+	    result.amount = MyNumbers.requireNonZero(forInvoice.getAmount(), "forInvoice.getAmount");
+	    result.currency = MyObjects.requireNonNull(forInvoice.currency, "forInvoice.currency");
 
 	    result.orderDoc = new QazkomXmlDocument( //
 		    XmlDocumentOrder.builder() //
 			    .withOrderNumber(result.orderNumber) //
 			    .withAmount(result.amount) //
 			    .withCurrency(result.currency) //
-			    .withMerchchant(merchantId, merchantName) //
-			    .signWith(merchantSignature, merchantCertificate) //
+			    .withMerchchant(MyStrings.requireNonEmpty(merchantId, "merchantId"),
+				    MyStrings.requireNonEmpty(merchantName, "merchantName")) //
+			    .signWith(MyObjects.requireNonNull(merchantSignature, "merchantSignature"),
+				    MyObjects.requireNonNull(merchantCertificate, "merchantCertificate")) //
 			    .build() //
 			    .getRawXml());
 
 	    result.cartDoc = new QazkomXmlDocument(XmlDocumentCart.builder() //
-		    .withItems(forInvoice.getItems(), Item::getName, Item::getQuantity, Item::getTotal) //
+		    .withItems(MyCollections.requireNonEmpty(forInvoice.getItems(), "forInvoice.getItems"),
+			    Item::getName, Item::getQuantity, Item::getTotal) //
 		    .build() //
 		    .getRawXml());
 
