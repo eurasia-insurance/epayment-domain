@@ -18,7 +18,7 @@
 		<!-- BOMS -->
 		<java-commons.version>1.1-SNAPSHOT</java-commons.version>
 		<!-- tech -->
-		<qazkom-xml.version>1.0-SNAPSHOT</qazkom-xml.version>
+		<epayment-qazkom-commons.version>1.0-SNAPSHOT</epayment-qazkom-commons.version>
 		<!-- oldies -->
 		<international-lib.version>3.3-SNAPSHOT</international-lib.version>
 		<kz-lib.version>3.2-SNAPSHOT</kz-lib.version>
@@ -37,9 +37,9 @@
 			</dependency>
 			<!-- tech -->
 			<dependency>
-				<groupId>tech.lapsa.qazkom</groupId>
-				<artifactId>qazkom-xml</artifactId>
-				<version>${qazkom-xml.version}</version>
+				<groupId>tech.lapsa.epayment</groupId>
+				<artifactId>epayment-qazkom-commons</artifactId>
+				<version>${epayment-qazkom-commons.version}</version>
 			</dependency>
 			<!-- oldies -->
 			<dependency>
@@ -81,8 +81,8 @@
 		</dependency>
 		<!-- tech -->
 		<dependency>
-			<groupId>tech.lapsa.qazkom</groupId>
-			<artifactId>qazkom-xml</artifactId>
+			<groupId>tech.lapsa.epayment</groupId>
+			<artifactId>epayment-qazkom-commons</artifactId>
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>

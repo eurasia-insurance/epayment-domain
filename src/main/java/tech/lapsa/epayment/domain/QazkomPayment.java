@@ -7,17 +7,17 @@ import java.util.StringJoiner;
 import com.lapsa.fin.FinCurrency;
 import com.lapsa.international.phone.PhoneNumber;
 
+import tech.lapsa.epayment.qazkom.xml.bind.XmlBank;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlCustomer;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentPayment;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlMerchant;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlOrder;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlPayment;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlResults;
 import tech.lapsa.java.commons.function.MyCollections;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localized;
-import tech.lapsa.qazkom.xml.bind.XmlBank;
-import tech.lapsa.qazkom.xml.bind.XmlCustomer;
-import tech.lapsa.qazkom.xml.bind.XmlDocumentPayment;
-import tech.lapsa.qazkom.xml.bind.XmlMerchant;
-import tech.lapsa.qazkom.xml.bind.XmlOrder;
-import tech.lapsa.qazkom.xml.bind.XmlPayment;
-import tech.lapsa.qazkom.xml.bind.XmlResults;
 
 public class QazkomPayment extends APayment {
 

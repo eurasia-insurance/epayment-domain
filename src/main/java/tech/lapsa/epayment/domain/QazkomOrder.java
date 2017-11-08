@@ -8,6 +8,8 @@ import java.util.UUID;
 
 import com.lapsa.fin.FinCurrency;
 
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentCart;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder;
 import tech.lapsa.java.commons.function.MyCollections;
 import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyObjects;
@@ -15,8 +17,6 @@ import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localizeds;
 import tech.lapsa.java.commons.security.MySignatures.SigningSignature;
-import tech.lapsa.qazkom.xml.bind.XmlDocumentCart;
-import tech.lapsa.qazkom.xml.bind.XmlDocumentOrder;
 
 public class QazkomOrder extends AEntity {
 
