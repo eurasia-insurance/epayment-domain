@@ -19,10 +19,7 @@ import tech.lapsa.epayment.domain.QazkomPayment;
 import tech.lapsa.java.commons.resources.Resources;
 import tech.lapsa.java.commons.security.MyCertificates;
 import tech.lapsa.java.commons.security.MyKeyStores;
-import tech.lapsa.java.commons.security.MySignatures;
 import tech.lapsa.java.commons.security.MyKeyStores.StoreType;
-import tech.lapsa.java.commons.security.MySignatures.Algorithm;
-import tech.lapsa.java.commons.security.MySignatures.VerifyingSignature;
 
 public class QazkomPaymentBuilderTest {
 
@@ -30,10 +27,8 @@ public class QazkomPaymentBuilderTest {
     private static final String KEYSTORE = "/kkb.jks";
     private static final String STOREPASS = "1q2w3e4r";
     private static final String ALIAS = "kkbca-test";
-    private static final Algorithm ALGORITHM = Algorithm.SHA1withRSA;
 
-    private static X509Certificate certificate;
-    private static VerifyingSignature signature;
+    private static X509Certificate bankCert;
 
     @BeforeClass
     public static void loadKeys() throws Exception {
@@ -44,13 +39,10 @@ public class QazkomPaymentBuilderTest {
 	KeyStore keystore = MyKeyStores.from(storeStream, STORETYPE, STOREPASS) //
 		.orElseThrow(() -> new RuntimeException("Can not load keystore"));
 
-	certificate = MyCertificates.from(keystore, ALIAS) //
+	bankCert = MyCertificates.from(keystore, ALIAS) //
 		.orElseThrow(() -> new RuntimeException("Can find key entry"));
-
-	signature = MySignatures.forVerification(certificate, ALGORITHM) //
-		.orElseThrow(() -> new RuntimeException("Can't process with signing signature"));
-
     }
+
     private static final String BANK_XML = ""
 	    + "<bank name=\"Kazkommertsbank JSC\">"
 	    + "<customer name=\"MR CARD\" mail=\"vadim.isaev@me.com\" phone=\"\">"
@@ -83,14 +75,14 @@ public class QazkomPaymentBuilderTest {
     public void simpleTest() {
 	final Currency CURRENCY = Currency.getInstance("KZT");
 	final Double AMOUNT = 2382.05d;
-	final Instant CREATED = LocalDateTime.of(2016, Month.JUNE, 14, 15, 18, 02).atZone(ZoneId.systemDefault()).toInstant();
+	final Instant CREATED = LocalDateTime.of(2016, Month.JUNE, 14, 15, 18, 02).atZone(ZoneId.systemDefault())
+		.toInstant();
 	final String ORDER_NUMBER = "484902574738032";
 	final String REFERENCE = "160614151802";
 
 	QazkomPayment o = QazkomPayment.builder() //
 		.fromRawXml(PAYMENT_XML) //
-		.withBankCertificate(certificate) //
-		.withBankSignature(signature) //
+		.withBankCertificate(bankCert) //
 		.build();
 
 	assertThat(o, not(nullValue()));

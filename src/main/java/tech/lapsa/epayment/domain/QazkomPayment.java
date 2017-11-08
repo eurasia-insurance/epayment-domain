@@ -20,7 +20,6 @@ import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localized;
-import tech.lapsa.java.commons.security.MySignatures.VerifyingSignature;
 
 public class QazkomPayment extends APayment {
 
@@ -33,7 +32,6 @@ public class QazkomPayment extends APayment {
 
     public static final class QazkomPaymentBuilder {
 	private String rawXml;
-	private VerifyingSignature signature;
 	private X509Certificate certificate;
 
 	private QazkomPaymentBuilder() {
@@ -44,11 +42,6 @@ public class QazkomPayment extends APayment {
 	    return this;
 	}
 
-	public QazkomPaymentBuilder withBankSignature(VerifyingSignature signature) {
-	    this.signature = MyObjects.requireNonNull(signature, "signature");
-	    return this;
-	}
-
 	public QazkomPaymentBuilder withBankCertificate(X509Certificate certificate) {
 	    this.certificate = MyObjects.requireNonNull(certificate);
 	    return this;
@@ -56,13 +49,11 @@ public class QazkomPayment extends APayment {
 
 	public QazkomPayment build() {
 	    MyStrings.requireNonEmpty(rawXml, "rawXml");
-	    MyObjects.requireNonNull(signature, "signature");
 	    MyObjects.requireNonNull(certificate, "certificate");
 
 	    XmlDocumentPayment document = XmlDocumentPayment.builder() //
 		    .ofRawXml(rawXml) //
-		    .checkingSignatureWith(signature) //
-		    .checkingCertificateWith(certificate) //
+		    .withBankCertificate(certificate) //
 		    .build();
 
 	    final XmlResults results = MyOptionals.of(document.getBank()) //
