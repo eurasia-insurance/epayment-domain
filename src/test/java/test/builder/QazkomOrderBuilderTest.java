@@ -21,9 +21,6 @@ import tech.lapsa.java.commons.security.MyCertificates;
 import tech.lapsa.java.commons.security.MyKeyStores;
 import tech.lapsa.java.commons.security.MyKeyStores.StoreType;
 import tech.lapsa.java.commons.security.MyPrivateKeys;
-import tech.lapsa.java.commons.security.MySignatures;
-import tech.lapsa.java.commons.security.MySignatures.Algorithm;
-import tech.lapsa.java.commons.security.MySignatures.SigningSignature;
 import tech.lapsa.kz.taxpayer.TaxpayerNumber;
 
 public class QazkomOrderBuilderTest {
@@ -32,10 +29,9 @@ public class QazkomOrderBuilderTest {
     private static final String KEYSTORE = "/kkb.jks";
     private static final String STOREPASS = "1q2w3e4r";
     private static final String ALIAS = "cert";
-    private static final Algorithm ALGORITHM = Algorithm.SHA1withRSA;
 
-    private static X509Certificate certificate;
-    private static SigningSignature sigForSignature;
+    private static X509Certificate merchantCert;
+    private static PrivateKey merchantKey;
 
     @BeforeClass
     public static void loadKeys() throws Exception {
@@ -46,21 +42,35 @@ public class QazkomOrderBuilderTest {
 	KeyStore keystore = MyKeyStores.from(storeStream, STORETYPE, STOREPASS) //
 		.orElseThrow(() -> new RuntimeException("Can not load keystore"));
 
-	PrivateKey key = MyPrivateKeys.from(keystore, ALIAS, STOREPASS) //
+	merchantKey = MyPrivateKeys.from(keystore, ALIAS, STOREPASS) //
 		.orElseThrow(() -> new RuntimeException("Can't find key entry"));
 
-	sigForSignature = MySignatures.forSignature(key, ALGORITHM) //
-		.orElseThrow(() -> new RuntimeException("Can't process with signing signature"));
-
-	certificate = MyCertificates.from(keystore, ALIAS) //
+	merchantCert = MyCertificates.from(keystore, ALIAS) //
 		.orElseThrow(() -> new RuntimeException("Can find key entry"));
     }
 
+    private static final String CART_XML = ""
+	    + "<document>"
+	    + "<item name=\"Apple iPhone X\" number=\"1\" quantity=\"1\" amount=\"1000\"/>"
+	    + "<item name=\"Apple MacBook Pro\" number=\"2\" quantity=\"1\" amount=\"2000\"/>"
+	    + "</document>";
+
+    private static final String ORDER_XML = ""
+	    + "<document>"
+	    + "<merchant cert_id=\"c183d70b\" name=\"Test shop 3\">"
+	    + "<order order_id=\"617300137516891\" currency=\"398\" amount=\"3000\">"
+	    + "<department merchant_id=\"92061103\" amount=\"3000\"/>"
+	    + "</order>"
+	    + "</merchant>"
+	    + "<merchant_sign type=\"RSA\">"
+	    + "GnHQXZWHwLBzEi2ReAVwZ2V2rUtTLLQdxUn1JCA4ISZAQdQ2n+3nk/pCge7"
+	    + "6yxx+sSO1OjeT4oLgQ5kUKKVsV4DPK4Qy7TWN7UstAb9WLietn2q3XB3VhA"
+	    + "P53z4PW2TGJZQvHR14Pluvb6hp+Y8EI51iv4JMj730/tWztbnXy0c="
+	    + "</merchant_sign>"
+	    + "</document>";
+
     @Test
     public void simpleTest() {
-	final String CART_XML = "<document><item name=\"Apple iPhone X\" number=\"1\" quantity=\"1\" amount=\"1000\"/><item name=\"Apple MacBook Pro\" number=\"2\" quantity=\"1\" amount=\"2000\"/></document>";
-	final String ORDER_XML = "<document><merchant cert_id=\"c183d70b\" name=\"Test shop 3\"><order order_id=\"617300137516891\" currency=\"398\" amount=\"3000\"><department merchant_id=\"92061103\" amount=\"3000\"/></order></merchant><merchant_sign type=\"RSA\">GnHQXZWHwLBzEi2ReAVwZ2V2rUtTLLQdxUn1JCA4ISZAQdQ2n+3nk/pCge76yxx+sSO1OjeT4oLgQ5kUKKVsV4DPK4Qy7TWN7UstAb9WLietn2q3XB3VhAP53z4PW2TGJZQvHR14Pluvb6hp+Y8EI51iv4JMj730/tWztbnXy0c=</merchant_sign></document>";
-
 	QazkomOrder o = QazkomOrder.builder() //
 		.forInvoice(Invoice.builder() //
 			.withCurrencty(FinCurrency.KZT) //
@@ -70,7 +80,7 @@ public class QazkomOrderBuilderTest {
 			.withItem("Apple iPhone X", 1, 1000d) //
 			.withItem("Apple MacBook Pro", 1, 2000d) //
 			.build()) //
-		.withMerchant("92061103", "Test shop 3", certificate, sigForSignature) //
+		.withMerchant("92061103", "Test shop 3", merchantCert, merchantKey) //
 		.build();
 
 	assertThat(o, not(nullValue()));

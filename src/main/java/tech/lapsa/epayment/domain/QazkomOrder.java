@@ -1,5 +1,6 @@
 package tech.lapsa.epayment.domain;
 
+import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.time.Instant;
 import java.util.Locale;
@@ -16,7 +17,6 @@ import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localizeds;
-import tech.lapsa.java.commons.security.MySignatures.SigningSignature;
 
 public class QazkomOrder extends AEntity {
 
@@ -42,7 +42,7 @@ public class QazkomOrder extends AEntity {
 
 	private String merchantId;
 	private String merchantName;
-	private SigningSignature merchantSignature;
+	private PrivateKey merchantKey;
 	private X509Certificate merchantCertificate;
 
 	private QazkomOrderBuilder() {
@@ -55,10 +55,10 @@ public class QazkomOrder extends AEntity {
 
 	public QazkomOrderBuilder withMerchant(final String merchantId, final String merchantName,
 		final X509Certificate merchantCertificate,
-		final SigningSignature merchantSignature) {
+		final PrivateKey merchantKey) {
 	    this.merchantId = MyStrings.requireNonEmpty(merchantId, "merchantId");
 	    this.merchantName = MyStrings.requireNonEmpty(merchantName, "merchantName");
-	    this.merchantSignature = MyObjects.requireNonNull(merchantSignature, "merchantSignature");
+	    this.merchantKey = MyObjects.requireNonNull(merchantKey, "merchantKey");
 	    this.merchantCertificate = MyObjects.requireNonNull(merchantCertificate, "merchantCertificate");
 	    return this;
 	}
@@ -80,7 +80,7 @@ public class QazkomOrder extends AEntity {
 			    .withCurrency(result.currency) //
 			    .withMerchchant(MyStrings.requireNonEmpty(merchantId, "merchantId"),
 				    MyStrings.requireNonEmpty(merchantName, "merchantName")) //
-			    .signWith(MyObjects.requireNonNull(merchantSignature, "merchantSignature"),
+			    .signWith(MyObjects.requireNonNull(merchantKey, "merchantKey"),
 				    MyObjects.requireNonNull(merchantCertificate, "merchantCertificate")) //
 			    .build() //
 			    .getRawXml());
