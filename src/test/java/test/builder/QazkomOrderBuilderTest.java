@@ -80,6 +80,7 @@ public class QazkomOrderBuilderTest {
 			.withItem("Apple iPhone X", 1, 1000d) //
 			.withItem("Apple MacBook Pro", 1, 2000d) //
 			.build()) //
+		.withOrderNumber("617300137516891") //
 		.withMerchant("92061103", "Test shop 3", merchantCert, merchantKey) //
 		.build();
 
