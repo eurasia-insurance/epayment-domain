@@ -42,7 +42,7 @@ public class QazkomPayment extends APayment {
 	}
 
 	public QazkomPaymentBuilder withBankCertificate(X509Certificate certificate) {
-	    this.certificate = MyObjects.requireNonNull(certificate);
+	    this.certificate = MyObjects.requireNonNull(certificate, "certificate");
 	    return this;
 	}
 

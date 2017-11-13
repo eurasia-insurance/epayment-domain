@@ -84,13 +84,13 @@ public class QazkomOrder extends AEntity {
 	    this.numberIsUniqueTest = MyObjects.requireNonNull(numberIsUniqueTest, "numberIsUniqueTest");
 	    return this;
 	}
-	
+
 	public QazkomOrderBuilder withGeneratedNumber() {
 	    this.orderNumber = null;
 	    this.numberIsUniqueTest = null;
 	    return this;
 	}
-	
+
 	public QazkomOrderBuilder withMerchant(final String merchantId, final String merchantName,
 		final X509Certificate merchantCertificate,
 		final PrivateKey merchantKey) {
