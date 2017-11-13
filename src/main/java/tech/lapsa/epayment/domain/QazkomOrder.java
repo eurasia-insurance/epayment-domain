@@ -243,4 +243,22 @@ public class QazkomOrder extends AEntity {
 	MyOptionals.of(getPayment()).ifPresent(AEntity::unlazy);
 	MyOptionals.of(getForInvoice()).ifPresent(AEntity::unlazy);
     }
+
+    public void validate(QazkomPayment qp) {
+	MyObjects.requireNonNull(qp);
+	MyStrings.requireEquals(orderNumber, qp.orderNumber);
+	MyNumbers.requireEquals(getAmount(), qp.getAmount());
+    }
+
+    public void paidBy(QazkomPayment qp) {
+	MyObjects.requireNonNull(qp, "qp");
+	validate(qp);
+
+	MyObjects.requireNullMsg(qp.order, "Payment already has order attached");
+	MyObjects.requireNullMsg(this.payment, "Order already has payment attached");
+	
+	this.payment = qp;
+	qp.order = this;
+    }
+
 }

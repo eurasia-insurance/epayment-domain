@@ -306,10 +306,10 @@ public class Invoice extends AEntity {
     public Invoice paidBy(final APayment payment) {
 	if (status != InvoiceStatus.READY)
 	    throw new IllegalStateException("Invoice state is not ready. It could be expired or paid already");
-	
+
 	MyObjects.requireNonNull(payment, "payment");
-	MyObjects.requireNull(payment.forInvoice, "forInvoice");
-	MyObjects.requireNull(this.payment, "payment");
+	MyObjects.requireNullMsg(payment.forInvoice, "Payment already has invoice attached");
+	MyObjects.requireNullMsg(this.payment, "Invoice already has payment attached");
 
 	status = InvoiceStatus.PAID;
 	this.payment = payment;
