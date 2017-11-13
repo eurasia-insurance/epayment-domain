@@ -98,6 +98,12 @@ public class Invoice extends AEntity {
 	    return this;
 	}
 
+	public InvoiceBuilder withGeneratedNumber() {
+	    this.number = null;
+	    this.numberIsUnique = null;
+	    return this;
+	}
+
 	public InvoiceBuilder withCurrencty(final FinCurrency currency) {
 	    this.currency = Objects.requireNonNull(currency, "currency");
 	    return this;

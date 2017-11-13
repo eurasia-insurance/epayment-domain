@@ -85,6 +85,12 @@ public class QazkomOrder extends AEntity {
 	    return this;
 	}
 	
+	public QazkomOrderBuilder withGeneratedNumber() {
+	    this.orderNumber = null;
+	    this.numberIsUnique = null;
+	    return this;
+	}
+	
 	public QazkomOrderBuilder withMerchant(final String merchantId, final String merchantName,
 		final X509Certificate merchantCertificate,
 		final PrivateKey merchantKey) {
