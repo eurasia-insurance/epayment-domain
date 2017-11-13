@@ -214,7 +214,7 @@ public class Invoice extends AEntity {
 
     // number
 
-    protected String number;
+    protected String number = generateNumber();
 
     public String getNumber() {
 	return number;
@@ -238,7 +238,7 @@ public class Invoice extends AEntity {
 
     // items
 
-    protected List<Item> items;
+    protected List<Item> items = new ArrayList<>();
 
     public List<Item> getItems() {
 	return Collections.unmodifiableList(items);
@@ -305,7 +305,8 @@ public class Invoice extends AEntity {
 
     public Invoice paidBy(final APayment payment) {
 	if (status != InvoiceStatus.READY)
-	    throw new IllegalStateException("Invoice is not ready. It could be or expired or paid already");
+	    throw new IllegalStateException("Invoice state is not ready. It could be expired or paid already");
+	
 	MyObjects.requireNonNull(payment, "payment");
 	MyObjects.requireNull(payment.forInvoice, "forInvoice");
 	MyObjects.requireNull(this.payment, "payment");
