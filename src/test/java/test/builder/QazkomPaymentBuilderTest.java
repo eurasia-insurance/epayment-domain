@@ -71,6 +71,13 @@ public class QazkomPaymentBuilderTest {
 	    + "</bank_sign>"
 	    + "</document>";
 
+    public static QazkomPayment payment() {
+	return QazkomPayment.builder() //
+		.fromRawXml(PAYMENT_XML) //
+		.withBankCertificate(bankCert) //
+		.build();
+    }
+
     @Test
     public void simpleTest() {
 	final Currency CURRENCY = Currency.getInstance("KZT");
@@ -80,10 +87,7 @@ public class QazkomPaymentBuilderTest {
 	final String ORDER_NUMBER = "484902574738032";
 	final String REFERENCE = "160614151802";
 
-	QazkomPayment o = QazkomPayment.builder() //
-		.fromRawXml(PAYMENT_XML) //
-		.withBankCertificate(bankCert) //
-		.build();
+	QazkomPayment o = payment();
 
 	assertThat(o, not(nullValue()));
 	assertThat(o.getCurrency(), allOf(not(nullValue()), is(equalTo(CURRENCY))));

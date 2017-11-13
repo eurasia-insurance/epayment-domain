@@ -11,17 +11,12 @@ import java.security.cert.X509Certificate;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.lapsa.fin.FinCurrency;
-import com.lapsa.international.localization.LocalizationLanguage;
-
-import tech.lapsa.epayment.domain.Invoice;
 import tech.lapsa.epayment.domain.QazkomOrder;
 import tech.lapsa.java.commons.resources.Resources;
 import tech.lapsa.java.commons.security.MyCertificates;
 import tech.lapsa.java.commons.security.MyKeyStores;
 import tech.lapsa.java.commons.security.MyKeyStores.StoreType;
 import tech.lapsa.java.commons.security.MyPrivateKeys;
-import tech.lapsa.kz.taxpayer.TaxpayerNumber;
 
 public class QazkomOrderBuilderTest {
 
@@ -52,40 +47,37 @@ public class QazkomOrderBuilderTest {
     private static final String CART_XML = ""
 	    + "<document>"
 	    + "<item name=\"Apple iPhone X\" number=\"1\" quantity=\"1\" amount=\"1000\"/>"
-	    + "<item name=\"Apple MacBook Pro\" number=\"2\" quantity=\"1\" amount=\"2000\"/>"
+	    + "<item name=\"Apple MacBook Pro\" number=\"2\" quantity=\"1\" amount=\"1382.05\"/>"
 	    + "</document>";
 
     private static final String ORDER_XML = ""
 	    + "<document>"
 	    + "<merchant cert_id=\"c183d70b\" name=\"Test shop 3\">"
-	    + "<order order_id=\"617300137516891\" currency=\"398\" amount=\"3000\">"
-	    + "<department merchant_id=\"92061103\" amount=\"3000\"/>"
+	    + "<order order_id=\"484902574738032\" currency=\"398\" amount=\"2382.05\">"
+	    + "<department merchant_id=\"92061103\" amount=\"2382.05\"/>"
 	    + "</order>"
 	    + "</merchant>"
 	    + "<merchant_sign type=\"RSA\">"
-	    + "GnHQXZWHwLBzEi2ReAVwZ2V2rUtTLLQdxUn1JCA4ISZAQdQ2n+3nk/pCge7"
-	    + "6yxx+sSO1OjeT4oLgQ5kUKKVsV4DPK4Qy7TWN7UstAb9WLietn2q3XB3VhA"
-	    + "P53z4PW2TGJZQvHR14Pluvb6hp+Y8EI51iv4JMj730/tWztbnXy0c="
+	    + "0SeH7sjQH1U/wYRn9AKM8q1Zujjs1zMaF5M0Gm+6k4KiPG6yAXaqazBzcUU/"
+	    + "LC/fMR5n4CoqFv/+MMvHaQw+htvBDH0Fe6svazqZZMQnKVQVkfXg9Z2y88xi"
+	    + "pGt+daya5OK/lqTvMGh1ACgEObGv95/nXledaPDpU4oexQcaySg="
 	    + "</merchant_sign>"
 	    + "</document>";
 
-    @Test
-    public void simpleTest() {
-	QazkomOrder o = QazkomOrder.builder() //
-		.forInvoice(Invoice.builder() //
-			.withCurrencty(FinCurrency.KZT) //
-			.withConsumer("John Bull", "john.bull@mail.com", LocalizationLanguage.RUSSIAN,
-				TaxpayerNumber.of("800225000319")) //
-			.withExternalId("123") //
-			.withItem("Apple iPhone X", 1, 1000d) //
-			.withItem("Apple MacBook Pro", 1, 2000d) //
-			.build()) //
-		.withNumber("617300137516891") //
+    public static QazkomOrder order() {
+	return QazkomOrder.builder() //
+		.forInvoice(InvoiceBuilderTest.invoice()) //
+		.withNumber("484902574738032") //
 		.withMerchant("92061103", "Test shop 3", merchantCert, merchantKey) //
 		.build();
+    }
+
+    @Test
+    public void simpleTest() {
+	QazkomOrder o = order();
 
 	assertThat(o, not(nullValue()));
-	assertThat(o.getAmount(), allOf(not(nullValue()), equalTo(3000d)));
+	assertThat(o.getAmount(), allOf(not(nullValue()), equalTo(2382.05d)));
 	assertThat(o.getForInvoice(), not(nullValue()));
 	assertThat(o.getOrderNumber(), not(isEmptyOrNullString()));
 	assertThat(o.getOrderDoc(), not(nullValue()));
