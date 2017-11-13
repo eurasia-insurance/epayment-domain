@@ -109,6 +109,7 @@ public class Invoice extends AEntity {
 	    return this;
 	}
 
+	// TODO fix syntax mistake
 	public InvoiceBuilder withCurrencty(final FinCurrency currency) {
 	    this.currency = Objects.requireNonNull(currency, "currency");
 	    return this;
@@ -117,15 +118,35 @@ public class Invoice extends AEntity {
 	public InvoiceBuilder withConsumer(final String consumerName, final String consumerEmail,
 		final LocalizationLanguage consumerPreferLanguage, final TaxpayerNumber consumerTaxpayerNumber) {
 	    withConsumer(consumerName, consumerEmail, consumerPreferLanguage);
-	    this.consumerTaxpayerNumber = MyObjects.requireNonNull(consumerTaxpayerNumber, "consumerTaxpayerNumber");
+	    withConsumerTaxpayerNumber(consumerTaxpayerNumber);
 	    return this;
 	}
 
 	public InvoiceBuilder withConsumer(final String consumerName, final String consumerEmail,
 		final LocalizationLanguage consumerPreferLanguage) {
-	    this.consumerEmail = MyStrings.requireNonEmpty(consumerEmail, "consumerEmail");
-	    this.consumerName = MyStrings.requireNonEmpty(consumerName, "consumerName");
+	    withConsumerEmail(consumerEmail);
+	    withConsumerName(consumerName);
+	    withConsumerPreferLanguage(consumerPreferLanguage);
+	    return this;
+	}
+
+	public InvoiceBuilder withConsumerPreferLanguage(final LocalizationLanguage consumerPreferLanguage) {
 	    this.consumerPreferLanguage = MyObjects.requireNonNull(consumerPreferLanguage, "consumerPreferLanguage");
+	    return this;
+	}
+
+	public InvoiceBuilder withConsumerName(final String consumerName) {
+	    this.consumerName = MyStrings.requireNonEmpty(consumerName, "consumerName");
+	    return this;
+	}
+
+	public InvoiceBuilder withConsumerEmail(final String consumerEmail) {
+	    this.consumerEmail = MyStrings.requireNonEmpty(consumerEmail, "consumerEmail");
+	    return this;
+	}
+
+	public InvoiceBuilder withConsumerTaxpayerNumber(final TaxpayerNumber consumerTaxpayerNumber) {
+	    this.consumerTaxpayerNumber = MyObjects.requireNonNull(consumerTaxpayerNumber, "consumerTaxpayerNumber");
 	    return this;
 	}
 
@@ -144,6 +165,11 @@ public class Invoice extends AEntity {
 
 	public InvoiceBuilder withExternalId(final String externalId) {
 	    this.externalId = MyStrings.requireNonEmpty(externalId, "externalId");
+	    return this;
+	}
+
+	public InvoiceBuilder withExternalId(final Number externalId) {
+	    this.externalId = String.valueOf(MyNumbers.nonZero(externalId));
 	    return this;
 	}
 
