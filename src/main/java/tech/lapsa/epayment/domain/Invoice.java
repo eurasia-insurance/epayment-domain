@@ -104,6 +104,11 @@ public class Invoice extends AEntity {
 	    return this;
 	}
 
+	public InvoiceBuilder testingNumberWith(final Predicate<String> numberIsUniqueTest) {
+	    this.numberIsUniqueTest = MyObjects.requireNonNull(numberIsUniqueTest, "numberIsUniqueTest");
+	    return this;
+	}
+
 	public InvoiceBuilder withCurrencty(final FinCurrency currency) {
 	    this.currency = Objects.requireNonNull(currency, "currency");
 	    return this;
