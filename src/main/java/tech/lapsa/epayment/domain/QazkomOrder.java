@@ -234,4 +234,13 @@ public class QazkomOrder extends AEntity {
 	return cartDoc;
     }
 
+    // controllers
+
+    @Override
+    public void unlazy() {
+	MyOptionals.of(getCartDoc()).ifPresent(AEntity::unlazy);
+	MyOptionals.of(getOrderDoc()).ifPresent(AEntity::unlazy);
+	MyOptionals.of(getPayment()).ifPresent(AEntity::unlazy);
+	MyOptionals.of(getForInvoice()).ifPresent(AEntity::unlazy);
+    }
 }

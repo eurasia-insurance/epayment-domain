@@ -46,4 +46,10 @@ public class QazkomXmlDocument extends AEntity {
     public Optional<String> optionalBase64Xml() {
 	return MyOptionals.of(getBase64Xml());
     }
+
+    // controllers
+    
+    @Override
+    public void unlazy() {
+    }
 }

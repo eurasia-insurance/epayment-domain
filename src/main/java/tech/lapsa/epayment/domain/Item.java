@@ -88,4 +88,10 @@ public class Item extends AEntity {
 	return MyOptionals.ofDouble(price).orElse(0d) //
 		* MyOptionals.ofInt(quantity).orElse(0);
     }
+
+    // controllers
+    
+    @Override
+    public void unlazy() {
+    }
 }

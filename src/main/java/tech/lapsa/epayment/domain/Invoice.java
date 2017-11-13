@@ -317,4 +317,10 @@ public class Invoice extends AEntity {
 
 	return this;
     }
+
+    @Override
+    public void unlazy() {
+	MyOptionals.of(getPayment()).ifPresent(AEntity::unlazy);
+	getAmount();
+    }
 }

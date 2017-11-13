@@ -33,4 +33,10 @@ public abstract class APayment extends AEntity {
     // method
 
     public abstract PaymentMethod getMethod();
+
+    // controllers
+
+    @Override
+    public void unlazy() {
+    }
 }

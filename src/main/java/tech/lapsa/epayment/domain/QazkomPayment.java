@@ -221,4 +221,13 @@ public class QazkomPayment extends APayment {
     public QazkomXmlDocument getPaymentDoc() {
 	return paymentDoc;
     }
+
+    // controllers
+
+    @Override
+    public void unlazy() {
+	super.unlazy();
+	MyOptionals.of(getPaymentDoc()).ifPresent(AEntity::unlazy);
+    }
+
 }
