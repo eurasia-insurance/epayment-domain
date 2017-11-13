@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.UUID;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,6 +26,29 @@ public class Invoice extends AEntity {
 
     private static final long serialVersionUID = 1L;
     private static final int PRIME = 3;
+
+    public static String generateNumber() {
+	return UUID.randomUUID() //
+		.toString() //
+	;
+    }
+
+    public static String generateNumber(final Predicate<String> numberIsUnique)
+	    throws NumberOfAttemptsExceedException {
+	MyObjects.requireNonNull(numberIsUnique, "numberIsUnique");
+	final int NUMBER_OF_ATTEMPTS = 100;
+	int attempt = 0;
+	String number;
+	do {
+	    number = generateNumber();
+	    if (attempt++ > NUMBER_OF_ATTEMPTS)
+		throw new NumberOfAttemptsExceedException(
+			String.format(
+				"The number of attempts is exceed the limit (%1$d) while generating the unique number",
+				NUMBER_OF_ATTEMPTS));
+	} while (!numberIsUnique.test(number));
+	return number;
+    }
 
     public static InvoiceBuilder builder() {
 	return new InvoiceBuilder();
@@ -49,8 +74,28 @@ public class Invoice extends AEntity {
 	private TaxpayerNumber consumerTaxpayerNumber;
 	private String externalId;
 	private List<Itm> itms = new ArrayList<>();
+	private String number;
+	private Predicate<String> numberIsUnique;
 
 	private InvoiceBuilder() {
+	}
+
+	public InvoiceBuilder withNumber(final String number) {
+	    this.number = MyStrings.requireNonEmpty(number, "number");
+	    this.numberIsUnique = null;
+	    return this;
+	}
+
+	public InvoiceBuilder withNumber(final String number, final Predicate<String> numberIsUnique) {
+	    this.number = MyStrings.requireNonEmpty(number, "number");
+	    this.numberIsUnique = MyObjects.requireNonNull(numberIsUnique, "numberIsUnique");
+	    return this;
+	}
+
+	public InvoiceBuilder withGeneratedNumber(final Predicate<String> numberIsUnique) {
+	    this.number = null;
+	    this.numberIsUnique = MyObjects.requireNonNull(numberIsUnique, "numberIsUnique");
+	    return this;
 	}
 
 	public InvoiceBuilder withCurrencty(final FinCurrency currency) {
@@ -91,8 +136,21 @@ public class Invoice extends AEntity {
 	    return this;
 	}
 
-	public Invoice build() {
+	public Invoice build() throws NonUniqueNumberException, NumberOfAttemptsExceedException {
 	    final Invoice invoice = new Invoice();
+
+	    if (MyStrings.empty(number)) {
+		// using generated value
+		invoice.number = MyObjects.nonNull(numberIsUnique) //
+			? Invoice.generateNumber(numberIsUnique) //
+			: Invoice.generateNumber();
+	    } else {
+		// using user value
+		if (MyObjects.nonNull(numberIsUnique) && !numberIsUnique.test(number))
+		    throw new NonUniqueNumberException(String.format("The number is non-unique (%1$s)", number));
+		invoice.number = number;
+	    }
+
 	    invoice.currency = MyObjects.requireNonNull(currency, "currency");
 	    invoice.items = MyOptionals.streamOf(itms) //
 		    .orElseThrow(() -> new IllegalArgumentException(
@@ -138,6 +196,14 @@ public class Invoice extends AEntity {
 	return sb.append(sj.toString()) //
 		.append(appendEntityId()) //
 		.toString();
+    }
+
+    // number
+
+    protected String number;
+
+    public String getNumber() {
+	return number;
     }
 
     // created
