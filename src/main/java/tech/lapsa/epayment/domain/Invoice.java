@@ -204,6 +204,14 @@ public class Invoice extends AEntity {
 		.toString();
     }
 
+    // created
+
+    protected Instant created = Instant.now();
+
+    public Instant getCreated() {
+	return created;
+    }
+
     // number
 
     protected String number;
@@ -212,13 +220,7 @@ public class Invoice extends AEntity {
 	return number;
     }
 
-    // created
-
-    protected Instant created = Instant.now();
-
-    public Instant getCreated() {
-	return created;
-    }
+    // status
 
     protected InvoiceStatus status = InvoiceStatus.READY;
 
