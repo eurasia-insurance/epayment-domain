@@ -148,8 +148,8 @@ public class Invoice extends AEntity {
 	    if (MyStrings.empty(number)) {
 		// using generated value
 		invoice.number = MyObjects.nonNull(numberIsUniqueTest) //
-			? Invoice.generateNumber(numberIsUniqueTest) //
-			: Invoice.generateNumber();
+			? generateNumber(numberIsUniqueTest) //
+			: generateNumber();
 	    } else {
 		// using user value
 		if (MyObjects.nonNull(numberIsUniqueTest) && !numberIsUniqueTest.test(number))

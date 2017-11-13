@@ -107,8 +107,8 @@ public class QazkomOrder extends AEntity {
 	    if (MyStrings.empty(orderNumber)) {
 		// using generated value
 		result.orderNumber = MyObjects.nonNull(numberIsUniqueTest) //
-			? Invoice.generateNumber(numberIsUniqueTest) //
-			: Invoice.generateNumber();
+			? generateNumber(numberIsUniqueTest) //
+			: generateNumber();
 	    } else {
 		// using user value
 		if (MyObjects.nonNull(numberIsUniqueTest) && !numberIsUniqueTest.test(orderNumber))
