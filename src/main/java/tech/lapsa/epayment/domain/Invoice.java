@@ -33,9 +33,9 @@ public class Invoice extends AEntity {
 	;
     }
 
-    public static String generateNumber(final Predicate<String> numberIsUnique)
+    public static String generateNumber(final Predicate<String> numberIsUniqueTest)
 	    throws NumberOfAttemptsExceedException {
-	MyObjects.requireNonNull(numberIsUnique, "numberIsUnique");
+	MyObjects.requireNonNull(numberIsUniqueTest, "numberIsUniqueTest");
 	final int NUMBER_OF_ATTEMPTS = 100;
 	int attempt = 0;
 	String number;
@@ -46,7 +46,7 @@ public class Invoice extends AEntity {
 			String.format(
 				"The number of attempts is exceed the limit (%1$d) while generating the unique number",
 				NUMBER_OF_ATTEMPTS));
-	} while (!numberIsUnique.test(number));
+	} while (!numberIsUniqueTest.test(number));
 	return number;
     }
 
@@ -75,32 +75,32 @@ public class Invoice extends AEntity {
 	private String externalId;
 	private List<Itm> itms = new ArrayList<>();
 	private String number;
-	private Predicate<String> numberIsUnique;
+	private Predicate<String> numberIsUniqueTest;
 
 	private InvoiceBuilder() {
 	}
 
 	public InvoiceBuilder withNumber(final String number) {
 	    this.number = MyStrings.requireNonEmpty(number, "number");
-	    this.numberIsUnique = null;
+	    this.numberIsUniqueTest = null;
 	    return this;
 	}
 
-	public InvoiceBuilder withNumber(final String number, final Predicate<String> numberIsUnique) {
+	public InvoiceBuilder withNumber(final String number, final Predicate<String> numberIsUniqueTest) {
 	    this.number = MyStrings.requireNonEmpty(number, "number");
-	    this.numberIsUnique = MyObjects.requireNonNull(numberIsUnique, "numberIsUnique");
+	    this.numberIsUniqueTest = MyObjects.requireNonNull(numberIsUniqueTest, "numberIsUniqueTest");
 	    return this;
 	}
 
-	public InvoiceBuilder withGeneratedNumber(final Predicate<String> numberIsUnique) {
+	public InvoiceBuilder withGeneratedNumber(final Predicate<String> numberIsUniqueTest) {
 	    this.number = null;
-	    this.numberIsUnique = MyObjects.requireNonNull(numberIsUnique, "numberIsUnique");
+	    this.numberIsUniqueTest = MyObjects.requireNonNull(numberIsUniqueTest, "numberIsUniqueTest");
 	    return this;
 	}
 
 	public InvoiceBuilder withGeneratedNumber() {
 	    this.number = null;
-	    this.numberIsUnique = null;
+	    this.numberIsUniqueTest = null;
 	    return this;
 	}
 
@@ -147,12 +147,12 @@ public class Invoice extends AEntity {
 
 	    if (MyStrings.empty(number)) {
 		// using generated value
-		invoice.number = MyObjects.nonNull(numberIsUnique) //
-			? Invoice.generateNumber(numberIsUnique) //
+		invoice.number = MyObjects.nonNull(numberIsUniqueTest) //
+			? Invoice.generateNumber(numberIsUniqueTest) //
 			: Invoice.generateNumber();
 	    } else {
 		// using user value
-		if (MyObjects.nonNull(numberIsUnique) && !numberIsUnique.test(number))
+		if (MyObjects.nonNull(numberIsUniqueTest) && !numberIsUniqueTest.test(number))
 		    throw new NonUniqueNumberException(String.format("The number is non-unique (%1$s)", number));
 		invoice.number = number;
 	    }

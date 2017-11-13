@@ -28,9 +28,9 @@ public class QazkomOrder extends AEntity {
 	return String.valueOf(Math.abs(UUID.randomUUID().getLeastSignificantBits() / 10000));
     }
 
-    public static String generateNumber(final Predicate<String> numberIsUnique)
+    public static String generateNumber(final Predicate<String> numberIsUniqueTest)
 	    throws NumberOfAttemptsExceedException {
-	MyObjects.requireNonNull(numberIsUnique, "numberIsUnique");
+	MyObjects.requireNonNull(numberIsUniqueTest, "numberIsUniqueTest");
 	final int NUMBER_OF_ATTEMPTS = 100;
 	int attempt = 0;
 	String number;
@@ -41,7 +41,7 @@ public class QazkomOrder extends AEntity {
 			String.format(
 				"The number of attempts is exceed the limit (%1$d) while generating the unique number",
 				NUMBER_OF_ATTEMPTS));
-	} while (!numberIsUnique.test(number));
+	} while (!numberIsUniqueTest.test(number));
 	return number;
     }
 
@@ -57,7 +57,7 @@ public class QazkomOrder extends AEntity {
 	private String merchantName;
 	private PrivateKey merchantKey;
 	private X509Certificate merchantCertificate;
-	private Predicate<String> numberIsUnique;
+	private Predicate<String> numberIsUniqueTest;
 
 	private QazkomOrderBuilder() {
 	}
@@ -69,25 +69,25 @@ public class QazkomOrder extends AEntity {
 
 	public QazkomOrderBuilder withNumber(final String orderNumber) {
 	    this.orderNumber = MyStrings.requireNonEmpty(orderNumber, "orderNumber");
-	    this.numberIsUnique = null;
+	    this.numberIsUniqueTest = null;
 	    return this;
 	}
 
-	public QazkomOrderBuilder withNumber(final String orderNumber, final Predicate<String> numberIsUnique) {
+	public QazkomOrderBuilder withNumber(final String orderNumber, final Predicate<String> numberIsUniqueTest) {
 	    this.orderNumber = MyStrings.requireNonEmpty(orderNumber, "orderNumber");
-	    this.numberIsUnique = MyObjects.requireNonNull(numberIsUnique, "numberIsUnique");
+	    this.numberIsUniqueTest = MyObjects.requireNonNull(numberIsUniqueTest, "numberIsUniqueTest");
 	    return this;
 	}
 
-	public QazkomOrderBuilder withGeneratedNumber(final Predicate<String> numberIsUnique) {
+	public QazkomOrderBuilder withGeneratedNumber(final Predicate<String> numberIsUniqueTest) {
 	    this.orderNumber = null;
-	    this.numberIsUnique = MyObjects.requireNonNull(numberIsUnique, "numberIsUnique");
+	    this.numberIsUniqueTest = MyObjects.requireNonNull(numberIsUniqueTest, "numberIsUniqueTest");
 	    return this;
 	}
 	
 	public QazkomOrderBuilder withGeneratedNumber() {
 	    this.orderNumber = null;
-	    this.numberIsUnique = null;
+	    this.numberIsUniqueTest = null;
 	    return this;
 	}
 	
@@ -106,12 +106,12 @@ public class QazkomOrder extends AEntity {
 
 	    if (MyStrings.empty(orderNumber)) {
 		// using generated value
-		result.orderNumber = MyObjects.nonNull(numberIsUnique) //
-			? Invoice.generateNumber(numberIsUnique) //
+		result.orderNumber = MyObjects.nonNull(numberIsUniqueTest) //
+			? Invoice.generateNumber(numberIsUniqueTest) //
 			: Invoice.generateNumber();
 	    } else {
 		// using user value
-		if (MyObjects.nonNull(numberIsUnique) && !numberIsUnique.test(orderNumber))
+		if (MyObjects.nonNull(numberIsUniqueTest) && !numberIsUniqueTest.test(orderNumber))
 		    throw new NonUniqueNumberException(String.format("The number is non-unique (%1$s)", orderNumber));
 		result.orderNumber = orderNumber;
 	    }
