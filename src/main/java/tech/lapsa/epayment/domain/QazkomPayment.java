@@ -19,7 +19,6 @@ import tech.lapsa.java.commons.function.MyCollections;
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
-import tech.lapsa.java.commons.localization.Localized;
 
 public class QazkomPayment extends APayment {
 
@@ -149,7 +148,7 @@ public class QazkomPayment extends APayment {
     }
 
     @Override
-    public Localized getMethod() {
+    public PaymentMethod getMethod() {
 	return PaymentMethod.QAZKOM;
     }
 

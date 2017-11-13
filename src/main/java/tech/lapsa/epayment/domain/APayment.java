@@ -2,8 +2,6 @@ package tech.lapsa.epayment.domain;
 
 import java.time.Instant;
 
-import tech.lapsa.java.commons.localization.Localized;
-
 public abstract class APayment extends AEntity {
 
     private static final long serialVersionUID = 1L;
@@ -34,5 +32,5 @@ public abstract class APayment extends AEntity {
 
     // method
 
-    public abstract Localized getMethod();
+    public abstract PaymentMethod getMethod();
 }
