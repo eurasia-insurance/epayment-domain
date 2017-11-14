@@ -116,7 +116,7 @@ public class Invoice extends AEntity {
 	    return this;
 	}
 
-	// TODO fix syntax mistake
+	// TODO REFACTOR : Need to fix syntax mistake
 	public InvoiceBuilder withCurrencty(final FinCurrency currency) {
 	    this.currency = Objects.requireNonNull(currency, "currency");
 	    return this;
