@@ -1,5 +1,6 @@
 package tech.lapsa.epayment.domain;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,8 +55,14 @@ public class Invoice extends AEntity {
 	return new InvoiceBuilder();
     }
 
-    public static final class InvoiceBuilder {
-	private class Itm {
+    public static final class InvoiceBuilder implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private class Itm implements Serializable {
+
+	    private static final long serialVersionUID = 1L;
+
 	    private final String name;
 	    private final Integer quantity;
 	    private final Double price;
