@@ -232,14 +232,23 @@ public class Invoice extends AEntity {
 	final StringJoiner sj = new StringJoiner(", ", " ", "");
 	sj.setEmptyValue("");
 
+	MyOptionals.of(number) //
+	.map(Localization.FIELD_INVOICE_NUMBER.fieldAsCaptionMapper(variant, locale)) //
+	.ifPresent(sj::add);
+
 	MyOptionals.of(status) //
-		.map(Localized.toLocalizedMapper(variant, locale))//
-		.map(Localization.FIELD_INVOICE_STATTUS.fieldAsCaptionMapper(variant, locale)) //
-		.ifPresent(sj::add);
+	.map(Localized.toLocalizedMapper(variant, locale))//
+	.map(Localization.FIELD_INVOICE_STATTUS.fieldAsCaptionMapper(variant, locale)) //
+	.ifPresent(sj::add);
 
 	return sb.append(sj.toString()) //
 		.append(appendEntityId()) //
 		.toString();
+    }
+    
+    public static void main(String[] args) {
+	Invoice i = new Invoice();
+	System.out.println(i);
     }
 
     // created
