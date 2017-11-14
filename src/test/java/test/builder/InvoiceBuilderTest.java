@@ -16,7 +16,7 @@ public class InvoiceBuilderTest {
 
     public static Invoice invoice() {
 	return Invoice.builder() //
-		.withCurrencty(FinCurrency.KZT) //
+		.withCurrency(FinCurrency.KZT) //
 		.withConsumer("Vadim Isaev", "vadim.isaev@me.com", LocalizationLanguage.RUSSIAN,
 			TaxpayerNumber.of("800225000319")) //
 		.withExternalId("123") //
