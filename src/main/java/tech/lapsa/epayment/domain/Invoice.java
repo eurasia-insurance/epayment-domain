@@ -349,6 +349,12 @@ public class Invoice extends AEntity {
 
     // controllers
 
+    @Override
+    public void unlazy() {
+	MyOptionals.of(getPayment()).ifPresent(AEntity::unlazy);
+	getAmount(); // also fetches 'items'
+    }
+
     public Invoice paidBy(final APayment payment) {
 	if (status != InvoiceStatus.READY)
 	    throw new IllegalStateException("Invoice state is not ready. It could be expired or paid already");
@@ -362,11 +368,5 @@ public class Invoice extends AEntity {
 	payment.forInvoice = this;
 
 	return this;
-    }
-
-    @Override
-    public void unlazy() {
-	MyOptionals.of(getPayment()).ifPresent(AEntity::unlazy);
-	getAmount();
     }
 }
