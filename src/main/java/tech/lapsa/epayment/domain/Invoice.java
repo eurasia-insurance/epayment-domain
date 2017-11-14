@@ -175,7 +175,7 @@ public class Invoice extends AEntity {
 	}
 
 	public InvoiceBuilder withExternalId(final Number externalId) {
-	    this.externalId = String.valueOf(MyNumbers.nonZero(externalId));
+	    this.externalId = String.valueOf(MyNumbers.requireNonZero(externalId));
 	    return this;
 	}
 
