@@ -18,6 +18,9 @@ public abstract class ADomain implements Serializable, Localized {
 
     protected abstract int prime();
 
+    public void unlazy() {
+    }
+
     @Override
     public final int hashCode() {
 	return HashCodeBuilder.reflectionHashCode(prime(), prime(), this, false);

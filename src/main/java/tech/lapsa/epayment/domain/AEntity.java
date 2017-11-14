@@ -29,6 +29,4 @@ public abstract class AEntity extends ADomain {
     static String appendEntityId(final Object id) {
 	return " [ID=" + MyOptionals.of(id).map(Object::toString).orElse("NONE") + "]";
     }
-
-    public abstract void unlazy();
 }
