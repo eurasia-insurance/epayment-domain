@@ -16,7 +16,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import tech.lapsa.epayment.domain.QazkomPayment;
-import tech.lapsa.java.commons.resources.Resources;
+import tech.lapsa.java.commons.io.MyResources;
 import tech.lapsa.java.commons.security.MyCertificates;
 import tech.lapsa.java.commons.security.MyKeyStores;
 import tech.lapsa.java.commons.security.MyKeyStores.StoreType;
@@ -33,7 +33,7 @@ public class QazkomPaymentBuilderTest {
     @BeforeClass
     public static void loadKeys() throws Exception {
 
-	InputStream storeStream = Resources.optionalAsStream(QazkomPaymentBuilderTest.class, KEYSTORE) //
+	InputStream storeStream = MyResources.optionalAsStream(QazkomPaymentBuilderTest.class, KEYSTORE) //
 		.orElseThrow(() -> new RuntimeException("Keystore not found"));
 
 	KeyStore keystore = MyKeyStores.from(storeStream, STORETYPE, STOREPASS) //
