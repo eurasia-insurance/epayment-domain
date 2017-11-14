@@ -245,18 +245,21 @@ public class QazkomOrder extends AEntity {
     }
 
     public void paidBy(QazkomPayment qp) {
+	validate(qp);
+
+	MyObjects.requireNullMsg(qp.order, "Payment already has order attached");
+	MyObjects.requireNullMsg(this.payment, "Order already has payment attached");
+	this.payment = qp;
+	qp.order = this;
+    }
+
+    public void validate(QazkomPayment qp) {
 	MyObjects.requireNonNull(qp);
 	MyStrings.requireEqualsMsg(orderNumber, qp.orderNumber,
 		"Qazkom order number and payment order number are not the same");
 	MyNumbers.requireEqualsMsg(getAmount(), qp.getAmount(),
 		"Qazkom order amount and payment amount are not the same");
-
-	MyObjects.requireNullMsg(qp.order, "Payment already has order attached");
-	MyObjects.requireNullMsg(this.payment, "Order already has payment attached");
 	// TODO FEAUTURE : Need to implement more Qazkom validation points
-
-	this.payment = qp;
-	qp.order = this;
     }
 
 }
