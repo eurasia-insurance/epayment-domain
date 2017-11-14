@@ -127,18 +127,18 @@ public class QazkomPayment extends APayment {
     public String localized(final LocalizationVariant variant, final Locale locale) {
 	final StringBuilder sb = new StringBuilder();
 
-	sb.append(Localization.QAZKOM_PAYMENT.localized(variant, locale));
+	sb.append(Localization.QAZKOMPAYMENT_NAME.localized(variant, locale));
 
 	final StringJoiner sj = new StringJoiner(", ", " ", "");
 	sj.setEmptyValue("");
 
 	MyOptionals.of(orderNumber) //
-		.map(Localization.FIELD_ORDER_NUMBER.fieldAsCaptionMapper(variant, locale)) //
+		.map(Localization.FIELD_NUMBER.fieldAsCaptionMapper(variant, locale)) //
 		.ifPresent(sj::add);
 
 	if (amount != null && currency != null) {
 	    final FinCurrency c = FinCurrency.byNumericCode(currency.getNumericCode());
-	    sj.add(Localization.FIELD_PAYMENT_AMOUNT.fieldAsCaptionMapper(variant, locale)
+	    sj.add(Localization.PAYMENT_FIELD_AMOUNT.fieldAsCaptionMapper(variant, locale)
 		    .apply(c.formatAmount(amount)));
 	}
 

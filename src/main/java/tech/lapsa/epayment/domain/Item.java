@@ -21,24 +21,24 @@ public class Item extends AEntity {
 	final StringBuilder sb = new StringBuilder();
 
 	sb.append(MyOptionals.of(name) //
-		.orElseGet(() -> Localization.ITEM_EMPTY.localized(variant, locale)));
+		.orElseGet(() -> Localization.ITEM_EMPTYNAME.localized(variant, locale)));
 
 	final StringJoiner sj = new StringJoiner(", ", " ", "");
 	sj.setEmptyValue("");
 
 	MyOptionals.of(price) //
 		.map(x -> x.toString()) //
-		.map(Localization.FIELD_ITEM_PRICE.fieldAsCaptionMapper(variant, locale)) //
+		.map(Localization.ITEM_FIELD_PRICE.fieldAsCaptionMapper(variant, locale)) //
 		.ifPresent(sj::add);
 
 	MyOptionals.of(quantity) //
 		.map(x -> x.toString()) //
-		.map(Localization.FIELD_ITEM_QUANTITY.fieldAsCaptionMapper(variant, locale)) //
+		.map(Localization.ITEM_FIELD_QUANTITY.fieldAsCaptionMapper(variant, locale)) //
 		.ifPresent(sj::add);
 
 	MyOptionals.of(getTotal()) //
 		.map(x -> x.toString()) //
-		.map(Localization.FIELD_ITEM_TOTAL.fieldAsCaptionMapper(variant, locale)) //
+		.map(Localization.ITEM_FIELD_TOTAL.fieldAsCaptionMapper(variant, locale)) //
 		.ifPresent(sj::add);
 
 	return sb.append(sj.toString()) //

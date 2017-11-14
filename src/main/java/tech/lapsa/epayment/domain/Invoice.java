@@ -227,18 +227,18 @@ public class Invoice extends AEntity {
     public String localized(final LocalizationVariant variant, final Locale locale) {
 	final StringBuilder sb = new StringBuilder();
 
-	sb.append(Localization.INVOICE.localized(variant, locale));
+	sb.append(Localization.INVOICE_NAME.localized(variant, locale));
 
 	final StringJoiner sj = new StringJoiner(", ", " ", "");
 	sj.setEmptyValue("");
 
 	MyOptionals.of(number) //
-	.map(Localization.FIELD_INVOICE_NUMBER.fieldAsCaptionMapper(variant, locale)) //
+	.map(Localization.FIELD_NUMBER.fieldAsCaptionMapper(variant, locale)) //
 	.ifPresent(sj::add);
 
 	MyOptionals.of(status) //
 	.map(Localized.toLocalizedMapper(variant, locale))//
-	.map(Localization.FIELD_INVOICE_STATTUS.fieldAsCaptionMapper(variant, locale)) //
+	.map(Localization.FIELD_STATUS.fieldAsCaptionMapper(variant, locale)) //
 	.ifPresent(sj::add);
 
 	return sb.append(sj.toString()) //

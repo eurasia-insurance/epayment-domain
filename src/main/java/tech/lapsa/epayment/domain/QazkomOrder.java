@@ -151,13 +151,13 @@ public class QazkomOrder extends AEntity {
     public String localized(final LocalizationVariant variant, final Locale locale) {
 	final StringBuilder sb = new StringBuilder();
 
-	sb.append(Localization.QAZKOM_ORDER.localized(variant, locale));
+	sb.append(Localization.QAZKOMORDER_NAME.localized(variant, locale));
 
 	final StringJoiner sj = new StringJoiner(", ", " ", "");
 	sj.setEmptyValue("");
 
 	MyOptionals.of(orderNumber) //
-		.map(Localization.FIELD_ORDER_NUMBER.fieldAsCaptionMapper(variant, locale)) //
+		.map(Localization.FIELD_NUMBER.fieldAsCaptionMapper(variant, locale)) //
 		.ifPresent(sj::add);
 
 	MyOptionals.of(created) //
