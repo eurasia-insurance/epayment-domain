@@ -1,9 +1,11 @@
 package tech.lapsa.epayment.domain;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -14,7 +16,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.lapsa.fin.FinCurrency;
 import com.lapsa.international.localization.LocalizationLanguage;
 
 import tech.lapsa.java.commons.function.MyExceptions;
@@ -23,6 +24,7 @@ import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localized;
+import tech.lapsa.java.commons.localization.Localizeds;
 import tech.lapsa.kz.taxpayer.TaxpayerNumber;
 
 public class Invoice extends AEntity {
@@ -76,7 +78,7 @@ public class Invoice extends AEntity {
 	    }
 	}
 
-	private FinCurrency currency;
+	private Currency currency;
 	private String consumerEmail;
 	private String consumerName;
 	private LocalizationLanguage consumerPreferLanguage;
@@ -118,7 +120,7 @@ public class Invoice extends AEntity {
 	    return this;
 	}
 
-	public InvoiceBuilder withCurrency(final FinCurrency currency) {
+	public InvoiceBuilder withCurrency(final Currency currency) {
 	    this.currency = Objects.requireNonNull(currency, "currency");
 	    return this;
 	}
@@ -242,6 +244,20 @@ public class Invoice extends AEntity {
 		.map(Localization.FIELD_STATUS.fieldAsCaptionMapper(variant, locale)) //
 		.ifPresent(sj::add);
 
+	MyOptionals.of(created) //
+		.map(Localizeds.instantMapper(locale)) //
+		.map(Localization.FIELD_CREATED.fieldAsCaptionMapper(variant, locale)) //
+		.ifPresent(sj::add);
+
+	if (currency != null) {
+	    StringBuffer sbb = new StringBuffer();
+	    sbb.append(NumberFormat.getCurrencyInstance().format(getAmount()));
+	    sbb.append(' ');
+	    sbb.append(currency.getCurrencyCode());
+	    sj.add(Localization.INVOICE_FIELD_AMOUNT.fieldAsCaptionMapper(variant, locale)
+		    .apply(sbb.toString()));
+	}
+
 	return sb.append(sj.toString()) //
 		.append(appendEntityId()) //
 		.toString();
@@ -273,9 +289,9 @@ public class Invoice extends AEntity {
 
     // currency
 
-    protected FinCurrency currency;
+    protected Currency currency;
 
-    public FinCurrency getCurrency() {
+    public Currency getCurrency() {
 	return currency;
     }
 

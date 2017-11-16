@@ -22,7 +22,6 @@
 		<!-- oldies -->
 		<international-lib.version>3.3-SNAPSHOT</international-lib.version>
 		<kz-lib.version>3.2-SNAPSHOT</kz-lib.version>
-		<fin-lib.version>2.1</fin-lib.version>
 	</properties>
 
 	<dependencyManagement>
@@ -56,13 +55,6 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<dependency>
-				<groupId>com.lapsa.fin-lib</groupId>
-				<artifactId>fin-root</artifactId>
-				<version>${fin-lib.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -87,12 +79,6 @@
 			<optional>false</optional>
 		</dependency>
 		<!-- oldies -->
-		<dependency>
-			<groupId>com.lapsa.fin-lib</groupId>
-			<artifactId>fin-core</artifactId>
-			<scope>compile</scope>
-			<optional>false</optional>
-		</dependency>
 		<dependency>
 			<groupId>com.lapsa.kz-lib</groupId>
 			<artifactId>kz-core</artifactId>
