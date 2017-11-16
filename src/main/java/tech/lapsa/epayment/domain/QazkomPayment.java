@@ -3,6 +3,7 @@ package tech.lapsa.epayment.domain;
 import java.security.cert.X509Certificate;
 import java.util.Currency;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.StringJoiner;
 
 import com.lapsa.fin.FinCurrency;
@@ -160,6 +161,10 @@ public class QazkomPayment extends APayment {
 	return order;
     }
 
+    public Optional<QazkomOrder> optionalOrder() {
+	return MyOptionals.of(order);
+    }
+
     // orderNumber
 
     protected String orderNumber;
@@ -180,14 +185,6 @@ public class QazkomPayment extends APayment {
 
     public String getCardNumber() {
 	return cardNumber;
-    }
-
-    // reference
-
-    protected String reference;
-
-    public String getReference() {
-	return reference;
     }
 
     // payerName
@@ -229,5 +226,4 @@ public class QazkomPayment extends APayment {
 	super.unlazy();
 	MyOptionals.of(getPaymentDoc()).ifPresent(AEntity::unlazy);
     }
-
 }

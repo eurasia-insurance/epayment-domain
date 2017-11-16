@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.StringJoiner;
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -16,6 +17,7 @@ import java.util.stream.Stream;
 import com.lapsa.fin.FinCurrency;
 import com.lapsa.international.localization.LocalizationLanguage;
 
+import tech.lapsa.java.commons.function.MyExceptions;
 import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
@@ -333,6 +335,10 @@ public class Invoice extends AEntity {
 	return payment;
     }
 
+    public Optional<APayment> optionalPayment() {
+	return MyOptionals.of(payment);
+    }
+
     // OTHERS
 
     public Double getAmount() {
@@ -351,12 +357,19 @@ public class Invoice extends AEntity {
     }
 
     public Invoice paidBy(final APayment payment) {
-	if (status != InvoiceStatus.READY)
-	    throw new IllegalStateException("Invoice state is not ready. It could be expired or paid already");
 
 	MyObjects.requireNonNull(payment, "payment");
-	MyObjects.requireNullMsg(payment.forInvoice, "Payment already has invoice attached");
-	MyObjects.requireNullMsg(this.payment, "Invoice already has payment attached");
+
+	if (payment.optionalForInvoice().isPresent())
+	    throw MyExceptions.illegalStateFormat("Payment already has invoice attached");
+
+	if (optionalPayment().isPresent())
+	    throw MyExceptions.illegalStateFormat("Invoice already has payment attached");
+
+	if (status != InvoiceStatus.READY)
+	    throw MyExceptions.illegalStateFormat("Invoice state is not READY. It might be expired or paid already");
+
+	// // TODO FEAUTURE : Need to implement more Invoice validation points
 
 	status = InvoiceStatus.PAID;
 	this.payment = payment;
