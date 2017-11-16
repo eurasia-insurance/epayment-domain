@@ -1,6 +1,9 @@
 package tech.lapsa.epayment.domain;
 
 import java.time.Instant;
+import java.util.Optional;
+
+import tech.lapsa.java.commons.function.MyOptionals;
 
 public abstract class APayment extends AEntity {
 
@@ -22,12 +25,24 @@ public abstract class APayment extends AEntity {
 	return amount;
     }
 
+    // reference
+
+    protected String reference;
+
+    public String getReference() {
+	return reference;
+    }
+
     // forInvoice
 
     protected Invoice forInvoice;
 
     public Invoice getForInvoice() {
 	return forInvoice;
+    }
+
+    public Optional<Invoice> optionalForInvoice() {
+	return MyOptionals.of(forInvoice);
     }
 
     // method

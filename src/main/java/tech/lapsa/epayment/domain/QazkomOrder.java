@@ -4,6 +4,7 @@ import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.time.Instant;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.StringJoiner;
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -13,6 +14,7 @@ import com.lapsa.fin.FinCurrency;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentCart;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder;
 import tech.lapsa.java.commons.function.MyCollections;
+import tech.lapsa.java.commons.function.MyExceptions;
 import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
@@ -210,12 +212,20 @@ public class QazkomOrder extends AEntity {
 	return forInvoice;
     }
 
+    public Optional<Invoice> optionalForInvoice() {
+	return MyOptionals.of(forInvoice);
+    }
+
     // payment
 
     protected QazkomPayment payment;
 
     public QazkomPayment getPayment() {
 	return payment;
+    }
+
+    public Optional<QazkomPayment> optionalPayment() {
+	return MyOptionals.of(payment);
     }
 
     // orderDoc
@@ -244,22 +254,24 @@ public class QazkomOrder extends AEntity {
 	MyOptionals.of(getForInvoice()).ifPresent(AEntity::unlazy);
     }
 
-    public void paidBy(QazkomPayment qp) {
-	validate(qp);
+    public void paidBy(final QazkomPayment payment) {
 
-	MyObjects.requireNullMsg(qp.order, "Payment already has order attached");
-	MyObjects.requireNullMsg(this.payment, "Order already has payment attached");
-	this.payment = qp;
-	qp.order = this;
-    }
+	MyObjects.requireNonNull(payment, "payment");
 
-    public void validate(QazkomPayment qp) {
-	MyObjects.requireNonNull(qp);
-	MyStrings.requireEqualsMsg(orderNumber, qp.orderNumber,
+	MyStrings.requireEqualsMsg(orderNumber, payment.orderNumber,
 		"Qazkom order number and payment order number are not the same");
-	MyNumbers.requireEqualsMsg(getAmount(), qp.getAmount(),
+	MyNumbers.requireEqualsMsg(getAmount(), payment.getAmount(),
 		"Qazkom order amount and payment amount are not the same");
-	// TODO FEAUTURE : Need to implement more Qazkom validation points
-    }
 
+	if (payment.optionalOrder().isPresent())
+	    throw MyExceptions.illegalStateFormat("Payment already has order attached");
+
+	if (optionalPayment().isPresent())
+	    throw MyExceptions.illegalStateFormat("Order already has payment attached");
+
+	// TODO FEAUTURE : Need to implement more Qazkom validation points
+
+	this.payment = payment;
+	payment.order = this;
+    }
 }
