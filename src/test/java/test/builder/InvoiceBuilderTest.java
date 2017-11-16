@@ -3,9 +3,10 @@ package test.builder;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
+import java.util.Currency;
+
 import org.junit.Test;
 
-import com.lapsa.fin.FinCurrency;
 import com.lapsa.international.localization.LocalizationLanguage;
 
 import tech.lapsa.epayment.domain.Invoice;
@@ -16,7 +17,7 @@ public class InvoiceBuilderTest {
 
     public static Invoice invoice() {
 	return Invoice.builder() //
-		.withCurrency(FinCurrency.KZT) //
+		.withCurrency(Currency.getInstance("KZT")) //
 		.withConsumer("Vadim Isaev", "vadim.isaev@me.com", LocalizationLanguage.RUSSIAN,
 			TaxpayerNumber.of("800225000319")) //
 		.withExternalId("123") //

@@ -1,12 +1,12 @@
 package tech.lapsa.epayment.domain;
 
 import java.security.cert.X509Certificate;
+import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.StringJoiner;
 
-import com.lapsa.fin.FinCurrency;
 import com.lapsa.international.phone.PhoneNumber;
 
 import tech.lapsa.epayment.qazkom.xml.bind.XmlBank;
@@ -20,6 +20,7 @@ import tech.lapsa.java.commons.function.MyCollections;
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
+import tech.lapsa.java.commons.localization.Localizeds;
 
 public class QazkomPayment extends APayment {
 
@@ -137,10 +138,18 @@ public class QazkomPayment extends APayment {
 		.map(Localization.FIELD_NUMBER.fieldAsCaptionMapper(variant, locale)) //
 		.ifPresent(sj::add);
 
+	MyOptionals.of(created) //
+		.map(Localizeds.instantMapper(locale)) //
+		.map(Localization.FIELD_CREATED.fieldAsCaptionMapper(variant, locale)) //
+		.ifPresent(sj::add);
+
 	if (amount != null && currency != null) {
-	    final FinCurrency c = FinCurrency.byNumericCode(currency.getNumericCode());
+	    StringBuffer sbb = new StringBuffer();
+	    sbb.append(NumberFormat.getCurrencyInstance().format(amount));
+	    sbb.append(' ');
+	    sbb.append(currency.getCurrencyCode());
 	    sj.add(Localization.PAYMENT_FIELD_AMOUNT.fieldAsCaptionMapper(variant, locale)
-		    .apply(c.formatAmount(amount)));
+		    .apply(sbb.toString()));
 	}
 
 	return sb.append(sj.toString()) //

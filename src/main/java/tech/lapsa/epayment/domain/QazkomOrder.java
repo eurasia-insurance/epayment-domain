@@ -2,14 +2,14 @@ package tech.lapsa.epayment.domain;
 
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
+import java.text.NumberFormat;
 import java.time.Instant;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.StringJoiner;
 import java.util.UUID;
 import java.util.function.Predicate;
-
-import com.lapsa.fin.FinCurrency;
 
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentCart;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder;
@@ -167,6 +167,15 @@ public class QazkomOrder extends AEntity {
 		.map(Localization.FIELD_CREATED.fieldAsCaptionMapper(variant, locale)) //
 		.ifPresent(sj::add);
 
+	if (amount != null && currency != null) {
+	    StringBuffer sbb = new StringBuffer();
+	    sbb.append(NumberFormat.getCurrencyInstance().format(amount));
+	    sbb.append(' ');
+	    sbb.append(currency.getCurrencyCode());
+	    sj.add(Localization.PAYMENT_FIELD_AMOUNT.fieldAsCaptionMapper(variant, locale)
+		    .apply(sbb.toString()));
+	}
+
 	return sb.append(sj.toString()) //
 		.append(appendEntityId()) //
 		.toString();
@@ -198,9 +207,9 @@ public class QazkomOrder extends AEntity {
 
     // currency
 
-    protected FinCurrency currency;
+    protected Currency currency;
 
-    public FinCurrency getCurrency() {
+    public Currency getCurrency() {
 	return currency;
     }
 

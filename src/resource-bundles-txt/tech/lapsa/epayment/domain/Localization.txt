@@ -1,6 +1,8 @@
 tech.lapsa.epayment.domain.Localization.INVOICE_NAME = Электронный счет
+tech.lapsa.epayment.domain.Localization.INVOICE_FIELD_AMOUNT = сумма
 
 tech.lapsa.epayment.domain.Localization.QAZKOMORDER_NAME = Платежный ордер Epay
+tech.lapsa.epayment.domain.Localization.QAZKOMORDER_FIELD_AMOUNT = сумма
 
 tech.lapsa.epayment.domain.Localization.QAZKOMPAYMENT_NAME = Платеж Epay
 
