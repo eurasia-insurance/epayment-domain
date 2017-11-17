@@ -239,7 +239,7 @@ public class Invoice extends AEntity {
 		.map(Localization.FIELD_NUMBER.fieldAsCaptionMapper(variant, locale)) //
 		.ifPresent(sj::add);
 
-	MyOptionals.of(status) //
+	MyOptionals.of(getStatus()) //
 		.map(Localized.toLocalizedMapper(variant, locale))//
 		.map(Localization.FIELD_STATUS.fieldAsCaptionMapper(variant, locale)) //
 		.ifPresent(sj::add);
@@ -277,31 +277,6 @@ public class Invoice extends AEntity {
 
     public String getNumber() {
 	return number;
-    }
-
-    // status
-
-    protected InvoiceStatus status = InvoiceStatus.READY;
-
-    public InvoiceStatus getStatus() {
-	return status;
-    }
-
-    public boolean isPaid() {
-	return status == InvoiceStatus.PAID;
-    }
-
-    public boolean isReady() {
-	return status == InvoiceStatus.READY;
-    }
-
-    public void requireReady() {
-	if (!isReady())
-	    throw MyExceptions.illegalStateFormat("Invoice state is not READY. It might be expired or paid already");
-    }
-
-    public boolean isExpired() {
-	return status == InvoiceStatus.EXPIRED;
     }
 
     // currency
@@ -372,6 +347,46 @@ public class Invoice extends AEntity {
 	return MyOptionals.of(getPayment());
     }
 
+    // statuses
+
+    public InvoiceStatus getStatus() {
+	if (isPaid())
+	    return InvoiceStatus.PAID;
+	if (isExpired())
+	    return InvoiceStatus.EXPIRED;
+	return InvoiceStatus.READY;
+    }
+
+    public boolean isPaid() {
+	return optionalPayment().isPresent();
+    }
+
+    public void requireNotPaid() {
+	if (isPaid())
+	    throw MyExceptions.illegalStateFormat("Invoice is paid already");
+    }
+
+    public boolean isExpired() {
+	return MyOptionals.of(expired).isPresent();
+    }
+
+    public boolean isReady() {
+	return !isExpired() && !isPaid();
+    }
+
+    public void requireReady() {
+	if (!isReady())
+	    throw MyExceptions.illegalStateFormat("Invoice state is not READY. It might be expired or paid already");
+    }
+
+    // expired
+
+    protected Instant expired;
+
+    public Instant getExpired() {
+	return expired;
+    }
+
     // OTHERS
 
     public Double getAmount() {
@@ -389,7 +404,12 @@ public class Invoice extends AEntity {
 	getAmount(); // also fetches 'items'
     }
 
-    public Invoice paidBy(final APayment payment) {
+    public synchronized void expire() {
+	requireNotPaid();
+	expired = Instant.now();
+    }
+
+    public synchronized Invoice paidBy(final APayment payment) {
 	requireReady();
 
 	MyObjects.requireNonNull(payment, "payment");
@@ -402,7 +422,6 @@ public class Invoice extends AEntity {
 
 	// // TODO FEAUTURE : Need to implement more Invoice validation points
 
-	status = InvoiceStatus.PAID;
 	this.payment = payment;
 	payment.forInvoice = this;
 
