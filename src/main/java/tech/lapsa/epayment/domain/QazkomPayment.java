@@ -171,7 +171,7 @@ public class QazkomPayment extends APayment {
     }
 
     public Optional<QazkomOrder> optionalOrder() {
-	return MyOptionals.of(order);
+	return MyOptionals.of(getOrder());
     }
 
     // orderNumber

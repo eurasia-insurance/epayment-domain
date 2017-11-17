@@ -222,7 +222,7 @@ public class QazkomOrder extends AEntity {
     }
 
     public Optional<Invoice> optionalForInvoice() {
-	return MyOptionals.of(forInvoice);
+	return MyOptionals.of(getForInvoice());
     }
 
     // payment
@@ -234,7 +234,7 @@ public class QazkomOrder extends AEntity {
     }
 
     public Optional<QazkomPayment> optionalPayment() {
-	return MyOptionals.of(payment);
+	return MyOptionals.of(getPayment());
     }
 
     // orderDoc

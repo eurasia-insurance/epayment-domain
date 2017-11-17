@@ -36,8 +36,12 @@ public class QazkomXmlDocument extends AEntity {
 	return rawXml;
     }
 
+    public Optional<String> optionalRawXml() {
+	return MyOptionals.of(getRawXml());
+    }
+
     public String getBase64Xml() {
-	return MyOptionals.of(rawXml) //
+	return optionalRawXml() //
 		.map(String::getBytes) //
 		.map(Base64.getEncoder()::encodeToString) //
 		.orElse(null);
