@@ -354,7 +354,7 @@ public class Invoice extends AEntity {
 	    return InvoiceStatus.PAID;
 	if (isExpired())
 	    return InvoiceStatus.EXPIRED;
-	return InvoiceStatus.READY;
+	return InvoiceStatus.PENDING;
     }
 
     public boolean isPaid() {
@@ -370,13 +370,13 @@ public class Invoice extends AEntity {
 	return MyOptionals.of(expired).isPresent();
     }
 
-    public boolean isReady() {
+    public boolean isPending() {
 	return !isExpired() && !isPaid();
     }
 
-    public void requireReady() {
-	if (!isReady())
-	    throw MyExceptions.illegalStateFormat("Invoice state is not READY. It might be expired or paid already");
+    public void requirePending() {
+	if (!isPending())
+	    throw MyExceptions.illegalStateFormat("Invoice is not pending. It could be expired or paid already");
     }
 
     // expired
@@ -410,7 +410,7 @@ public class Invoice extends AEntity {
     }
 
     public synchronized Invoice paidBy(final APayment payment) {
-	requireReady();
+	requirePending();
 
 	MyObjects.requireNonNull(payment, "payment");
 
