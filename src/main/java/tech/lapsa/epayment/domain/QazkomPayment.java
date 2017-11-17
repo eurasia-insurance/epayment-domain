@@ -12,6 +12,7 @@ import com.lapsa.international.phone.PhoneNumber;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlBank;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlCustomer;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentPayment;
+import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentPayment.XmlDocumentPaymentBuilder;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlMerchant;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlOrder;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlPayment;
@@ -34,6 +35,7 @@ public class QazkomPayment extends APayment {
     public static final class QazkomPaymentBuilder {
 	private String rawXml;
 	private X509Certificate certificate;
+	private boolean signatureCheckRequired = true;
 
 	private QazkomPaymentBuilder() {
 	}
@@ -48,14 +50,25 @@ public class QazkomPayment extends APayment {
 	    return this;
 	}
 
-	public QazkomPayment build() {
-	    MyStrings.requireNonEmpty(rawXml, "rawXml");
-	    MyObjects.requireNonNull(certificate, "certificate");
+	public QazkomPaymentBuilder withOptionalSignatureChecking() {
+	    this.signatureCheckRequired = false;
+	    return this;
+	}
 
-	    XmlDocumentPayment document = XmlDocumentPayment.builder() //
-		    .ofRawXml(rawXml) //
-		    .withBankCertificate(certificate) //
-		    .build();
+	public QazkomPayment build() {
+
+	    MyStrings.requireNonEmpty(rawXml, "rawXml");
+
+	    XmlDocumentPaymentBuilder documentBuilder = XmlDocumentPayment.builder() //
+		    .ofRawXml(rawXml);
+
+	    if (signatureCheckRequired)
+		MyObjects.requireNonNull(certificate, "certificate");
+
+	    if (MyObjects.nonNull(certificate))
+		documentBuilder.withBankCertificate(certificate);
+
+	    XmlDocumentPayment document = documentBuilder.build();
 
 	    final XmlResults results = MyOptionals.of(document.getBank()) //
 		    .map(XmlBank::getResults) //
