@@ -18,6 +18,7 @@ import tech.lapsa.epayment.qazkom.xml.bind.XmlOrder;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlPayment;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlResults;
 import tech.lapsa.java.commons.function.MyCollections;
+import tech.lapsa.java.commons.function.MyExceptions;
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
@@ -63,7 +64,7 @@ public class QazkomPayment extends APayment {
 		    .ofRawXml(rawXml);
 
 	    if (signatureCheckRequired)
-		MyObjects.requireNonNull(certificate, "certificate");
+		MyObjects.requireNonNullMsg(certificate, "Bank certificate must be provided for signature checking");
 
 	    if (MyObjects.nonNull(certificate))
 		documentBuilder.withBankCertificate(certificate);
@@ -72,17 +73,17 @@ public class QazkomPayment extends APayment {
 
 	    final XmlResults results = MyOptionals.of(document.getBank()) //
 		    .map(XmlBank::getResults) //
-		    .orElseThrow(() -> new IllegalArgumentException("Can't parse for payment results"));
+		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Can't parse for payment results"));
 
 	    final XmlPayment payment = MyOptionals.of(results.getPayments()) //
 		    .filter(x -> x.size() == 1) // must be exactly one record
 		    .flatMap(MyCollections::firstElement) // map to first
 							  // element
-		    .orElseThrow(() -> new IllegalArgumentException("Can't parse for payment line"));
+		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Can't parse for payment line"));
 
 	    final XmlCustomer customer = MyOptionals.of(document.getBank()) //
 		    .map(XmlBank::getCustomer) //
-		    .orElseThrow(() -> new IllegalArgumentException("Can't parse for customer"));
+		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Can't parse for customer"));
 
 	    final QazkomPayment result = new QazkomPayment();
 
@@ -92,25 +93,25 @@ public class QazkomPayment extends APayment {
 		    .map(XmlCustomer::getSourceMerchant) //
 		    .map(XmlMerchant::getOrder) //
 		    .map(XmlOrder::getOrderId) //
-		    .orElseThrow(() -> new IllegalArgumentException("Can't parse for order number"));
+		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Can't parse for order number"));
 
 	    result.currency = MyOptionals.of(customer) //
 		    .map(XmlCustomer::getSourceMerchant) //
 		    .map(XmlMerchant::getOrder) //
 		    .map(XmlOrder::getCurrency) //
-		    .orElseThrow(() -> new IllegalArgumentException("Can't parse for order currency"));
+		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Can't parse for order currency"));
 
 	    result.reference = MyOptionals.of(payment) //
 		    .map(XmlPayment::getReference) //
-		    .orElseThrow(() -> new IllegalArgumentException("PAYMENT Reference is empty"));
+		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Payment reference is empty"));
 
 	    result.amount = MyOptionals.of(payment) //
 		    .map(XmlPayment::getAmount) //
-		    .orElseThrow(() -> new IllegalArgumentException("PAYMENT Amount is empty"));
+		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Payment amount is empty"));
 
 	    result.created = MyOptionals.of(results) //
 		    .map(XmlResults::getTimestamp) //
-		    .orElseThrow(() -> new IllegalArgumentException("PAYMENT Timestamp is empty"));
+		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Payment timestamp is empty"));
 
 	    result.cardNumber = MyOptionals.of(payment) //
 		    .map(XmlPayment::getCardNumberMasked) //
