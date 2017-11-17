@@ -4,6 +4,7 @@ import java.util.Base64;
 import java.util.Locale;
 import java.util.Optional;
 
+import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 
@@ -12,11 +13,16 @@ public class QazkomXmlDocument extends AEntity {
     private static final int PRIME = 19;
     private static final long serialVersionUID = 1L;
 
+    public static enum DocumentType {
+	ORDER, PAYMENT, CART;
+    }
+
     public QazkomXmlDocument() {
     }
 
-    public QazkomXmlDocument(final String rawXml) {
+    public QazkomXmlDocument(final String rawXml, final DocumentType type) {
 	this.rawXml = MyStrings.requireNonEmpty(rawXml, "rawXml");
+	this.type = MyObjects.requireNonNull(type, "type");
     }
 
     @Override
@@ -26,7 +32,8 @@ public class QazkomXmlDocument extends AEntity {
 
     @Override
     public String localized(final LocalizationVariant variant, final Locale locale) {
-	return rawXml;
+	return MyOptionals.of(rawXml) //
+		.orElseGet(() -> Localization.QAZKOMXMLDOC_EMPTYNAME.localized(variant, locale));
     }
 
     // rawXml
@@ -51,8 +58,28 @@ public class QazkomXmlDocument extends AEntity {
 	return MyOptionals.of(getBase64Xml());
     }
 
+    // type
+
+    protected DocumentType type;
+
+    public DocumentType getType() {
+	return type;
+    }
+
+    public boolean isOrder() {
+	return type == DocumentType.ORDER;
+    }
+
+    public boolean isCart() {
+	return type == DocumentType.CART;
+    }
+
+    public boolean isPayment() {
+	return type == DocumentType.PAYMENT;
+    }
+
     // controllers
-    
+
     @Override
     public void unlazy() {
     }

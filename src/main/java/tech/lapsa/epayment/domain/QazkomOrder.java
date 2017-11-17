@@ -132,13 +132,14 @@ public class QazkomOrder extends AEntity {
 			    .signWith(MyObjects.requireNonNull(merchantKey, "merchantKey"),
 				    MyObjects.requireNonNull(merchantCertificate, "merchantCertificate")) //
 			    .build() //
-			    .getRawXml());
+			    .getRawXml(),
+		    QazkomXmlDocument.DocumentType.ORDER);
 
 	    result.cartDoc = new QazkomXmlDocument(XmlDocumentCart.builder() //
 		    .withItems(MyCollections.requireNonEmpty(forInvoice.getItems(), "forInvoice.getItems"),
 			    Item::getName, Item::getQuantity, Item::getTotal) //
 		    .build() //
-		    .getRawXml());
+		    .getRawXml(), QazkomXmlDocument.DocumentType.CART);
 
 	    return result;
 	}

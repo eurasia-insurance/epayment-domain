@@ -73,7 +73,7 @@ public class QazkomPayment extends APayment {
 
 	    final QazkomPayment result = new QazkomPayment();
 
-	    result.paymentDoc = new QazkomXmlDocument(rawXml);
+	    result.paymentDoc = new QazkomXmlDocument(rawXml, QazkomXmlDocument.DocumentType.PAYMENT);
 
 	    result.orderNumber = MyOptionals.of(customer) //
 		    .map(XmlCustomer::getSourceMerchant) //
