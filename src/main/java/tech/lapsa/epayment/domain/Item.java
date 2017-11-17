@@ -85,7 +85,7 @@ public class Item extends AEntity {
     // OTHERS
 
     public Double getTotal() {
-	return MyOptionals.ofDouble(price).orElse(0d) //
-		* MyOptionals.ofInt(quantity).orElse(0);
+	return MyOptionals.ofDouble(getPrice()).orElse(0d) //
+		* MyOptionals.ofInt(getQuantity()).orElse(0);
     }
 }

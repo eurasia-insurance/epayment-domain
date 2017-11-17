@@ -42,7 +42,7 @@ public abstract class APayment extends AEntity {
     }
 
     public Optional<Invoice> optionalForInvoice() {
-	return MyOptionals.of(forInvoice);
+	return MyOptionals.of(getForInvoice());
     }
 
     // method

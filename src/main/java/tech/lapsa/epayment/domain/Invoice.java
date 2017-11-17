@@ -352,13 +352,13 @@ public class Invoice extends AEntity {
     }
 
     public Optional<APayment> optionalPayment() {
-	return MyOptionals.of(payment);
+	return MyOptionals.of(getPayment());
     }
 
     // OTHERS
 
     public Double getAmount() {
-	return MyOptionals.streamOf(items)
+	return MyOptionals.streamOf(getItems())
 		.orElseGet(Stream::empty)
 		.mapToDouble(Item::getTotal)
 		.sum();
