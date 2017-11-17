@@ -238,6 +238,10 @@ public class QazkomOrder extends AEntity {
 	return MyOptionals.of(getPayment());
     }
 
+    public boolean isPaid() {
+	return optionalPayment().isPresent();
+    }
+
     // orderDoc
 
     protected QazkomXmlDocument orderDoc;

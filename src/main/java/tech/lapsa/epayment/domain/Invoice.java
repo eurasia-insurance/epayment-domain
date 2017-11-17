@@ -287,6 +287,23 @@ public class Invoice extends AEntity {
 	return status;
     }
 
+    public boolean isPaid() {
+	return status == InvoiceStatus.PAID;
+    }
+
+    public boolean isReady() {
+	return status == InvoiceStatus.READY;
+    }
+
+    public void requireReady() {
+	if (!isReady())
+	    throw MyExceptions.illegalStateFormat("Invoice state is not READY. It might be expired or paid already");
+    }
+
+    public boolean isExpired() {
+	return status == InvoiceStatus.EXPIRED;
+    }
+
     // currency
 
     protected Currency currency;
@@ -373,6 +390,7 @@ public class Invoice extends AEntity {
     }
 
     public Invoice paidBy(final APayment payment) {
+	requireReady();
 
 	MyObjects.requireNonNull(payment, "payment");
 
@@ -381,9 +399,6 @@ public class Invoice extends AEntity {
 
 	if (optionalPayment().isPresent())
 	    throw MyExceptions.illegalStateFormat("Invoice already has payment attached");
-
-	if (status != InvoiceStatus.READY)
-	    throw MyExceptions.illegalStateFormat("Invoice state is not READY. It might be expired or paid already");
 
 	// // TODO FEAUTURE : Need to implement more Invoice validation points
 
