@@ -406,21 +406,24 @@ public class Invoice extends AEntity {
     }
 
     public synchronized Invoice paidBy(final APayment payment) {
-	requirePending();
-
 	MyObjects.requireNonNull(payment, "payment");
 
-	if (payment.optionalForInvoice().isPresent())
-	    throw MyExceptions.illegalStateFormat("Payment already has invoice attached");
+	synchronized (payment) {
+	    requirePending();
 
-	if (optionalPayment().isPresent())
-	    throw MyExceptions.illegalStateFormat("Invoice already has payment attached");
+	    if (payment.optionalForInvoice().isPresent())
+		throw MyExceptions.illegalStateFormat("Payment already has invoice attached");
 
-	// // TODO FEAUTURE : Need to implement more Invoice validation points
+	    if (optionalPayment().isPresent())
+		throw MyExceptions.illegalStateFormat("Invoice already has payment attached");
 
-	this.payment = payment;
-	payment.forInvoice = this;
+	    // // TODO FEAUTURE : Need to implement more Invoice validation
+	    // points
 
-	return this;
+	    this.payment = payment;
+	    payment.forInvoice = this;
+
+	    return this;
+	}
     }
 }
