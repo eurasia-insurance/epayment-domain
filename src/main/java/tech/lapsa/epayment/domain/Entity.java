@@ -3,14 +3,14 @@ package tech.lapsa.epayment.domain;
 import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyOptionals;
 
-public abstract class AEntity extends ADomain {
+public abstract class Entity extends Domain {
 
     private static final long serialVersionUID = 1L;
 
-    protected AEntity() {
+    protected Entity() {
     }
 
-    protected AEntity(final Integer id) {
+    protected Entity(final Integer id) {
 	this.id = MyNumbers.requireNonZero(id, "id");
     }
 

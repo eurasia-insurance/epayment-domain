@@ -21,7 +21,7 @@ import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localizeds;
 
-public class QazkomOrder extends AEntity {
+public class QazkomOrder extends Entity {
 
     private static final long serialVersionUID = 1L;
     private static final int PRIME = 11;
@@ -262,10 +262,10 @@ public class QazkomOrder extends AEntity {
 
     @Override
     public void unlazy() {
-	MyOptionals.of(getCartDoc()).ifPresent(AEntity::unlazy);
-	MyOptionals.of(getOrderDoc()).ifPresent(AEntity::unlazy);
-	MyOptionals.of(getPayment()).ifPresent(AEntity::unlazy);
-	MyOptionals.of(getForInvoice()).ifPresent(AEntity::unlazy);
+	MyOptionals.of(getCartDoc()).ifPresent(Entity::unlazy);
+	MyOptionals.of(getOrderDoc()).ifPresent(Entity::unlazy);
+	MyOptionals.of(getPayment()).ifPresent(Entity::unlazy);
+	MyOptionals.of(getForInvoice()).ifPresent(Entity::unlazy);
     }
 
     public void paidBy(final QazkomPayment payment) {

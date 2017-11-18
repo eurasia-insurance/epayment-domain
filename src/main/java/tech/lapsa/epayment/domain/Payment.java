@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import tech.lapsa.java.commons.function.MyOptionals;
 
-public abstract class APayment extends AEntity {
+public abstract class Payment extends Entity {
 
     private static final long serialVersionUID = 1L;
 
