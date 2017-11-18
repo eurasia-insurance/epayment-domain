@@ -347,16 +347,6 @@ public class Invoice extends AEntity {
 	return MyOptionals.of(getPayment());
     }
 
-    // statuses
-
-    public InvoiceStatus getStatus() {
-	if (isPaid())
-	    return InvoiceStatus.PAID;
-	if (isExpired())
-	    return InvoiceStatus.EXPIRED;
-	return InvoiceStatus.PENDING;
-    }
-
     public boolean isPaid() {
 	return optionalPayment().isPresent();
     }
@@ -364,10 +354,6 @@ public class Invoice extends AEntity {
     public void requireNotPaid() {
 	if (isPaid())
 	    throw MyExceptions.illegalStateFormat("Invoice is paid already");
-    }
-
-    public boolean isExpired() {
-	return MyOptionals.of(expired).isPresent();
     }
 
     public boolean isPending() {
@@ -383,8 +369,18 @@ public class Invoice extends AEntity {
 
     protected Instant expired;
 
-    public Instant getExpired() {
-	return expired;
+    public boolean isExpired() {
+	return MyOptionals.of(expired).isPresent();
+    }
+
+    // status
+
+    public InvoiceStatus getStatus() {
+	if (isPaid())
+	    return InvoiceStatus.PAID;
+	if (isExpired())
+	    return InvoiceStatus.EXPIRED;
+	return InvoiceStatus.PENDING;
     }
 
     // OTHERS
