@@ -7,7 +7,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import tech.lapsa.java.commons.localization.Localized;
 
-public abstract class ADomain implements Serializable, Localized {
+public abstract class Domain implements Serializable, Localized {
 
     private static final long serialVersionUID = 1L;
 

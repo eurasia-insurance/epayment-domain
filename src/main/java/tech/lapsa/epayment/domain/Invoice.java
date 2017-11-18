@@ -27,7 +27,7 @@ import tech.lapsa.java.commons.localization.Localized;
 import tech.lapsa.java.commons.localization.Localizeds;
 import tech.lapsa.kz.taxpayer.TaxpayerNumber;
 
-public class Invoice extends AEntity {
+public class Invoice extends Entity {
 
     private static final long serialVersionUID = 1L;
     private static final int PRIME = 3;
@@ -337,13 +337,13 @@ public class Invoice extends AEntity {
 
     // payment
 
-    protected APayment payment;
+    protected Payment payment;
 
-    public APayment getPayment() {
+    public Payment getPayment() {
 	return payment;
     }
 
-    public Optional<APayment> optionalPayment() {
+    public Optional<Payment> optionalPayment() {
 	return MyOptionals.of(getPayment());
     }
 
@@ -396,7 +396,7 @@ public class Invoice extends AEntity {
 
     @Override
     public void unlazy() {
-	MyOptionals.of(getPayment()).ifPresent(AEntity::unlazy);
+	MyOptionals.of(getPayment()).ifPresent(Entity::unlazy);
 	getAmount(); // also fetches 'items'
     }
 
@@ -405,7 +405,7 @@ public class Invoice extends AEntity {
 	expired = Instant.now();
     }
 
-    public synchronized Invoice paidBy(final APayment payment) {
+    public synchronized Invoice paidBy(final Payment payment) {
 	MyObjects.requireNonNull(payment, "payment");
 
 	synchronized (payment) {

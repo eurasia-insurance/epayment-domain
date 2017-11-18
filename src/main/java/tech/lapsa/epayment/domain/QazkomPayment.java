@@ -24,7 +24,7 @@ import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localizeds;
 
-public class QazkomPayment extends APayment {
+public class QazkomPayment extends Payment {
 
     private static final long serialVersionUID = 1L;
     private static final int PRIME = 7;
@@ -247,6 +247,6 @@ public class QazkomPayment extends APayment {
     @Override
     public void unlazy() {
 	super.unlazy();
-	MyOptionals.of(getPaymentDoc()).ifPresent(AEntity::unlazy);
+	MyOptionals.of(getPaymentDoc()).ifPresent(Entity::unlazy);
     }
 }

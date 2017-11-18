@@ -6,7 +6,7 @@ import java.util.StringJoiner;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.localization.Localized;
 
-public class Item extends AEntity {
+public class Item extends Entity {
 
     private static final long serialVersionUID = 1L;
     private static final int PRIME = 5;

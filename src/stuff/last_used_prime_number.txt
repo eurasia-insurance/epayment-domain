@@ -2,8 +2,8 @@
        5 tech.lapsa.epayment.domain.Item
        7 tech.lapsa.epayment.domain.QazkomPayment
       11 tech.lapsa.epayment.domain.QazkomOrder
-      13 tech.lapsa.epayment.domain.AEntity
-      17 tech.lapsa.epayment.domain.APayment
+      13 tech.lapsa.epayment.domain.Entity
+      17 tech.lapsa.epayment.domain.Payment
       19 tech.lapsa.epayment.domain.QazkomXmlDocument
       23 
       29 

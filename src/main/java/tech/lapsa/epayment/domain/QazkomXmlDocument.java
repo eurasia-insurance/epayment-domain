@@ -8,7 +8,7 @@ import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 
-public class QazkomXmlDocument extends AEntity {
+public class QazkomXmlDocument extends Entity {
 
     private static final int PRIME = 19;
     private static final long serialVersionUID = 1L;
