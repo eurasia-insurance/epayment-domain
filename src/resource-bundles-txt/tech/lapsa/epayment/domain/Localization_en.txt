@@ -1,20 +1,20 @@
-tech.lapsa.epayment.domain.Localization.INVOICE_NAME = Электронный счет
-tech.lapsa.epayment.domain.Localization.INVOICE_FIELD_AMOUNT = сумма
+tech.lapsa.epayment.domain.Localization.INVOICE_NAME = E-invoice
+tech.lapsa.epayment.domain.Localization.INVOICE_FIELD_AMOUNT = amount
 
-tech.lapsa.epayment.domain.Localization.QAZKOMORDER_NAME = Платежный ордер Epay
-tech.lapsa.epayment.domain.Localization.QAZKOMORDER_FIELD_AMOUNT = сумма
+tech.lapsa.epayment.domain.Localization.QAZKOMORDER_NAME = Qazkom EPAY order
+tech.lapsa.epayment.domain.Localization.QAZKOMORDER_FIELD_AMOUNT = amount
 
-tech.lapsa.epayment.domain.Localization.QAZKOMPAYMENT_NAME = Платеж Epay
+tech.lapsa.epayment.domain.Localization.QAZKOMPAYMENT_NAME = Qazkom EPAY payment
 
-tech.lapsa.epayment.domain.Localization.QAZKOMXMLDOC_EMPTYNAME = Пустой XML документ
+tech.lapsa.epayment.domain.Localization.QAZKOMXMLDOC_EMPTYNAME = Empty XML-document
 
-tech.lapsa.epayment.domain.Localization.ITEM_EMPTYNAME = Позиция заказа
-tech.lapsa.epayment.domain.Localization.ITEM_FIELD_PRICE = цена
-tech.lapsa.epayment.domain.Localization.ITEM_FIELD_QUANTITY = количеств
-tech.lapsa.epayment.domain.Localization.ITEM_FIELD_TOTAL = стоимость
+tech.lapsa.epayment.domain.Localization.ITEM_EMPTYNAME = Invoice item
+tech.lapsa.epayment.domain.Localization.ITEM_FIELD_PRICE = price
+tech.lapsa.epayment.domain.Localization.ITEM_FIELD_QUANTITY = quantity
+tech.lapsa.epayment.domain.Localization.ITEM_FIELD_TOTAL = total
 
-tech.lapsa.epayment.domain.Localization.PAYMENT_FIELD_AMOUNT = оплачено
+tech.lapsa.epayment.domain.Localization.PAYMENT_FIELD_AMOUNT = amount
 
-tech.lapsa.epayment.domain.Localization.FIELD_CREATED = создан
-tech.lapsa.epayment.domain.Localization.FIELD_NUMBER = номер
-tech.lapsa.epayment.domain.Localization.FIELD_STATUS = статус
+tech.lapsa.epayment.domain.Localization.FIELD_CREATED = created
+tech.lapsa.epayment.domain.Localization.FIELD_NUMBER = number
+tech.lapsa.epayment.domain.Localization.FIELD_STATUS = status

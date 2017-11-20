@@ -1,1 +1,1 @@
-tech.lapsa.epayment.domain.PaymentMethod.QAZKOM = Казком Epay
+tech.lapsa.epayment.domain.PaymentMethod.QAZKOM = Казком EPAY

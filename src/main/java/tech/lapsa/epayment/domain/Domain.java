@@ -1,6 +1,7 @@
 package tech.lapsa.epayment.domain;
 
 import java.io.Serializable;
+import java.util.Locale;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -13,7 +14,7 @@ public abstract class Domain implements Serializable, Localized {
 
     @Override
     public String toString() {
-	return regular();
+	return regular(Locale.ENGLISH);
     }
 
     protected abstract int prime();
