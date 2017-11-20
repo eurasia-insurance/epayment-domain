@@ -5,7 +5,7 @@
       13 tech.lapsa.epayment.domain.Entity
       17 tech.lapsa.epayment.domain.Payment
       19 tech.lapsa.epayment.domain.QazkomXmlDocument
-      23 
+      23 tech.lapsa.epayment.domain.UnknownPayment
       29 
       31 
       37 
