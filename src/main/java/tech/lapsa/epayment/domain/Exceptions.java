@@ -67,4 +67,25 @@ public final class Exceptions {
 	    super(cause);
 	}
     }
+
+    public static class IsNotExpiredException extends IllegalStateException {
+
+	private static final long serialVersionUID = 1L;
+
+	public IsNotExpiredException() {
+	    super();
+	}
+
+	public IsNotExpiredException(String message, Throwable cause) {
+	    super(message, cause);
+	}
+
+	public IsNotExpiredException(String s) {
+	    super(s);
+	}
+
+	public IsNotExpiredException(Throwable cause) {
+	    super(cause);
+	}
+    }
 }

@@ -18,6 +18,7 @@ import java.util.stream.Stream;
 
 import com.lapsa.international.localization.LocalizationLanguage;
 
+import tech.lapsa.epayment.domain.Exceptions.IsNotExpiredException;
 import tech.lapsa.epayment.domain.Exceptions.IsNotPaidException;
 import tech.lapsa.epayment.domain.Exceptions.IsNotPendingException;
 import tech.lapsa.epayment.domain.Exceptions.IsPaidException;
@@ -381,6 +382,12 @@ public class Invoice extends Entity {
 
     public boolean isExpired() {
 	return MyOptionals.of(expired).isPresent();
+    }
+
+    public Invoice requireExpired() {
+	if (!isExpired())
+	    throw MyExceptions.illegalStateFormat(IsNotExpiredException::new, "Is not expired '%1$s'", this);
+	return this;
     }
 
     // status
