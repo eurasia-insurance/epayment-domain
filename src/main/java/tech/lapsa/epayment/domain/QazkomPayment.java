@@ -2,7 +2,6 @@ package tech.lapsa.epayment.domain;
 
 import java.security.cert.X509Certificate;
 import java.text.NumberFormat;
-import java.util.Currency;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.StringJoiner;
@@ -194,10 +193,12 @@ public class QazkomPayment extends Payment {
 	return orderNumber;
     }
 
-    protected Currency currency;
+    // reference
 
-    public Currency getCurrency() {
-	return currency;
+    protected String reference;
+
+    public String getReference() {
+	return reference;
     }
 
     // cardNumber

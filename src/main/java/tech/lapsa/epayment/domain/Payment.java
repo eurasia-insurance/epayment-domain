@@ -1,6 +1,7 @@
 package tech.lapsa.epayment.domain;
 
 import java.time.Instant;
+import java.util.Currency;
 import java.util.Optional;
 
 import tech.lapsa.java.commons.function.MyOptionals;
@@ -25,12 +26,12 @@ public abstract class Payment extends Entity {
 	return amount;
     }
 
-    // reference
+    // currency
 
-    protected String reference;
+    protected Currency currency;
 
-    public String getReference() {
-	return reference;
+    public Currency getCurrency() {
+	return currency;
     }
 
     // forInvoice
