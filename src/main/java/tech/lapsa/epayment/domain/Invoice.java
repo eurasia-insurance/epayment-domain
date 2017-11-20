@@ -253,12 +253,10 @@ public class Invoice extends Entity {
 		.ifPresent(sj::add);
 
 	if (currency != null) {
-	    StringBuffer sbb = new StringBuffer();
-	    sbb.append(NumberFormat.getCurrencyInstance().format(getAmount()));
-	    sbb.append(' ');
-	    sbb.append(currency.getCurrencyCode());
+	    NumberFormat nf = NumberFormat.getCurrencyInstance();
+	    nf.setCurrency(currency);
 	    sj.add(Localization.INVOICE_FIELD_AMOUNT.fieldAsCaptionMapper(variant, locale)
-		    .apply(sbb.toString()));
+		    .apply(nf.format(getAmount())));
 	}
 
 	return sb.append(sj.toString()) //

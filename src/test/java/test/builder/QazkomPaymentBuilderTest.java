@@ -88,6 +88,7 @@ public class QazkomPaymentBuilderTest {
 	final String REFERENCE = "160614151802";
 
 	QazkomPayment o = payment();
+	System.out.println(o);
 
 	assertThat(o, not(nullValue()));
 	assertThat(o.getCurrency(), allOf(not(nullValue()), is(equalTo(CURRENCY))));

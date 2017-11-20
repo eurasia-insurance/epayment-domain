@@ -171,12 +171,10 @@ public class QazkomOrder extends Entity {
 		.ifPresent(sj::add);
 
 	if (amount != null && currency != null) {
-	    StringBuffer sbb = new StringBuffer();
-	    sbb.append(NumberFormat.getCurrencyInstance().format(amount));
-	    sbb.append(' ');
-	    sbb.append(currency.getCurrencyCode());
+	    NumberFormat nf = NumberFormat.getCurrencyInstance();
+	    nf.setCurrency(currency);
 	    sj.add(Localization.PAYMENT_FIELD_AMOUNT.fieldAsCaptionMapper(variant, locale)
-		    .apply(sbb.toString()));
+		    .apply(nf.format(amount)));
 	}
 
 	return sb.append(sj.toString()) //

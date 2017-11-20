@@ -75,6 +75,7 @@ public class QazkomOrderBuilderTest {
     @Test
     public void simpleTest() {
 	QazkomOrder o = order();
+	System.out.println(o);
 
 	assertThat(o, not(nullValue()));
 	assertThat(o.getAmount(), allOf(not(nullValue()), equalTo(2382.05d)));

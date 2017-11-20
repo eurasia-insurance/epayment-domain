@@ -29,6 +29,7 @@ public class InvoiceBuilderTest {
     @Test
     public void simpleTest() {
 	Invoice o = invoice();
+	System.out.println(o);
 
 	assertThat(o, not(nullValue()));
 	assertThat(o.getItems(), allOf(not(emptyCollectionOf(Item.class)), hasSize(2)));
