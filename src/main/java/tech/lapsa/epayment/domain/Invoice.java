@@ -351,18 +351,26 @@ public class Invoice extends Entity {
 	return optionalPayment().isPresent();
     }
 
-    public void requireNotPaid() {
+    public Invoice requireNotPaid() {
 	if (isPaid())
-	    throw MyExceptions.illegalStateFormat("Invoice is paid already");
+	    throw MyExceptions.illegalStateFormat("Is paid '%1$s'", this);
+	return this;
+    }
+
+    public Invoice requirePaid() {
+	if (!isPaid())
+	    throw MyExceptions.illegalStateFormat("Is not paid yet '%1$s'", this);
+	return this;
     }
 
     public boolean isPending() {
 	return !isExpired() && !isPaid();
     }
 
-    public void requirePending() {
+    public Invoice requirePending() {
 	if (!isPending())
-	    throw MyExceptions.illegalStateFormat("Invoice is not pending. It could be expired or paid already");
+	    throw MyExceptions.illegalStateFormat("Is not pending. It could be expired or paid already '%1$s", this);
+	return this;
     }
 
     // expired

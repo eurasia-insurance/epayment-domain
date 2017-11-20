@@ -242,6 +242,18 @@ public class QazkomOrder extends Entity {
 	return optionalPayment().isPresent();
     }
 
+    public QazkomOrder requireNotPaid() {
+	if (isPaid())
+	    throw MyExceptions.illegalStateFormat("Is paid '%1$s'", this);
+	return this;
+    }
+
+    public QazkomOrder requirePaid() {
+	if (!isPaid())
+	    throw MyExceptions.illegalStateFormat("Is not paid yet '%1$s'", this);
+	return this;
+    }
+
     // orderDoc
 
     protected QazkomXmlDocument orderDoc;
