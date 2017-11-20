@@ -16,6 +16,8 @@ public enum Localization implements LocalizedElement {
     //
     QAZKOMXMLDOC_EMPTYNAME, //
     //
+    UNKNOWNPAYMENT_NAME,
+    //
     ITEM_EMPTYNAME,
     ITEM_FIELD_PRICE,
     ITEM_FIELD_QUANTITY,
