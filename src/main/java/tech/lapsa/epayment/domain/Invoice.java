@@ -369,7 +369,7 @@ public class Invoice extends Entity {
 
     public Invoice requirePending() {
 	if (!isPending())
-	    throw MyExceptions.illegalStateFormat("Is not pending. It could be expired or paid already '%1$s", this);
+	    throw MyExceptions.illegalStateFormat("Is not pending '%1$s'. It could be expired or paid.", this);
 	return this;
     }
 
