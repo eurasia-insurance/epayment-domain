@@ -11,6 +11,8 @@ import java.util.StringJoiner;
 import java.util.UUID;
 import java.util.function.Predicate;
 
+import tech.lapsa.epayment.domain.Exceptions.IsNotPaidException;
+import tech.lapsa.epayment.domain.Exceptions.IsPaidException;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentCart;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder;
 import tech.lapsa.java.commons.function.MyCollections;
@@ -242,15 +244,15 @@ public class QazkomOrder extends Entity {
 	return optionalPayment().isPresent();
     }
 
-    public QazkomOrder requireNotPaid() {
+    public QazkomOrder requireNotPaid() throws IllegalStateException {
 	if (isPaid())
-	    throw MyExceptions.illegalStateFormat("Is paid '%1$s'", this);
+	    throw MyExceptions.illegalStateFormat(IsPaidException::new, "Is paid '%1$s'", this);
 	return this;
     }
 
-    public QazkomOrder requirePaid() {
+    public QazkomOrder requirePaid() throws IllegalStateException {
 	if (!isPaid())
-	    throw MyExceptions.illegalStateFormat("Is not paid yet '%1$s'", this);
+	    throw MyExceptions.illegalStateFormat(IsNotPaidException::new, "Is not paid yet '%1$s'", this);
 	return this;
     }
 

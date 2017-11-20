@@ -18,6 +18,9 @@ import java.util.stream.Stream;
 
 import com.lapsa.international.localization.LocalizationLanguage;
 
+import tech.lapsa.epayment.domain.Exceptions.IsNotPaidException;
+import tech.lapsa.epayment.domain.Exceptions.IsNotPendingException;
+import tech.lapsa.epayment.domain.Exceptions.IsPaidException;
 import tech.lapsa.java.commons.function.MyExceptions;
 import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyObjects;
@@ -351,15 +354,15 @@ public class Invoice extends Entity {
 	return optionalPayment().isPresent();
     }
 
-    public Invoice requireNotPaid() {
+    public Invoice requireNotPaid() throws IllegalStateException {
 	if (isPaid())
-	    throw MyExceptions.illegalStateFormat("Is paid '%1$s'", this);
+	    throw MyExceptions.illegalStateFormat(IsPaidException::new, "Is paid '%1$s'", this);
 	return this;
     }
 
-    public Invoice requirePaid() {
+    public Invoice requirePaid() throws IllegalStateException {
 	if (!isPaid())
-	    throw MyExceptions.illegalStateFormat("Is not paid yet '%1$s'", this);
+	    throw MyExceptions.illegalStateFormat(IsNotPaidException::new, "Is not paid yet '%1$s'", this);
 	return this;
     }
 
@@ -367,9 +370,10 @@ public class Invoice extends Entity {
 	return !isExpired() && !isPaid();
     }
 
-    public Invoice requirePending() {
+    public Invoice requirePending() throws IllegalStateException {
 	if (!isPending())
-	    throw MyExceptions.illegalStateFormat("Is not pending '%1$s'. It could be expired or paid.", this);
+	    throw MyExceptions.illegalStateFormat(IsNotPendingException::new,
+		    "Is not pending '%1$s'. It could be expired or paid.", this);
 	return this;
     }
 
