@@ -18,6 +18,10 @@ import java.util.stream.Stream;
 
 import com.lapsa.international.localization.LocalizationLanguage;
 
+import tech.lapsa.epayment.domain.Exceptions.IsNotExpiredException;
+import tech.lapsa.epayment.domain.Exceptions.IsNotPaidException;
+import tech.lapsa.epayment.domain.Exceptions.IsNotPendingException;
+import tech.lapsa.epayment.domain.Exceptions.IsPaidException;
 import tech.lapsa.java.commons.function.MyExceptions;
 import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyObjects;
@@ -250,12 +254,10 @@ public class Invoice extends Entity {
 		.ifPresent(sj::add);
 
 	if (currency != null) {
-	    StringBuffer sbb = new StringBuffer();
-	    sbb.append(NumberFormat.getCurrencyInstance().format(getAmount()));
-	    sbb.append(' ');
-	    sbb.append(currency.getCurrencyCode());
+	    NumberFormat nf = NumberFormat.getCurrencyInstance();
+	    nf.setCurrency(currency);
 	    sj.add(Localization.INVOICE_FIELD_AMOUNT.fieldAsCaptionMapper(variant, locale)
-		    .apply(sbb.toString()));
+		    .apply(nf.format(getAmount())));
 	}
 
 	return sb.append(sj.toString()) //
@@ -351,18 +353,27 @@ public class Invoice extends Entity {
 	return optionalPayment().isPresent();
     }
 
-    public void requireNotPaid() {
+    public Invoice requireNotPaid() throws IllegalStateException {
 	if (isPaid())
-	    throw MyExceptions.illegalStateFormat("Invoice is paid already");
+	    throw MyExceptions.illegalStateFormat(IsPaidException::new, "Is paid '%1$s'", this);
+	return this;
+    }
+
+    public Invoice requirePaid() throws IllegalStateException {
+	if (!isPaid())
+	    throw MyExceptions.illegalStateFormat(IsNotPaidException::new, "Is not paid yet '%1$s'", this);
+	return this;
     }
 
     public boolean isPending() {
 	return !isExpired() && !isPaid();
     }
 
-    public void requirePending() {
+    public Invoice requirePending() throws IllegalStateException {
 	if (!isPending())
-	    throw MyExceptions.illegalStateFormat("Invoice is not pending. It could be expired or paid already");
+	    throw MyExceptions.illegalStateFormat(IsNotPendingException::new,
+		    "Is not pending '%1$s'. It could be expired or paid.", this);
+	return this;
     }
 
     // expired
@@ -371,6 +382,12 @@ public class Invoice extends Entity {
 
     public boolean isExpired() {
 	return MyOptionals.of(expired).isPresent();
+    }
+
+    public Invoice requireExpired() {
+	if (!isExpired())
+	    throw MyExceptions.illegalStateFormat(IsNotExpiredException::new, "Is not expired '%1$s'", this);
+	return this;
     }
 
     // status

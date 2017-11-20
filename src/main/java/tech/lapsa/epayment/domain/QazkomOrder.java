@@ -11,6 +11,8 @@ import java.util.StringJoiner;
 import java.util.UUID;
 import java.util.function.Predicate;
 
+import tech.lapsa.epayment.domain.Exceptions.IsNotPaidException;
+import tech.lapsa.epayment.domain.Exceptions.IsPaidException;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentCart;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder;
 import tech.lapsa.java.commons.function.MyCollections;
@@ -169,12 +171,10 @@ public class QazkomOrder extends Entity {
 		.ifPresent(sj::add);
 
 	if (amount != null && currency != null) {
-	    StringBuffer sbb = new StringBuffer();
-	    sbb.append(NumberFormat.getCurrencyInstance().format(amount));
-	    sbb.append(' ');
-	    sbb.append(currency.getCurrencyCode());
+	    NumberFormat nf = NumberFormat.getCurrencyInstance();
+	    nf.setCurrency(currency);
 	    sj.add(Localization.PAYMENT_FIELD_AMOUNT.fieldAsCaptionMapper(variant, locale)
-		    .apply(sbb.toString()));
+		    .apply(nf.format(amount)));
 	}
 
 	return sb.append(sj.toString()) //
@@ -240,6 +240,18 @@ public class QazkomOrder extends Entity {
 
     public boolean isPaid() {
 	return optionalPayment().isPresent();
+    }
+
+    public QazkomOrder requireNotPaid() throws IllegalStateException {
+	if (isPaid())
+	    throw MyExceptions.illegalStateFormat(IsPaidException::new, "Is paid '%1$s'", this);
+	return this;
+    }
+
+    public QazkomOrder requirePaid() throws IllegalStateException {
+	if (!isPaid())
+	    throw MyExceptions.illegalStateFormat(IsNotPaidException::new, "Is not paid yet '%1$s'", this);
+	return this;
     }
 
     // orderDoc

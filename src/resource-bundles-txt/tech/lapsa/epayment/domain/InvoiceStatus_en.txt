@@ -1,0 +1,3 @@
+tech.lapsa.epayment.domain.InvoiceStatus.EXPIRED = Expired
+tech.lapsa.epayment.domain.InvoiceStatus.PAID = Paid
+tech.lapsa.epayment.domain.InvoiceStatus.PENDING = Pending

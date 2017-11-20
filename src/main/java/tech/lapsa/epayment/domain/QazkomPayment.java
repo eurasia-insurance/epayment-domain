@@ -2,7 +2,6 @@ package tech.lapsa.epayment.domain;
 
 import java.security.cert.X509Certificate;
 import java.text.NumberFormat;
-import java.util.Currency;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.StringJoiner;
@@ -158,12 +157,10 @@ public class QazkomPayment extends Payment {
 		.ifPresent(sj::add);
 
 	if (amount != null && currency != null) {
-	    StringBuffer sbb = new StringBuffer();
-	    sbb.append(NumberFormat.getCurrencyInstance().format(amount));
-	    sbb.append(' ');
-	    sbb.append(currency.getCurrencyCode());
+	    NumberFormat nf = NumberFormat.getCurrencyInstance();
+	    nf.setCurrency(currency);
 	    sj.add(Localization.PAYMENT_FIELD_AMOUNT.fieldAsCaptionMapper(variant, locale)
-		    .apply(sbb.toString()));
+		    .apply(nf.format(amount)));
 	}
 
 	return sb.append(sj.toString()) //
@@ -196,10 +193,12 @@ public class QazkomPayment extends Payment {
 	return orderNumber;
     }
 
-    protected Currency currency;
+    // reference
 
-    public Currency getCurrency() {
-	return currency;
+    protected String reference;
+
+    public String getReference() {
+	return reference;
     }
 
     // cardNumber
