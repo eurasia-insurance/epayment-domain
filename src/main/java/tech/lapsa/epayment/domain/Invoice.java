@@ -265,7 +265,7 @@ public class Invoice extends Entity {
 		.toString();
     }
 
-    // created
+    // created (required)
 
     protected Instant created = Instant.now();
 
@@ -273,7 +273,7 @@ public class Invoice extends Entity {
 	return created;
     }
 
-    // number
+    // number (required)
 
     protected String number = generateNumber();
 
@@ -281,7 +281,7 @@ public class Invoice extends Entity {
 	return number;
     }
 
-    // currency
+    // currency (required)
 
     protected Currency currency;
 
@@ -297,7 +297,7 @@ public class Invoice extends Entity {
 	return Collections.unmodifiableList(items);
     }
 
-    // consumer
+    // consumer (optional)
 
     protected String consumerEmail;
 
@@ -305,7 +305,11 @@ public class Invoice extends Entity {
 	return consumerEmail;
     }
 
-    // consumerName
+    public Optional<String> optionalConsumerEmail() {
+	return MyOptionals.of(consumerEmail);
+    }
+
+    // consumerName (required)
 
     protected String consumerName;
 
@@ -313,7 +317,7 @@ public class Invoice extends Entity {
 	return consumerName;
     }
 
-    // consumerTaxpayerNumber
+    // consumerTaxpayerNumber (optional)
 
     protected TaxpayerNumber consumerTaxpayerNumber;
 
@@ -321,7 +325,11 @@ public class Invoice extends Entity {
 	return consumerTaxpayerNumber;
     }
 
-    // consumerPreferLanguage
+    public Optional<TaxpayerNumber> optionalConsumerTaxpayerNumber() {
+	return MyOptionals.of(consumerTaxpayerNumber);
+    }
+
+    // consumerPreferLanguage (required)
 
     protected LocalizationLanguage consumerPreferLanguage;
 
@@ -329,12 +337,16 @@ public class Invoice extends Entity {
 	return consumerPreferLanguage;
     }
 
-    // externalId
+    // externalId (optional)
 
     protected String externalId;
 
     public String getExternalId() {
 	return externalId;
+    }
+
+    public Optional<String> optionalExternalId() {
+	return MyOptionals.of(externalId);
     }
 
     // payment
