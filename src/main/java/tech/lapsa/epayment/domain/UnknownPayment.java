@@ -1,6 +1,7 @@
 package tech.lapsa.epayment.domain;
 
 import java.text.NumberFormat;
+import java.time.Instant;
 import java.util.Currency;
 import java.util.Locale;
 import java.util.StringJoiner;
@@ -22,6 +23,7 @@ public class UnknownPayment extends Payment {
     public static final class UnknownPaymentBuilder {
 	private Currency currency;
 	private Double amount;
+	private Instant created;
 
 	private UnknownPaymentBuilder() {
 	}
@@ -36,6 +38,11 @@ public class UnknownPayment extends Payment {
 	    return this;
 	}
 
+	public UnknownPaymentBuilder withCreationInstant(final Instant created) {
+	    this.created = MyObjects.requireNonNull(created, "created");
+	    return this;
+	}
+
 	public UnknownPaymentBuilder withAmountAndCurrency(final Double amount, final Currency currency) {
 	    withAmount(amount);
 	    withCurrency(currency);
@@ -46,9 +53,10 @@ public class UnknownPayment extends Payment {
 	    final UnknownPayment result = new UnknownPayment();
 	    result.currency = MyObjects.requireNonNull(currency, "currency");
 	    result.amount = MyNumbers.requirePositive(amount, "amount");
-
+	    MyOptionals.of(created).ifPresent(x -> result.created = x);
 	    return result;
 	}
+
     }
 
     @Override
