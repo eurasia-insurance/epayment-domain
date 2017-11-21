@@ -8,6 +8,7 @@ import java.util.Currency;
 import org.junit.Test;
 
 import com.lapsa.international.localization.LocalizationLanguage;
+import com.lapsa.international.phone.PhoneNumber;
 
 import tech.lapsa.epayment.domain.Invoice;
 import tech.lapsa.epayment.domain.Item;
@@ -17,8 +18,10 @@ public class InvoiceBuilderTest {
     public static Invoice invoice() {
 	return Invoice.builder() //
 		.withCurrency(Currency.getInstance("KZT")) //
-		.withConsumerName("Vadim Isaev") //
+		.withConsumerName("John Bull") //
 		.withConsumerPreferLanguage(LocalizationLanguage.RUSSIAN) //
+		.withConsumerPhone(PhoneNumber.of("+77019956587")) //
+		.withConsumerEmail("test@email.com") //
 		.withExternalId("123") //
 		.withItem("Apple iPhone X", 1, 1000d) //
 		.withItem("Apple MacBook Pro", 1, 1382.05d) //
