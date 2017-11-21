@@ -100,7 +100,7 @@ public class QazkomPayment extends Payment {
 		    .map(XmlOrder::getCurrency) //
 		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Can't parse for order currency"));
 
-	    result.reference = MyOptionals.of(payment) //
+	    result.referenceNumber = MyOptionals.of(payment) //
 		    .map(XmlPayment::getReference) //
 		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Payment reference is empty"));
 
@@ -191,14 +191,6 @@ public class QazkomPayment extends Payment {
 
     public String getOrderNumber() {
 	return orderNumber;
-    }
-
-    // reference
-
-    protected String reference;
-
-    public String getReference() {
-	return reference;
     }
 
     // cardNumber

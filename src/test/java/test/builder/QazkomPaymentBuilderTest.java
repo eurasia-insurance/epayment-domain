@@ -96,7 +96,7 @@ public class QazkomPaymentBuilderTest {
 	// o.getCardNumber();
 	assertThat(o.getCreated(), allOf(not(nullValue()), is(equalTo(CREATED))));
 	assertThat(o.getOrderNumber(), allOf(not(isEmptyOrNullString()), is(equalTo(ORDER_NUMBER))));
-	assertThat(o.getReference(), allOf(not(isEmptyOrNullString()), is(equalTo(REFERENCE))));
+	assertThat(o.getReferenceNumber(), allOf(not(isEmptyOrNullString()), is(equalTo(REFERENCE))));
 	assertThat(o.getPaymentDoc(), not(nullValue()));
 	assertThat(o.getPaymentDoc().getRawXml(), allOf(not(isEmptyOrNullString()), is(equalTo(PAYMENT_XML))));
 	o.getPayerEmail();
