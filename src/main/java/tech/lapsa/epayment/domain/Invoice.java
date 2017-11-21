@@ -297,7 +297,23 @@ public class Invoice extends Entity {
 	return Collections.unmodifiableList(items);
     }
 
-    // consumer (optional)
+    // consumerName (required)
+
+    protected String consumerName;
+
+    public String getConsumerName() {
+	return consumerName;
+    }
+
+    // consumerPreferLanguage (required)
+
+    protected LocalizationLanguage consumerPreferLanguage;
+
+    public LocalizationLanguage getConsumerPreferLanguage() {
+	return consumerPreferLanguage;
+    }
+
+    // consumerEmail (optional)
 
     protected String consumerEmail;
 
@@ -309,13 +325,7 @@ public class Invoice extends Entity {
 	return MyOptionals.of(consumerEmail);
     }
 
-    // consumerName (required)
-
-    protected String consumerName;
-
-    public String getConsumerName() {
-	return consumerName;
-    }
+    // TODO REFACT : Add optional consumerPhone
 
     // consumerTaxpayerNumber (optional)
 
@@ -327,14 +337,6 @@ public class Invoice extends Entity {
 
     public Optional<TaxpayerNumber> optionalConsumerTaxpayerNumber() {
 	return MyOptionals.of(consumerTaxpayerNumber);
-    }
-
-    // consumerPreferLanguage (required)
-
-    protected LocalizationLanguage consumerPreferLanguage;
-
-    public LocalizationLanguage getConsumerPreferLanguage() {
-	return consumerPreferLanguage;
     }
 
     // externalId (optional)
