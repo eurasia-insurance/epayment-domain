@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.lapsa.international.localization.LocalizationLanguage;
+import com.lapsa.international.phone.PhoneNumber;
 
 import tech.lapsa.epayment.domain.Exceptions.IsNotExpiredException;
 import tech.lapsa.epayment.domain.Exceptions.IsNotPaidException;
@@ -85,6 +86,7 @@ public class Invoice extends Entity {
 	private Currency currency;
 	private String consumerEmail;
 	private String consumerName;
+	private PhoneNumber consumerPhone;
 	private LocalizationLanguage consumerPreferLanguage;
 	private TaxpayerNumber consumerTaxpayerNumber;
 	private String externalId;
@@ -129,21 +131,6 @@ public class Invoice extends Entity {
 	    return this;
 	}
 
-	public InvoiceBuilder withConsumer(final String consumerName, final String consumerEmail,
-		final LocalizationLanguage consumerPreferLanguage, final TaxpayerNumber consumerTaxpayerNumber) {
-	    withConsumer(consumerName, consumerEmail, consumerPreferLanguage);
-	    withConsumerTaxpayerNumber(consumerTaxpayerNumber);
-	    return this;
-	}
-
-	public InvoiceBuilder withConsumer(final String consumerName, final String consumerEmail,
-		final LocalizationLanguage consumerPreferLanguage) {
-	    withConsumerEmail(consumerEmail);
-	    withConsumerName(consumerName);
-	    withConsumerPreferLanguage(consumerPreferLanguage);
-	    return this;
-	}
-
 	public InvoiceBuilder withConsumerPreferLanguage(final LocalizationLanguage consumerPreferLanguage) {
 	    this.consumerPreferLanguage = MyObjects.requireNonNull(consumerPreferLanguage, "consumerPreferLanguage");
 	    return this;
@@ -156,6 +143,11 @@ public class Invoice extends Entity {
 
 	public InvoiceBuilder withConsumerEmail(final String consumerEmail) {
 	    this.consumerEmail = MyStrings.requireNonEmpty(consumerEmail, "consumerEmail");
+	    return this;
+	}
+
+	public InvoiceBuilder withConsumerPhone(final PhoneNumber consumerPhone) {
+	    this.consumerPhone = MyObjects.requireNonNull(consumerPhone, "consumerPhone");
 	    return this;
 	}
 
@@ -219,6 +211,7 @@ public class Invoice extends Entity {
 	    invoice.consumerName = MyStrings.requireNonEmpty(consumerName, "consumerName");
 	    invoice.consumerPreferLanguage = MyObjects.requireNonNull(consumerPreferLanguage, "consumerPreferLanguage");
 	    invoice.consumerEmail = consumerEmail;
+	    invoice.consumerPhone = consumerPhone;
 	    invoice.consumerTaxpayerNumber = consumerTaxpayerNumber;
 	    invoice.externalId = externalId;
 	    return invoice;
@@ -325,7 +318,17 @@ public class Invoice extends Entity {
 	return MyOptionals.of(consumerEmail);
     }
 
-    // TODO REFACT : Add optional consumerPhone
+    // consumerPhone (optional)
+
+    protected PhoneNumber consumerPhone;
+
+    public PhoneNumber getConsumerPhone() {
+	return consumerPhone;
+    }
+
+    public Optional<PhoneNumber> optionalConsumerPhone() {
+	return MyOptionals.of(consumerPhone);
+    }
 
     // consumerTaxpayerNumber (optional)
 
