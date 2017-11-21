@@ -93,6 +93,7 @@ public class Invoice extends Entity {
 	private List<Itm> itms = new ArrayList<>();
 	private String number;
 	private Predicate<String> numberIsUniqueTest;
+	private Instant created;
 
 	private InvoiceBuilder() {
 	}
@@ -106,6 +107,11 @@ public class Invoice extends Entity {
 	public InvoiceBuilder withNumber(final String number, final Predicate<String> numberIsUniqueTest) {
 	    this.number = MyStrings.requireNonEmpty(number, "number");
 	    this.numberIsUniqueTest = MyObjects.requireNonNull(numberIsUniqueTest, "numberIsUniqueTest");
+	    return this;
+	}
+
+	public InvoiceBuilder withCreationInstant(final Instant created) {
+	    this.created = MyObjects.requireNonNull(created, "created");
 	    return this;
 	}
 
@@ -181,6 +187,8 @@ public class Invoice extends Entity {
 
 	public Invoice build() throws NonUniqueNumberException, NumberOfAttemptsExceedException {
 	    final Invoice invoice = new Invoice();
+
+	    MyOptionals.of(created).ifPresent(x -> invoice.created = x);
 
 	    if (MyStrings.empty(number)) {
 		// using generated value
