@@ -34,6 +34,15 @@ public abstract class Payment extends Entity {
 	return currency;
     }
 
+    // referenceNumber
+
+    protected String referenceNumber;
+
+    public String getReferenceNumber() {
+	return referenceNumber;
+    }
+
+
     // forInvoice
 
     protected Invoice forInvoice;

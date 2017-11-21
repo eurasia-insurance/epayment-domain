@@ -9,6 +9,7 @@ import java.util.StringJoiner;
 import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
+import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localizeds;
 
 public class UnknownPayment extends Payment {
@@ -24,6 +25,7 @@ public class UnknownPayment extends Payment {
 	private Currency currency;
 	private Double amount;
 	private Instant created;
+	private String referenceNumber;
 
 	private UnknownPaymentBuilder() {
 	}
@@ -43,6 +45,11 @@ public class UnknownPayment extends Payment {
 	    return this;
 	}
 
+	public UnknownPaymentBuilder withReferenceNumber(final String referenceNumber) {
+	    this.referenceNumber = MyStrings.requireNonEmpty(referenceNumber, "referenceNumber");
+	    return this;
+	}
+
 	public UnknownPaymentBuilder withAmountAndCurrency(final Double amount, final Currency currency) {
 	    withAmount(amount);
 	    withCurrency(currency);
@@ -54,6 +61,7 @@ public class UnknownPayment extends Payment {
 	    result.currency = MyObjects.requireNonNull(currency, "currency");
 	    result.amount = MyNumbers.requirePositive(amount, "amount");
 	    MyOptionals.of(created).ifPresent(x -> result.created = x);
+	    MyOptionals.of(referenceNumber).ifPresent(x -> result.referenceNumber = x);
 	    return result;
 	}
 
