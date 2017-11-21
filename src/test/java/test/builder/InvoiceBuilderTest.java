@@ -11,15 +11,14 @@ import com.lapsa.international.localization.LocalizationLanguage;
 
 import tech.lapsa.epayment.domain.Invoice;
 import tech.lapsa.epayment.domain.Item;
-import tech.lapsa.kz.taxpayer.TaxpayerNumber;
 
 public class InvoiceBuilderTest {
 
     public static Invoice invoice() {
 	return Invoice.builder() //
 		.withCurrency(Currency.getInstance("KZT")) //
-		.withConsumer("Vadim Isaev", "vadim.isaev@me.com", LocalizationLanguage.RUSSIAN,
-			TaxpayerNumber.of("800225000319")) //
+		.withConsumerName("Vadim Isaev") //
+		.withConsumerPreferLanguage(LocalizationLanguage.RUSSIAN) //
 		.withExternalId("123") //
 		.withItem("Apple iPhone X", 1, 1000d) //
 		.withItem("Apple MacBook Pro", 1, 1382.05d) //

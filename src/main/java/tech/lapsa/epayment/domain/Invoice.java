@@ -216,9 +216,9 @@ public class Invoice extends Entity {
 			return r;
 		    }) //
 		    .collect(Collectors.toList());
-	    invoice.consumerEmail = MyStrings.requireNonEmpty(consumerEmail, "consumerEmail");
 	    invoice.consumerName = MyStrings.requireNonEmpty(consumerName, "consumerName");
 	    invoice.consumerPreferLanguage = MyObjects.requireNonNull(consumerPreferLanguage, "consumerPreferLanguage");
+	    invoice.consumerEmail = consumerEmail;
 	    invoice.consumerTaxpayerNumber = consumerTaxpayerNumber;
 	    invoice.externalId = externalId;
 	    return invoice;
@@ -265,7 +265,7 @@ public class Invoice extends Entity {
 		.toString();
     }
 
-    // created
+    // created (required)
 
     protected Instant created = Instant.now();
 
@@ -273,7 +273,7 @@ public class Invoice extends Entity {
 	return created;
     }
 
-    // number
+    // number (required)
 
     protected String number = generateNumber();
 
@@ -281,7 +281,7 @@ public class Invoice extends Entity {
 	return number;
     }
 
-    // currency
+    // currency (required)
 
     protected Currency currency;
 
@@ -297,15 +297,7 @@ public class Invoice extends Entity {
 	return Collections.unmodifiableList(items);
     }
 
-    // consumer
-
-    protected String consumerEmail;
-
-    public String getConsumerEmail() {
-	return consumerEmail;
-    }
-
-    // consumerName
+    // consumerName (required)
 
     protected String consumerName;
 
@@ -313,15 +305,7 @@ public class Invoice extends Entity {
 	return consumerName;
     }
 
-    // consumerTaxpayerNumber
-
-    protected TaxpayerNumber consumerTaxpayerNumber;
-
-    public TaxpayerNumber getConsumerTaxpayerNumber() {
-	return consumerTaxpayerNumber;
-    }
-
-    // consumerPreferLanguage
+    // consumerPreferLanguage (required)
 
     protected LocalizationLanguage consumerPreferLanguage;
 
@@ -329,12 +313,42 @@ public class Invoice extends Entity {
 	return consumerPreferLanguage;
     }
 
-    // externalId
+    // consumerEmail (optional)
+
+    protected String consumerEmail;
+
+    public String getConsumerEmail() {
+	return consumerEmail;
+    }
+
+    public Optional<String> optionalConsumerEmail() {
+	return MyOptionals.of(consumerEmail);
+    }
+
+    // TODO REFACT : Add optional consumerPhone
+
+    // consumerTaxpayerNumber (optional)
+
+    protected TaxpayerNumber consumerTaxpayerNumber;
+
+    public TaxpayerNumber getConsumerTaxpayerNumber() {
+	return consumerTaxpayerNumber;
+    }
+
+    public Optional<TaxpayerNumber> optionalConsumerTaxpayerNumber() {
+	return MyOptionals.of(consumerTaxpayerNumber);
+    }
+
+    // externalId (optional)
 
     protected String externalId;
 
     public String getExternalId() {
 	return externalId;
+    }
+
+    public Optional<String> optionalExternalId() {
+	return MyOptionals.of(externalId);
     }
 
     // payment
