@@ -216,9 +216,9 @@ public class Invoice extends Entity {
 			return r;
 		    }) //
 		    .collect(Collectors.toList());
-	    invoice.consumerEmail = MyStrings.requireNonEmpty(consumerEmail, "consumerEmail");
 	    invoice.consumerName = MyStrings.requireNonEmpty(consumerName, "consumerName");
 	    invoice.consumerPreferLanguage = MyObjects.requireNonNull(consumerPreferLanguage, "consumerPreferLanguage");
+	    invoice.consumerEmail = consumerEmail;
 	    invoice.consumerTaxpayerNumber = consumerTaxpayerNumber;
 	    invoice.externalId = externalId;
 	    return invoice;
