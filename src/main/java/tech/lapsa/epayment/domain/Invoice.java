@@ -31,11 +31,12 @@ import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localized;
 import tech.lapsa.java.commons.localization.Localizeds;
 import tech.lapsa.kz.taxpayer.TaxpayerNumber;
+import tech.lapsa.patterns.domain.HashCodePrime;
 
+@HashCodePrime(3)
 public class Invoice extends Entity {
 
     private static final long serialVersionUID = 1L;
-    private static final int PRIME = 3;
 
     public static String generateNumber() {
 	return UUID.randomUUID() //
@@ -224,11 +225,6 @@ public class Invoice extends Entity {
 	    invoice.externalId = externalId;
 	    return invoice;
 	}
-    }
-
-    @Override
-    protected int prime() {
-	return PRIME;
     }
 
     @Override

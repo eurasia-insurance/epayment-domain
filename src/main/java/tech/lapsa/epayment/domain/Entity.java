@@ -2,6 +2,7 @@ package tech.lapsa.epayment.domain;
 
 import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyOptionals;
+import tech.lapsa.patterns.domain.Domain;
 
 public abstract class Entity extends Domain {
 

@@ -7,10 +7,11 @@ import java.util.Optional;
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
+import tech.lapsa.patterns.domain.HashCodePrime;
 
+@HashCodePrime(19)
 public class QazkomXmlDocument extends Entity {
 
-    private static final int PRIME = 19;
     private static final long serialVersionUID = 1L;
 
     public static enum DocumentType {
@@ -23,11 +24,6 @@ public class QazkomXmlDocument extends Entity {
     public QazkomXmlDocument(final String rawXml, final DocumentType type) {
 	this.rawXml = MyStrings.requireNonEmpty(rawXml, "rawXml");
 	this.type = MyObjects.requireNonNull(type, "type");
-    }
-
-    @Override
-    protected int prime() {
-	return PRIME;
     }
 
     @Override

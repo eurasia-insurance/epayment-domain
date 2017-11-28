@@ -22,11 +22,12 @@ import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localizeds;
+import tech.lapsa.patterns.domain.HashCodePrime;
 
+@HashCodePrime(11)
 public class QazkomOrder extends Entity {
 
     private static final long serialVersionUID = 1L;
-    private static final int PRIME = 11;
 
     public static String generateNumber() {
 	return String.valueOf(Math.abs(UUID.randomUUID().getLeastSignificantBits() / 10000));
@@ -145,11 +146,6 @@ public class QazkomOrder extends Entity {
 
 	    return result;
 	}
-    }
-
-    @Override
-    protected int prime() {
-	return PRIME;
     }
 
     @Override

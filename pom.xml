@@ -18,6 +18,7 @@
 		<!-- BOMS -->
 		<java-commons.version>1.1-SNAPSHOT</java-commons.version>
 		<!-- tech -->
+		<patterns-domain.version>1.0-SNAPSHOT</patterns-domain.version>
 		<epayment-qazkom-commons.version>1.0-SNAPSHOT</epayment-qazkom-commons.version>
 		<!-- oldies -->
 		<international-lib.version>3.3-SNAPSHOT</international-lib.version>
@@ -35,6 +36,11 @@
 				<scope>import</scope>
 			</dependency>
 			<!-- tech -->
+			<dependency>
+				<groupId>tech.lapsa.patterns</groupId>
+				<artifactId>patterns-domain</artifactId>
+				<version>${patterns-domain.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>tech.lapsa.epayment</groupId>
 				<artifactId>epayment-qazkom-commons</artifactId>
@@ -71,7 +77,12 @@
 			<artifactId>java-commons-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- tech -->
+		<dependency>
+			<groupId>tech.lapsa.patterns</groupId>
+			<artifactId>patterns-domain</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
 		<dependency>
 			<groupId>tech.lapsa.epayment</groupId>
 			<artifactId>epayment-qazkom-commons</artifactId>
