@@ -11,11 +11,12 @@ import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localizeds;
+import tech.lapsa.patterns.domain.HashCodePrime;
 
+@HashCodePrime(23)
 public class UnknownPayment extends Payment {
 
     private static final long serialVersionUID = 1L;
-    private static final int PRIME = 23;
 
     public static UnknownPaymentBuilder builder() {
 	return new UnknownPaymentBuilder();
@@ -65,11 +66,6 @@ public class UnknownPayment extends Payment {
 	    return result;
 	}
 
-    }
-
-    @Override
-    protected int prime() {
-	return PRIME;
     }
 
     @Override

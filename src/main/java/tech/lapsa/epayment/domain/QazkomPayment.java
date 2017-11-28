@@ -22,11 +22,12 @@ import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localizeds;
+import tech.lapsa.patterns.domain.HashCodePrime;
 
+@HashCodePrime(7)
 public class QazkomPayment extends Payment {
 
     private static final long serialVersionUID = 1L;
-    private static final int PRIME = 7;
 
     public static QazkomPaymentBuilder builder() {
 	return new QazkomPaymentBuilder();
@@ -131,11 +132,6 @@ public class QazkomPayment extends Payment {
 
 	    return result;
 	}
-    }
-
-    @Override
-    protected int prime() {
-	return PRIME;
     }
 
     @Override

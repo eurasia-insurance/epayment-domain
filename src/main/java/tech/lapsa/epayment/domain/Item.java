@@ -5,16 +5,12 @@ import java.util.StringJoiner;
 
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.localization.Localized;
+import tech.lapsa.patterns.domain.HashCodePrime;
 
+@HashCodePrime(5)
 public class Item extends Entity {
 
     private static final long serialVersionUID = 1L;
-    private static final int PRIME = 5;
-
-    @Override
-    protected int prime() {
-	return PRIME;
-    }
 
     @Override
     public String localized(final LocalizationVariant variant, final Locale locale) {
