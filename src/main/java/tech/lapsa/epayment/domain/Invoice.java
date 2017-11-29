@@ -153,13 +153,31 @@ public class Invoice extends Entity {
 	    return this;
 	}
 
+	public InvoiceBuilder withConsumerEmail(Optional<String> consumerEmail) {
+	    MyObjects.requireNonNull(consumerEmail, "consumerEmail") //
+		    .ifPresent(this::withConsumerEmail);
+	    return this;
+	}
+
 	public InvoiceBuilder withConsumerPhone(final PhoneNumber consumerPhone) {
 	    this.consumerPhone = MyObjects.requireNonNull(consumerPhone, "consumerPhone");
 	    return this;
 	}
 
+	public InvoiceBuilder withConsumerPhone(Optional<PhoneNumber> consumerPhone) {
+	    MyObjects.requireNonNull(consumerPhone, "consumerPhone") //
+		    .ifPresent(this::withConsumerPhone);
+	    return this;
+	}
+
 	public InvoiceBuilder withConsumerTaxpayerNumber(final TaxpayerNumber consumerTaxpayerNumber) {
 	    this.consumerTaxpayerNumber = MyObjects.requireNonNull(consumerTaxpayerNumber, "consumerTaxpayerNumber");
+	    return this;
+	}
+
+	public InvoiceBuilder withConsumerTaxpayerNumber(Optional<TaxpayerNumber> consumerTaxpayerNumber) {
+	    MyObjects.requireNonNull(consumerTaxpayerNumber, "consumerTaxpayerNumber") //
+		    .ifPresent(this::withConsumerTaxpayerNumber);
 	    return this;
 	}
 
@@ -173,6 +191,12 @@ public class Invoice extends Entity {
 
 	public InvoiceBuilder clearItems() {
 	    itms = new ArrayList<>();
+	    return this;
+	}
+
+	public InvoiceBuilder withExternalId(final Optional<String> externalId) {
+	    MyObjects.requireNonNull(externalId, "externalId") //
+		    .ifPresent(this::withExternalId);
 	    return this;
 	}
 
