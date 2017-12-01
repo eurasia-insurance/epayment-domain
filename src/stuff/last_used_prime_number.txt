@@ -6,7 +6,7 @@
       17 tech.lapsa.epayment.domain.Payment
       19 tech.lapsa.epayment.domain.QazkomXmlDocument
       23 tech.lapsa.epayment.domain.UnknownPayment
-      29 
+      29 tech.lapsa.epayment.domain.QazkomError
       31 
       37 
       41 

@@ -15,7 +15,7 @@ public class QazkomXmlDocument extends Entity {
     private static final long serialVersionUID = 1L;
 
     public static enum DocumentType {
-	ORDER, PAYMENT, CART;
+	ORDER, PAYMENT, CART, ERROR;
     }
 
     public QazkomXmlDocument() {
@@ -72,6 +72,10 @@ public class QazkomXmlDocument extends Entity {
 
     public boolean isPayment() {
 	return type == DocumentType.PAYMENT;
+    }
+
+    public boolean isError() {
+	return type == DocumentType.ERROR;
     }
 
     // controllers
