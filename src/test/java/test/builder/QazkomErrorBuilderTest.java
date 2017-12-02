@@ -5,33 +5,36 @@ import static org.junit.Assert.*;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.ZoneId;
-import java.util.Currency;
 
 import org.junit.Test;
 
-import tech.lapsa.epayment.domain.UnknownPayment;
+import tech.lapsa.epayment.domain.QazkomError;
 
 public class QazkomErrorBuilderTest {
 
     @Test
-    public void basicTest() {
-	final Currency CURRENCY = Currency.getInstance("KZT");
-	final Double AMOUNT = 2382.05d;
-	final Instant CREATED = LocalDateTime.of(2016, Month.JUNE, 14, 15, 18, 02).atZone(ZoneId.systemDefault())
-		.toInstant();
+    public void simple() {
 
-	UnknownPayment o = UnknownPayment.builder() //
-		.withAmount(AMOUNT) //
-		.withCurrency(CURRENCY) //
-		.withCreationInstant(CREATED) //
+	final String ERROR_PLAIN //
+		= "<response order_id=\"740954651955272\">"
+			+ "<error code=\"05\" time=\"2017-12-01 15:01:51\" type=\"auth\">Transaction declined</error>"
+			+ "<session id=\"11429DD3085E5E2A92A64C93FD199C48\"/></response>";
+	final String MESSAGE = "Transaction declined";
+	final Instant CREATED = LocalDateTime.of(2017, 12, 1, 15, 1, 51).atZone(ZoneId.of("Asia/Almaty")).toInstant();
+	final String ORDER_NUMBER = "740954651955272";
+	final String CODE = "05";
+
+	QazkomError o = QazkomError.builder() //
+		.fromRawXml(ERROR_PLAIN) //
 		.build();
+
 	System.out.println(o);
 
 	assertThat(o, not(nullValue()));
-	assertThat(o.getCurrency(), allOf(not(nullValue()), is(equalTo(CURRENCY))));
-	assertThat(o.getAmount(), allOf(not(nullValue()), is(equalTo(AMOUNT))));
+	assertThat(o.getMessage(), allOf(not(nullValue()), is(equalTo(MESSAGE))));
 	assertThat(o.getCreated(), allOf(not(nullValue()), is(equalTo(CREATED))));
+	assertThat(o.getOrderNumber(), allOf(not(nullValue()), is(equalTo(ORDER_NUMBER))));
+	assertThat(o.getCode(), allOf(not(nullValue()), is(equalTo(CODE))));
     }
 }

@@ -53,6 +53,16 @@ public class QazkomError extends Entity {
 		    .map(XmlError::getTime) //
 		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Payment timestamp is empty"));
 
+	    result.message = MyOptionals.of(document) //
+		    .map(XmlDocumentError::getError) //
+		    .map(XmlError::getMessage) //
+		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Message is empty"));
+
+	    result.code = MyOptionals.of(document) //
+		    .map(XmlDocumentError::getError) //
+		    .map(XmlError::getCode) //
+		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Message is empty"));
+
 	    return result;
 	}
     }
@@ -91,6 +101,22 @@ public class QazkomError extends Entity {
 
     public QazkomXmlDocument getPaymentDoc() {
 	return errorDoc;
+    }
+
+    // message
+
+    protected String message;
+
+    public String getMessage() {
+	return message;
+    }
+
+    // code
+
+    protected String code;
+
+    public String getCode() {
+	return code;
     }
 
     // CONTROLLERS
