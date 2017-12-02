@@ -4,7 +4,10 @@ import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.text.NumberFormat;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Currency;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.StringJoiner;
@@ -266,6 +269,14 @@ public class QazkomOrder extends Entity {
 	return cartDoc;
     }
 
+    // items
+
+    protected List<QazkomError> errors = new ArrayList<>();
+
+    public List<QazkomError> getErrors() {
+	return Collections.unmodifiableList(errors);
+    }
+
     // controllers
 
     @Override
@@ -274,6 +285,20 @@ public class QazkomOrder extends Entity {
 	MyOptionals.of(getOrderDoc()).ifPresent(Entity::unlazy);
 	MyOptionals.of(getPayment()).ifPresent(Entity::unlazy);
 	MyOptionals.of(getForInvoice()).ifPresent(Entity::unlazy);
+	getErrors();
+    }
+
+    public void attachError(final QazkomError error) {
+	MyObjects.requireNonNull(error, "order");
+
+	MyStrings.requireEqualsMsg(orderNumber, error.orderNumber,
+		"Error order number and order number are not the same");
+
+	if (error.optionalOrder().isPresent())
+	    throw MyExceptions.illegalStateFormat("Error has order attached already");
+
+	this.errors.add(error);
+	error.order = this;
     }
 
     public void paidBy(final QazkomPayment payment) {
@@ -286,10 +311,10 @@ public class QazkomOrder extends Entity {
 		"Qazkom order amount and payment amount are not the same");
 
 	if (payment.optionalOrder().isPresent())
-	    throw MyExceptions.illegalStateFormat("Payment already has order attached");
+	    throw MyExceptions.illegalStateFormat("Payment has order attached already");
 
 	if (optionalPayment().isPresent())
-	    throw MyExceptions.illegalStateFormat("Order already has payment attached");
+	    throw MyExceptions.illegalStateFormat("Order has payment attached already");
 
 	// TODO FEAUTURE : Need to implement more Qazkom validation points
 

@@ -8,7 +8,6 @@ import java.util.StringJoiner;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentError;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlError;
 import tech.lapsa.java.commons.function.MyExceptions;
-import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localizeds;
@@ -138,15 +137,5 @@ public class QazkomError extends Entity {
 	return sb.append(sj.toString()) //
 		.append(appendEntityId()) //
 		.toString();
-    }
-
-    public QazkomError attachTo(final QazkomOrder order) {
-	MyObjects.requireNonNull(order, "order");
-
-	if (optionalOrder().isPresent())
-	    throw MyExceptions.illegalStateFormat("QazkomError has order attached already");
-
-	this.order = order;
-	return this;
     }
 }
