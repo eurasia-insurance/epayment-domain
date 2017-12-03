@@ -6,6 +6,8 @@ tech.lapsa.epayment.domain.Localization.QAZKOMORDER_FIELD_AMOUNT = amount
 
 tech.lapsa.epayment.domain.Localization.QAZKOMPAYMENT_NAME = EPAY payment
 
+tech.lapsa.epayment.domain.Localization.QAZKOMERROR_NAME = Ошибочное сообщение Qazkom
+
 tech.lapsa.epayment.domain.Localization.QAZKOMXMLDOC_EMPTYNAME = Empty XML-document
 
 tech.lapsa.epayment.domain.Localization.UNKNOWNPAYMENT_NAME = Unknown payment
