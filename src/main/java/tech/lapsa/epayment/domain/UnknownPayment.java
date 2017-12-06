@@ -4,6 +4,7 @@ import java.text.NumberFormat;
 import java.time.Instant;
 import java.util.Currency;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.StringJoiner;
 
 import tech.lapsa.java.commons.function.MyNumbers;
@@ -46,8 +47,18 @@ public class UnknownPayment extends Payment {
 	    return this;
 	}
 
+	public UnknownPaymentBuilder withCreationInstant(final Optional<Instant> created) {
+	    MyObjects.requireNonNull(created, "created").ifPresent(this::withCreationInstant);
+	    return this;
+	}
+
 	public UnknownPaymentBuilder withReferenceNumber(final String referenceNumber) {
 	    this.referenceNumber = MyStrings.requireNonEmpty(referenceNumber, "referenceNumber");
+	    return this;
+	}
+
+	public UnknownPaymentBuilder withReferenceNumber(final Optional<String> referenceNumber) {
+	    MyObjects.requireNonNull(referenceNumber, "referenceNumber").ifPresent(this::withReferenceNumber);
 	    return this;
 	}
 
@@ -65,7 +76,6 @@ public class UnknownPayment extends Payment {
 	    MyOptionals.of(referenceNumber).ifPresent(x -> result.referenceNumber = x);
 	    return result;
 	}
-
     }
 
     @Override
