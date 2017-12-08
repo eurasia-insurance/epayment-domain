@@ -6,9 +6,16 @@
 	<persistence-unit name="epaymentPU" transaction-type="JTA">
 		<jta-data-source>epayment/jdbc/DataSource</jta-data-source>
 
-		<mapping-file>META-INF/mapping/lapsa.xml</mapping-file>
-		<mapping-file>META-INF/mapping/kz.xml</mapping-file>
-		<mapping-file>META-INF/mapping/international.xml</mapping-file>
+		<class>tech.lapsa.javax.jpa.converters.CurrencyAttributeConverter</class>
+		<class>tech.lapsa.javax.jpa.converters.InstantAttributeConverter</class>
+		<class>tech.lapsa.javax.jpa.converters.LocalDateAttributeConverter</class>
+		<class>tech.lapsa.javax.jpa.converters.LocalDateTimeAttributeConverter</class>
+		<class>tech.lapsa.javax.jpa.converters.LocalTimeAttributeConverter</class>
+
+		<class>tech.lapsa.kz.taxpayer.converter.jpa.TaxpayerNumberAttributeConverter</class>
+		<class>tech.lapsa.kz.vehicle.converter.jpa.VehicleRegNumberAttributeConverter</class>
+
+		<class>com.lapsa.international.phone.converter.jpa.PhoneNumberAttributeConverter</class>
 
 		<class>tech.lapsa.epayment.domain.BaseEntity</class>
 		<class>tech.lapsa.epayment.domain.Invoice</class>
@@ -27,9 +34,11 @@
 		<validation-mode>NONE</validation-mode>
 
 		<properties>
-			<property name="eclipselink.logging.parameters" value="true" />
 			<property name="javax.persistence.schema-generation.database.action" value="create" />
 			<property name="javax.persistence.schema-generation.scripts.action" value="none" />
+			<property name="eclipselink.logging.parameters" value="true" />
+			<property name="eclipselink.weaving" value="static" />
+			<property name="eclipselink.weaving.fetchgroups" value="false"/>
 		</properties>
 
 	</persistence-unit>
