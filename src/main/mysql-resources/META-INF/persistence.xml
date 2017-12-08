@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+	version="2.1">
+	<persistence-unit name="epaymentPU" transaction-type="JTA">
+		<jta-data-source>epayment/jdbc/DataSource</jta-data-source>
+
+		<class>tech.lapsa.javax.jpa.converters.CurrencyAttributeConverter</class>
+		<class>tech.lapsa.javax.jpa.converters.InstantAttributeConverter</class>
+		<class>tech.lapsa.javax.jpa.converters.LocalDateAttributeConverter</class>
+		<class>tech.lapsa.javax.jpa.converters.LocalDateTimeAttributeConverter</class>
+		<class>tech.lapsa.javax.jpa.converters.LocalTimeAttributeConverter</class>
+
+		<class>tech.lapsa.kz.taxpayer.converter.jpa.TaxpayerNumberAttributeConverter</class>
+		<class>tech.lapsa.kz.vehicle.converter.jpa.VehicleRegNumberAttributeConverter</class>
+
+		<class>com.lapsa.international.phone.converter.jpa.PhoneNumberAttributeConverter</class>
+
+		<class>tech.lapsa.epayment.domain.BaseEntity</class>
+		<class>tech.lapsa.epayment.domain.Invoice</class>
+		<class>tech.lapsa.epayment.domain.Item</class>
+		<class>tech.lapsa.epayment.domain.Payment</class>
+		<class>tech.lapsa.epayment.domain.QazkomError</class>
+		<class>tech.lapsa.epayment.domain.QazkomOrder</class>
+		<class>tech.lapsa.epayment.domain.QazkomPayment</class>
+		<class>tech.lapsa.epayment.domain.QazkomXmlDocument</class>
+		<class>tech.lapsa.epayment.domain.UnknownPayment</class>
+
+		<class>tech.lapsa.epayment.jpa.EpaymentVersion</class>
+
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+		<validation-mode>NONE</validation-mode>
+
+		<properties>
+			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
+			<property name="javax.persistence.schema-generation.scripts.action" value="drop-and-create" />
+			<property name="javax.persistence.schema-generation.scripts.create-target" value="./src/sql/mysql/epayment-schema-create-4.0.ddl"/>
+			<property name="javax.persistence.schema-generation.scripts.drop-target" value="./src/sql/mysql/epayment-schema-drop-4.0.ddl"/>
+			<property name="eclipselink.logging.parameters" value="true" />
+			<property name="eclipselink.weaving" value="static" />
+			<property name="eclipselink.weaving.fetchgroups" value="false"/>
+		</properties>
+
+	</persistence-unit>
+</persistence>
