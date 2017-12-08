@@ -4,11 +4,21 @@ import java.util.Base64;
 import java.util.Locale;
 import java.util.Optional;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Lob;
+import javax.persistence.Table;
+
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.patterns.domain.HashCodePrime;
 
+@Entity
+@Table(name = "QAZKOM_XML_DOCUMENT")
 @HashCodePrime(19)
 public class QazkomXmlDocument extends BaseEntity {
 
@@ -33,6 +43,10 @@ public class QazkomXmlDocument extends BaseEntity {
     }
 
     // rawXml
+
+    @Basic
+    @Lob
+    @Column(name = "RAW_XML")
     protected String rawXml;
 
     public String getRawXml() {
@@ -56,6 +70,9 @@ public class QazkomXmlDocument extends BaseEntity {
 
     // type
 
+    @Basic
+    @Enumerated(EnumType.STRING)
+    @Column(name = "TYPE")
     protected DocumentType type;
 
     public DocumentType getType() {

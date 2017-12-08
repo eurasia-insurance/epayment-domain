@@ -10,17 +10,17 @@
 		<mapping-file>META-INF/mapping/kz.xml</mapping-file>
 		<mapping-file>META-INF/mapping/international.xml</mapping-file>
 
-		<mapping-file>META-INF/mapping/BaseEntity.xml</mapping-file>
-		<mapping-file>META-INF/mapping/Invoice.xml</mapping-file>
-		<mapping-file>META-INF/mapping/Item.xml</mapping-file>
-		<mapping-file>META-INF/mapping/Payment.xml</mapping-file>
-		<mapping-file>META-INF/mapping/QazkomError.xml</mapping-file>
-		<mapping-file>META-INF/mapping/QazkomOrder.xml</mapping-file>
-		<mapping-file>META-INF/mapping/QazkomPayment.xml</mapping-file>
-		<mapping-file>META-INF/mapping/QazkomXmlDocument.xml</mapping-file>
-		<mapping-file>META-INF/mapping/UnknownPayment.xml</mapping-file>
+		<class>tech.lapsa.epayment.domain.BaseEntity</class>
+		<class>tech.lapsa.epayment.domain.Invoice</class>
+		<class>tech.lapsa.epayment.domain.Item</class>
+		<class>tech.lapsa.epayment.domain.Payment</class>
+		<class>tech.lapsa.epayment.domain.QazkomError</class>
+		<class>tech.lapsa.epayment.domain.QazkomOrder</class>
+		<class>tech.lapsa.epayment.domain.QazkomPayment</class>
+		<class>tech.lapsa.epayment.domain.QazkomXmlDocument</class>
+		<class>tech.lapsa.epayment.domain.UnknownPayment</class>
 
-		<mapping-file>META-INF/mapping/EpaymentVersion.xml</mapping-file>
+		<class>tech.lapsa.epayment.jpa.EpaymentVersion</class>
 
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 

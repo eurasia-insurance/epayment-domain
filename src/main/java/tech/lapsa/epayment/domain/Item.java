@@ -3,10 +3,21 @@ package tech.lapsa.epayment.domain;
 import java.util.Locale;
 import java.util.StringJoiner;
 
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.localization.Localized;
 import tech.lapsa.patterns.domain.HashCodePrime;
 
+@Entity
+@Table(name = "ITEM")
 @HashCodePrime(5)
 public class Item extends BaseEntity {
 
@@ -44,6 +55,8 @@ public class Item extends BaseEntity {
 
     // name
 
+    @Basic
+    @Column(name = "NAME")
     protected String name;
 
     public String getName() {
@@ -52,6 +65,7 @@ public class Item extends BaseEntity {
 
     // localizedName
 
+    @Transient
     protected Localized localizedName;
 
     public Localized getLocalizedName() {
@@ -60,6 +74,8 @@ public class Item extends BaseEntity {
 
     // price
 
+    @Basic
+    @Column(name = "PRICE")
     protected Double price;
 
     public Double getPrice() {
@@ -68,6 +84,8 @@ public class Item extends BaseEntity {
 
     // quantity
 
+    @Basic
+    @Column(name = "QUANTITY")
     protected Integer quantity;
 
     public Integer getQuantity() {
@@ -76,6 +94,8 @@ public class Item extends BaseEntity {
 
     // invoice
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "INVOICE_ID")
     protected Invoice invoice;
 
     // OTHERS

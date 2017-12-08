@@ -5,6 +5,16 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.StringJoiner;
 
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentError;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlError;
 import tech.lapsa.java.commons.function.MyExceptions;
@@ -13,6 +23,8 @@ import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localizeds;
 import tech.lapsa.patterns.domain.HashCodePrime;
 
+@Entity
+@Table(name = "QAZKOM_ERROR")
 @HashCodePrime(29)
 public class QazkomError extends BaseEntity {
 
@@ -68,6 +80,9 @@ public class QazkomError extends BaseEntity {
 
     // created
 
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CREATED")
     protected Instant created = Instant.now();
 
     public Instant getCreated() {
@@ -76,6 +91,8 @@ public class QazkomError extends BaseEntity {
 
     // order
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "QAZKOM_ORDER_ID")
     protected QazkomOrder order;
 
     public QazkomOrder getOrder() {
@@ -88,6 +105,8 @@ public class QazkomError extends BaseEntity {
 
     // orderNumber
 
+    @Basic
+    @Column(name = "ORDER_NUMBER")
     protected String orderNumber;
 
     public String getOrderNumber() {
@@ -96,6 +115,8 @@ public class QazkomError extends BaseEntity {
 
     // paymentDoc
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ERROR_DOC_ID")
     protected QazkomXmlDocument errorDoc;
 
     public QazkomXmlDocument getPaymentDoc() {
@@ -104,6 +125,8 @@ public class QazkomError extends BaseEntity {
 
     // message
 
+    @Basic
+    @Column(name="MESSAGE")
     protected String message;
 
     public String getMessage() {
@@ -112,6 +135,8 @@ public class QazkomError extends BaseEntity {
 
     // code
 
+    @Basic
+    @Column(name="CODE")
     protected String code;
 
     public String getCode() {

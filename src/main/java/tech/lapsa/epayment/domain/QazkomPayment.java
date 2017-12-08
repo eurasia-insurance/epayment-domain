@@ -6,6 +6,16 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.StringJoiner;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import com.lapsa.international.phone.PhoneNumber;
 
 import tech.lapsa.epayment.qazkom.xml.bind.XmlBank;
@@ -24,6 +34,9 @@ import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localizeds;
 import tech.lapsa.patterns.domain.HashCodePrime;
 
+@Entity
+@Table(name = "QAZKOM_PAYMENT")
+@Inheritance(strategy = InheritanceType.JOINED)
 @HashCodePrime(7)
 public class QazkomPayment extends Payment {
 
@@ -171,6 +184,7 @@ public class QazkomPayment extends Payment {
 
     // order
 
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "payment")
     protected QazkomOrder order;
 
     public QazkomOrder getOrder() {
@@ -183,6 +197,8 @@ public class QazkomPayment extends Payment {
 
     // orderNumber
 
+    @Basic
+    @Column(name = "ORDER_NUMBER", unique = true)
     protected String orderNumber;
 
     public String getOrderNumber() {
@@ -191,6 +207,8 @@ public class QazkomPayment extends Payment {
 
     // cardNumber
 
+    @Basic
+    @Column(name = "CARD_NUMBER")
     protected String cardNumber;
 
     public String getCardNumber() {
@@ -199,6 +217,8 @@ public class QazkomPayment extends Payment {
 
     // payerName
 
+    @Basic
+    @Column(name = "PAYER_NAME")
     protected String payerName;
 
     public String getPayerName() {
@@ -207,6 +227,8 @@ public class QazkomPayment extends Payment {
 
     // payerEmail
 
+    @Basic
+    @Column(name = "PAYER_EMAIL")
     protected String payerEmail;
 
     public String getPayerEmail() {
@@ -215,6 +237,8 @@ public class QazkomPayment extends Payment {
 
     // payerPhoneNumber
 
+    @Basic
+    @Column(name = "PAYER_PHONE_NUMBER")
     protected PhoneNumber payerPhoneNumber;
 
     public PhoneNumber getPayerPhoneNumber() {
@@ -223,6 +247,8 @@ public class QazkomPayment extends Payment {
 
     // paymentDoc
 
+    @OneToOne
+    @JoinColumn(name = "PAYMENT_DOC_ID")
     protected QazkomXmlDocument paymentDoc;
 
     public QazkomXmlDocument getPaymentDoc() {
