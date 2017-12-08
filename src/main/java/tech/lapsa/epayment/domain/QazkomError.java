@@ -14,7 +14,7 @@ import tech.lapsa.java.commons.localization.Localizeds;
 import tech.lapsa.patterns.domain.HashCodePrime;
 
 @HashCodePrime(29)
-public class QazkomError extends Entity {
+public class QazkomError extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 

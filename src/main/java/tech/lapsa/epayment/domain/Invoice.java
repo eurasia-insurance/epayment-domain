@@ -34,7 +34,7 @@ import tech.lapsa.kz.taxpayer.TaxpayerNumber;
 import tech.lapsa.patterns.domain.HashCodePrime;
 
 @HashCodePrime(3)
-public class Invoice extends Entity {
+public class Invoice extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -458,7 +458,7 @@ public class Invoice extends Entity {
 
     @Override
     public void unlazy() {
-	MyOptionals.of(getPayment()).ifPresent(Entity::unlazy);
+	MyOptionals.of(getPayment()).ifPresent(BaseEntity::unlazy);
 	getAmount(); // also fetches 'items'
     }
 

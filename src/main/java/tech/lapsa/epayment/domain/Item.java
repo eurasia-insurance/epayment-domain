@@ -8,7 +8,7 @@ import tech.lapsa.java.commons.localization.Localized;
 import tech.lapsa.patterns.domain.HashCodePrime;
 
 @HashCodePrime(5)
-public class Item extends Entity {
+public class Item extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
