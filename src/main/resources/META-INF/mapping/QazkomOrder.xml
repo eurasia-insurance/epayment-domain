@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
+
+	<entity class="tech.lapsa.epayment.domain.QazkomOrder">
+		<table name="QAZKOM_ORDER" />
+		<attributes>
+			<basic name="created">
+				<column name="CREATED" />
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="orderNumber">
+				<column name="ORDER_NUMBER" unique="true" />
+			</basic>
+			<basic name="amount">
+				<column name="AMOUNT" />
+			</basic>
+			<basic name="currency">
+				<column name="CURRENCY" />
+			</basic>
+			<many-to-one name="orderDoc">
+				<join-column name="ORDER_DOC_ID" />
+			</many-to-one>
+			<many-to-one name="cartDoc">
+				<join-column name="CART_DOC_ID" />
+			</many-to-one>
+			<many-to-one name="forInvoice" fetch="EAGER">
+				<join-column name="INVOICE_ID" />
+			</many-to-one>
+			<one-to-many name="errors" fetch="EAGER" orphan-removal="true"
+				mapped-by="order" />
+			<one-to-one name="payment" fetch="EAGER">
+				<join-column name="PAYMENT_ID" />
+			</one-to-one>
+		</attributes>
+	</entity>
+
+</entity-mappings>

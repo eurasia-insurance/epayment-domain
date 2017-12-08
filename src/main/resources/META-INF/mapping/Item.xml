@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
+
+	<entity class="tech.lapsa.epayment.domain.Item">
+		<table name="ITEM" />
+		<attributes>
+			<basic name="name">
+				<column name="NAME" />
+			</basic>
+			<basic name="price">
+				<column name="PRICE" />
+			</basic>
+			<basic name="quantity">
+				<column name="QUANTITY" />
+			</basic>
+			<many-to-one name="invoice">
+				<join-column name="INVOICE_ID" />
+				<cascade>
+					<cascade-all />
+				</cascade>
+			</many-to-one>
+			<transient name="localizedName" />
+		</attributes>
+	</entity>
+
+</entity-mappings>

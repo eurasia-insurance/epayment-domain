@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
+
+	<entity class="tech.lapsa.epayment.domain.Invoice">
+		<table name="INVOICE" />
+		<attributes>
+			<basic name="created">
+				<column name="CREATED" />
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="expired">
+				<column name="EXPIRED" />
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="number">
+				<column name="NUMBER" unique="true" />
+			</basic>
+			<basic name="currency">
+				<column name="CURRENCY" />
+			</basic>
+			<basic name="consumerEmail">
+				<column name="PAYER_EMAIL" />
+			</basic>
+			<basic name="consumerPhone">
+				<column name="CONSUMER_PHONE" />
+			</basic>
+			<basic name="consumerName">
+				<column name="CONSUMER_NAME" />
+			</basic>
+			<basic name="consumerTaxpayerNumber">
+				<column name="CONSUMER_TAXPAYER_NUMBER" />
+			</basic>
+			<basic name="consumerPreferLanguage">
+				<column name="CONSUMER_PREFER_LANGUAGE" />
+				<enumerated>STRING</enumerated>
+			</basic>
+			<basic name="externalId">
+				<column name="EXTERNAL_ID" />
+			</basic>
+			<one-to-many name="items" fetch="EAGER" orphan-removal="true"
+				mapped-by="invoice" />
+			<one-to-one name="payment" fetch="EAGER" orphan-removal="false">
+				<join-column name="PAYMENT_ID" />
+				<cascade>
+					<cascade-all />
+				</cascade>
+			</one-to-one>
+		</attributes>
+	</entity>
+
+</entity-mappings>
