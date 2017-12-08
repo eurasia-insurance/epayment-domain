@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
 	version="2.1">
 	<persistence-unit name="epaymentPU" transaction-type="JTA">
-		<jta-data-source>epayment/jdbc/DataSource</jta-data-source>
+		<jta-data-source>epayment/jdbc/DataSource_MYSQL</jta-data-source>
 
 		<class>tech.lapsa.javax.jpa.converters.CurrencyAttributeConverter</class>
 		<class>tech.lapsa.javax.jpa.converters.InstantAttributeConverter</class>
