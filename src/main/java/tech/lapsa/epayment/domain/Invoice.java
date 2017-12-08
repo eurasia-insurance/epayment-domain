@@ -23,6 +23,7 @@ import tech.lapsa.epayment.domain.Exceptions.IsNotExpiredException;
 import tech.lapsa.epayment.domain.Exceptions.IsNotPaidException;
 import tech.lapsa.epayment.domain.Exceptions.IsNotPendingException;
 import tech.lapsa.epayment.domain.Exceptions.IsPaidException;
+import tech.lapsa.java.commons.function.MyCollections;
 import tech.lapsa.java.commons.function.MyExceptions;
 import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyObjects;
@@ -312,10 +313,10 @@ public class Invoice extends BaseEntity {
 
     // items
 
-    protected List<Item> items = new ArrayList<>();
+    protected List<Item> items;
 
     public List<Item> getItems() {
-	return Collections.unmodifiableList(items);
+	return MyCollections.unmodifiableOrEmptyList(items);
     }
 
     // consumerName (required)

@@ -271,10 +271,10 @@ public class QazkomOrder extends BaseEntity {
 
     // items
 
-    protected List<QazkomError> errors = new ArrayList<>();
+    protected List<QazkomError> errors;
 
     public List<QazkomError> getErrors() {
-	return Collections.unmodifiableList(errors);
+	return MyCollections.unmodifiableOrEmptyList(errors);
     }
 
     // controllers
