@@ -16,6 +16,7 @@
 		<class>tech.lapsa.kz.vehicle.converter.jpa.VehicleRegNumberAttributeConverter</class>
 
 		<class>com.lapsa.international.phone.converter.jpa.PhoneNumberAttributeConverter</class>
+
 		<class>tech.lapsa.epayment.domain.Domain</class>
 		<class>tech.lapsa.epayment.domain.BaseEntity</class>
 		<class>tech.lapsa.epayment.domain.Invoice</class>

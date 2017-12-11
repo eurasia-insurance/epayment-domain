@@ -41,7 +41,7 @@
 			<property name="javax.persistence.schema-generation.scripts.drop-target" value="./src/sql/mysql/epayment-schema-drop-4.0.ddl"/>
 			<property name="eclipselink.logging.parameters" value="true" />
 			<property name="eclipselink.weaving" value="static" />
-			<property name="eclipselink.weaving.fetchgroups" value="false"/>
+			<property name="eclipselink.weaving.fetchgroups" value="false" />
 		</properties>
 
 	</persistence-unit>
