@@ -27,6 +27,11 @@
 		<!-- oldies -->
 		<international-lib.version>3.3-SNAPSHOT</international-lib.version>
 		<kz-lib.version>3.2-SNAPSHOT</kz-lib.version>
+		<!-- PLUGINS dependencies versions -->
+		<!-- version number copied from javax-javaee-web-bom -->
+		<javax.persistence.version>2.1.0</javax.persistence.version>
+		<!-- version number copied from payara-bom -->
+		<eclipselink.version>2.6.4.payara-p2</eclipselink.version>
 	</properties>
 
 	<dependencyManagement>
@@ -250,8 +255,23 @@
 				<dependencies>
 					<dependency>
 						<groupId>org.eclipse.persistence</groupId>
+						<artifactId>javax.persistence</artifactId>
+						<version>${javax.persistence.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.eclipse.persistence</groupId>
+						<artifactId>org.eclipse.persistence.asm</artifactId>
+						<version>${eclipselink.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.eclipse.persistence</groupId>
+						<artifactId>org.eclipse.persistence.core</artifactId>
+						<version>${eclipselink.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.eclipse.persistence</groupId>
 						<artifactId>org.eclipse.persistence.jpa</artifactId>
-						<version>2.6.4</version>
+						<version>${eclipselink.version}</version>
 					</dependency>
 				</dependencies>
 			</plugin>
@@ -278,8 +298,18 @@
 				<dependencies>
 					<dependency>
 						<groupId>org.eclipse.persistence</groupId>
+						<artifactId>org.eclipse.persistence.core</artifactId>
+						<version>${eclipselink.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.eclipse.persistence</groupId>
+						<artifactId>org.eclipse.persistence.jpa</artifactId>
+						<version>${eclipselink.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.eclipse.persistence</groupId>
 						<artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
-						<version>2.6.4</version>
+						<version>${eclipselink.version}</version>
 					</dependency>
 				</dependencies>
 			</plugin>
