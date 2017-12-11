@@ -162,12 +162,24 @@
 			<artifactId>kz-eelib</artifactId>
 			<scope>compile</scope>
 			<optional>false</optional>
+			<exclusions>
+				<exclusion>
+					<artifactId>javax-rs-commons</artifactId>
+					<groupId>tech.lapsa.javax</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.lapsa.international-lib</groupId>
 			<artifactId>international-eelib</artifactId>
 			<scope>compile</scope>
 			<optional>false</optional>
+			<exclusions>
+				<exclusion>
+					<artifactId>javax-rs-commons</artifactId>
+					<groupId>tech.lapsa.javax</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<!-- Java EE -->
 		<dependency>
