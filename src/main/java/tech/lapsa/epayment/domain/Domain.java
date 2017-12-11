@@ -22,7 +22,7 @@ public abstract class Domain implements Localized, Serializable {
 
     @Override
     public final int hashCode() {
-	return MyHcEqToStr.hashCode(this, MyHcEqToStr.primeOf(this.getClass()));
+	return MyHcEqToStr.hashCode(this);
     }
 
     @Override
