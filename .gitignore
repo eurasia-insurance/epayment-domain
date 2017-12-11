@@ -3,6 +3,7 @@
 .metadata/
 .project
 .classpath
+.externalToolBuilders
 # Maven temporary files
 target/
 pom.xml.tag

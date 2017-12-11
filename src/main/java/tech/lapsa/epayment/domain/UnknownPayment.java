@@ -7,6 +7,10 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.StringJoiner;
 
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
 import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
@@ -14,6 +18,8 @@ import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localizeds;
 import tech.lapsa.patterns.domain.HashCodePrime;
 
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @HashCodePrime(23)
 public class UnknownPayment extends Payment {
 

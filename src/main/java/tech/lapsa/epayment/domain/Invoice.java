@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.text.NumberFormat;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
@@ -15,6 +14,20 @@ import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.lapsa.international.localization.LocalizationLanguage;
 import com.lapsa.international.phone.PhoneNumber;
@@ -34,6 +47,8 @@ import tech.lapsa.java.commons.localization.Localizeds;
 import tech.lapsa.kz.taxpayer.TaxpayerNumber;
 import tech.lapsa.patterns.domain.HashCodePrime;
 
+@Entity
+@Table(name = "INVOICE")
 @HashCodePrime(3)
 public class Invoice extends BaseEntity {
 
@@ -289,6 +304,9 @@ public class Invoice extends BaseEntity {
 
     // created (required)
 
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CREATED")
     protected Instant created = Instant.now();
 
     public Instant getCreated() {
@@ -297,6 +315,8 @@ public class Invoice extends BaseEntity {
 
     // number (required)
 
+    @Basic
+    @Column(name = "NUMBER", unique = true)
     protected String number = generateNumber();
 
     public String getNumber() {
@@ -305,6 +325,8 @@ public class Invoice extends BaseEntity {
 
     // currency (required)
 
+    @Basic
+    @Column(name = "CURRENCY")
     protected Currency currency;
 
     public Currency getCurrency() {
@@ -313,6 +335,7 @@ public class Invoice extends BaseEntity {
 
     // items
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "invoice", orphanRemoval = true)
     protected List<Item> items;
 
     public List<Item> getItems() {
@@ -321,6 +344,8 @@ public class Invoice extends BaseEntity {
 
     // consumerName (required)
 
+    @Basic
+    @Column(name = "CONSUMER_NAME")
     protected String consumerName;
 
     public String getConsumerName() {
@@ -329,6 +354,9 @@ public class Invoice extends BaseEntity {
 
     // consumerPreferLanguage (required)
 
+    @Basic
+    @Enumerated(EnumType.STRING)
+    @Column(name = "CONSUMER_PREFER_LANGUAGE")
     protected LocalizationLanguage consumerPreferLanguage;
 
     public LocalizationLanguage getConsumerPreferLanguage() {
@@ -337,6 +365,8 @@ public class Invoice extends BaseEntity {
 
     // consumerEmail (optional)
 
+    @Basic
+    @Column(name = "PAYER_EMAIL")
     protected String consumerEmail;
 
     public String getConsumerEmail() {
@@ -349,6 +379,8 @@ public class Invoice extends BaseEntity {
 
     // consumerPhone (optional)
 
+    @Basic
+    @Column(name = "CONSUMER_PHONE")
     protected PhoneNumber consumerPhone;
 
     public PhoneNumber getConsumerPhone() {
@@ -361,6 +393,8 @@ public class Invoice extends BaseEntity {
 
     // consumerTaxpayerNumber (optional)
 
+    @Basic
+    @Column(name = "CONSUMER_TAXPAYER_NUMBER")
     protected TaxpayerNumber consumerTaxpayerNumber;
 
     public TaxpayerNumber getConsumerTaxpayerNumber() {
@@ -373,6 +407,8 @@ public class Invoice extends BaseEntity {
 
     // externalId (optional)
 
+    @Basic
+    @Column(name = "EXTERNAL_ID")
     protected String externalId;
 
     public String getExternalId() {
@@ -385,6 +421,8 @@ public class Invoice extends BaseEntity {
 
     // payment
 
+    @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+    @JoinColumn(name = "PAYMENT_ID")
     protected Payment payment;
 
     public Payment getPayment() {
@@ -424,6 +462,9 @@ public class Invoice extends BaseEntity {
 
     // expired
 
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "EXPIRED")
     protected Instant expired;
 
     public boolean isExpired() {

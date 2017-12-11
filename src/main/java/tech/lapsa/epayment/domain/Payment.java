@@ -4,14 +4,28 @@ import java.time.Instant;
 import java.util.Currency;
 import java.util.Optional;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import tech.lapsa.java.commons.function.MyOptionals;
 
+@Entity
+@Table(name = "PAYMENT")
 public abstract class Payment extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
     // created
 
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CREATED")
     protected Instant created = Instant.now();
 
     public Instant getCreated() {
@@ -20,6 +34,8 @@ public abstract class Payment extends BaseEntity {
 
     // amount
 
+    @Basic
+    @Column(name = "AMOUNT")
     protected Double amount;
 
     public Double getAmount() {
@@ -28,6 +44,8 @@ public abstract class Payment extends BaseEntity {
 
     // currency
 
+    @Basic
+    @Column(name = "CURRENCY")
     protected Currency currency;
 
     public Currency getCurrency() {
@@ -36,15 +54,17 @@ public abstract class Payment extends BaseEntity {
 
     // referenceNumber
 
+    @Basic
+    @Column(name = "REFERENCE_NUMBER")
     protected String referenceNumber;
 
     public String getReferenceNumber() {
 	return referenceNumber;
     }
 
-
     // forInvoice
 
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "payment")
     protected Invoice forInvoice;
 
     public Invoice getForInvoice() {

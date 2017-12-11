@@ -1,9 +1,14 @@
 package tech.lapsa.epayment.domain;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
 import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyOptionals;
-import tech.lapsa.patterns.domain.Domain;
 
+@MappedSuperclass
 public abstract class BaseEntity extends Domain {
 
     private static final long serialVersionUID = 1L;
@@ -17,6 +22,8 @@ public abstract class BaseEntity extends Domain {
 
     // id
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
 
     public Integer getId() {

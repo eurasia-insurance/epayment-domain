@@ -4,8 +4,6 @@ import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.text.NumberFormat;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
@@ -13,6 +11,18 @@ import java.util.Optional;
 import java.util.StringJoiner;
 import java.util.UUID;
 import java.util.function.Predicate;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import tech.lapsa.epayment.domain.Exceptions.IsNotPaidException;
 import tech.lapsa.epayment.domain.Exceptions.IsPaidException;
@@ -27,6 +37,8 @@ import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localizeds;
 import tech.lapsa.patterns.domain.HashCodePrime;
 
+@Entity
+@Table(name = "QAZKOM_ORDER")
 @HashCodePrime(11)
 public class QazkomOrder extends BaseEntity {
 
@@ -183,6 +195,9 @@ public class QazkomOrder extends BaseEntity {
 
     // created
 
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CREATED")
     protected Instant created = Instant.now();
 
     public Instant getCreated() {
@@ -191,6 +206,8 @@ public class QazkomOrder extends BaseEntity {
 
     // orderNumber
 
+    @Basic
+    @Column(name = "ORDER_NUMBER", unique = true)
     protected String orderNumber;
 
     public String getOrderNumber() {
@@ -199,6 +216,8 @@ public class QazkomOrder extends BaseEntity {
 
     // amount
 
+    @Basic
+    @Column(name = "AMOUNT")
     protected Double amount;
 
     public Double getAmount() {
@@ -207,6 +226,8 @@ public class QazkomOrder extends BaseEntity {
 
     // currency
 
+    @Basic
+    @Column(name = "CURRENCY")
     protected Currency currency;
 
     public Currency getCurrency() {
@@ -215,6 +236,8 @@ public class QazkomOrder extends BaseEntity {
 
     // forInvoice
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "INVOICE_ID")
     protected Invoice forInvoice;
 
     public Invoice getForInvoice() {
@@ -227,6 +250,8 @@ public class QazkomOrder extends BaseEntity {
 
     // payment
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "PAYMENT_ID")
     protected QazkomPayment payment;
 
     public QazkomPayment getPayment() {
@@ -255,6 +280,8 @@ public class QazkomOrder extends BaseEntity {
 
     // orderDoc
 
+    @ManyToOne
+    @JoinColumn(name = "ORDER_DOC_ID")
     protected QazkomXmlDocument orderDoc;
 
     public QazkomXmlDocument getOrderDoc() {
@@ -263,6 +290,8 @@ public class QazkomOrder extends BaseEntity {
 
     // cartDoc
 
+    @ManyToOne
+    @JoinColumn(name = "CART_DOC_ID")
     protected QazkomXmlDocument cartDoc;
 
     public QazkomXmlDocument getCartDoc() {
@@ -271,6 +300,7 @@ public class QazkomOrder extends BaseEntity {
 
     // items
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "order", orphanRemoval = true)
     protected List<QazkomError> errors;
 
     public List<QazkomError> getErrors() {
