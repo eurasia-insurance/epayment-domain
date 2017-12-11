@@ -23,6 +23,7 @@ import tech.lapsa.epayment.domain.Exceptions.IsNotExpiredException;
 import tech.lapsa.epayment.domain.Exceptions.IsNotPaidException;
 import tech.lapsa.epayment.domain.Exceptions.IsNotPendingException;
 import tech.lapsa.epayment.domain.Exceptions.IsPaidException;
+import tech.lapsa.java.commons.function.MyCollections;
 import tech.lapsa.java.commons.function.MyExceptions;
 import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyObjects;
@@ -34,7 +35,7 @@ import tech.lapsa.kz.taxpayer.TaxpayerNumber;
 import tech.lapsa.patterns.domain.HashCodePrime;
 
 @HashCodePrime(3)
-public class Invoice extends Entity {
+public class Invoice extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -312,10 +313,10 @@ public class Invoice extends Entity {
 
     // items
 
-    protected List<Item> items = new ArrayList<>();
+    protected List<Item> items;
 
     public List<Item> getItems() {
-	return Collections.unmodifiableList(items);
+	return MyCollections.unmodifiableOrEmptyList(items);
     }
 
     // consumerName (required)
@@ -458,7 +459,7 @@ public class Invoice extends Entity {
 
     @Override
     public void unlazy() {
-	MyOptionals.of(getPayment()).ifPresent(Entity::unlazy);
+	MyOptionals.of(getPayment()).ifPresent(BaseEntity::unlazy);
 	getAmount(); // also fetches 'items'
     }
 

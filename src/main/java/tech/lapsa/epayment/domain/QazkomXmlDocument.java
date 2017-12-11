@@ -10,7 +10,7 @@ import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.patterns.domain.HashCodePrime;
 
 @HashCodePrime(19)
-public class QazkomXmlDocument extends Entity {
+public class QazkomXmlDocument extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 

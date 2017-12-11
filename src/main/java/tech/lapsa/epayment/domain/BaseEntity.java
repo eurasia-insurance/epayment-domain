@@ -4,14 +4,14 @@ import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.patterns.domain.Domain;
 
-public abstract class Entity extends Domain {
+public abstract class BaseEntity extends Domain {
 
     private static final long serialVersionUID = 1L;
 
-    protected Entity() {
+    protected BaseEntity() {
     }
 
-    protected Entity(final Integer id) {
+    protected BaseEntity(final Integer id) {
 	this.id = MyNumbers.requireNonZero(id, "id");
     }
 

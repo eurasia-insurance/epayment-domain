@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
+
+	<entity class="tech.lapsa.epayment.domain.QazkomPayment">
+		<table name="QAZKOM_PAYMENT" />
+		<inheritance strategy="JOINED" />
+		<attributes>
+			<basic name="orderNumber">
+				<column name="ORDER_NUMBER" unique="true" />
+			</basic>
+			<basic name="cardNumber">
+				<column name="CARD_NUMBER" />
+			</basic>
+			<basic name="payerName">
+				<column name="PAYER_NAME" />
+			</basic>
+			<basic name="payerEmail">
+				<column name="PAYER_EMAIL" />
+			</basic>
+			<basic name="payerPhoneNumber">
+				<column name="PAYER_PHONE_NUMBER" />
+			</basic>
+			<one-to-one name="paymentDoc">
+				<join-column name="PAYMENT_DOC_ID" />
+			</one-to-one>
+			<one-to-one name="order" fetch="EAGER" mapped-by="payment" />
+		</attributes>
+	</entity>
+
+</entity-mappings>

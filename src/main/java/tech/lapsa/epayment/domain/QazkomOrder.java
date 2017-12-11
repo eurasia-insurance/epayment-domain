@@ -28,7 +28,7 @@ import tech.lapsa.java.commons.localization.Localizeds;
 import tech.lapsa.patterns.domain.HashCodePrime;
 
 @HashCodePrime(11)
-public class QazkomOrder extends Entity {
+public class QazkomOrder extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -271,20 +271,20 @@ public class QazkomOrder extends Entity {
 
     // items
 
-    protected List<QazkomError> errors = new ArrayList<>();
+    protected List<QazkomError> errors;
 
     public List<QazkomError> getErrors() {
-	return Collections.unmodifiableList(errors);
+	return MyCollections.unmodifiableOrEmptyList(errors);
     }
 
     // controllers
 
     @Override
     public void unlazy() {
-	MyOptionals.of(getCartDoc()).ifPresent(Entity::unlazy);
-	MyOptionals.of(getOrderDoc()).ifPresent(Entity::unlazy);
-	MyOptionals.of(getPayment()).ifPresent(Entity::unlazy);
-	MyOptionals.of(getForInvoice()).ifPresent(Entity::unlazy);
+	MyOptionals.of(getCartDoc()).ifPresent(BaseEntity::unlazy);
+	MyOptionals.of(getOrderDoc()).ifPresent(BaseEntity::unlazy);
+	MyOptionals.of(getPayment()).ifPresent(BaseEntity::unlazy);
+	MyOptionals.of(getForInvoice()).ifPresent(BaseEntity::unlazy);
 	getErrors();
     }
 

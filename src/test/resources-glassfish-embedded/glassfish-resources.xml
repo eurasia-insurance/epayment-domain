@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+<resources>
+	<jdbc-resource pool-name="JDBCEpaymentPool_DEFAULT" jndi-name="epayment/jdbc/DataSource" />
+
+	<jdbc-connection-pool name="JDBCEpaymentPool_DEFAULT" res-type="javax.sql.DataSource"
+		datasource-classname="org.h2.jdbcx.JdbcDataSource"
+		is-isolation-level-guaranteed="false">
+		<property name="url" value="jdbc:h2:mem:junit" />
+	</jdbc-connection-pool>
+
+	<jdbc-resource pool-name="JDBCEpaymentPool_MYSQL" jndi-name="epayment/jdbc/DataSource_MYSQL" />
+
+	<jdbc-connection-pool name="JDBCEpaymentPool_MYSQL" res-type="javax.sql.DataSource"
+		datasource-classname="org.mariadb.jdbc.MySQLDataSource"
+		is-isolation-level-guaranteed="false">
+		<property name="serverName" value="mysql.theeurasia.local" />
+		<property name="portNumber" value="3306" />
+		<property name="databaseName" value="junit" />
+		<property name="user" value="junit" />
+		<property name="password" value="junit" />
+	</jdbc-connection-pool>
+
+</resources>

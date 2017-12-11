@@ -17,7 +17,11 @@
 	<properties>
 		<!-- BOMS -->
 		<java-commons.version>1.1-SNAPSHOT</java-commons.version>
+		<javax-javaee-bom.version>7.0</javax-javaee-bom.version>
+		<payara-bom.version>4.1.2-2-SNAPSHOT</payara-bom.version>
 		<!-- tech -->
+		<javax-jpa-commons.version>1.1-SNAPSHOT</javax-jpa-commons.version>
+		<lapsa-arquillian-test.version>1.1-SNAPSHOT</lapsa-arquillian-test.version>
 		<patterns-domain.version>1.0-SNAPSHOT</patterns-domain.version>
 		<epayment-qazkom-commons.version>1.0-SNAPSHOT</epayment-qazkom-commons.version>
 		<!-- oldies -->
@@ -35,6 +39,20 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<dependency>
+				<groupId>tech.lapsa.javax</groupId>
+				<artifactId>javax-javaee-bom</artifactId>
+				<version>${javax-javaee-bom.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>tech.lapsa.payara</groupId>
+				<artifactId>payara-bom</artifactId>
+				<version>${payara-bom.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
 			<!-- tech -->
 			<dependency>
 				<groupId>tech.lapsa.patterns</groupId>
@@ -45,6 +63,16 @@
 				<groupId>tech.lapsa.epayment</groupId>
 				<artifactId>epayment-qazkom-commons</artifactId>
 				<version>${epayment-qazkom-commons.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>tech.lapsa.javax</groupId>
+				<artifactId>javax-jpa-commons</artifactId>
+				<version>${javax-jpa-commons.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>tech.lapsa.lapsa</groupId>
+				<artifactId>lapsa-arquillian-test</artifactId>
+				<version>${lapsa-arquillian-test.version}</version>
 			</dependency>
 			<!-- oldies -->
 			<dependency>
@@ -60,6 +88,17 @@
 				<version>${kz-lib.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
+			</dependency>
+			<!-- test -->
+			<dependency>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+				<version>1.4.192</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mariadb.jdbc</groupId>
+				<artifactId>mariadb-java-client</artifactId>
+				<version>1.4.4</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -78,6 +117,12 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>tech.lapsa.javax</groupId>
+			<artifactId>javax-jpa-commons</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
+		<dependency>
 			<groupId>tech.lapsa.patterns</groupId>
 			<artifactId>patterns-domain</artifactId>
 			<scope>compile</scope>
@@ -88,6 +133,11 @@
 			<artifactId>epayment-qazkom-commons</artifactId>
 			<scope>compile</scope>
 			<optional>false</optional>
+		</dependency>
+		<dependency>
+			<groupId>tech.lapsa.lapsa</groupId>
+			<artifactId>lapsa-arquillian-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<!-- oldies -->
 		<dependency>
@@ -102,7 +152,149 @@
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>
+		<dependency>
+			<groupId>com.lapsa.kz-lib</groupId>
+			<artifactId>kz-eelib</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.lapsa.international-lib</groupId>
+			<artifactId>international-eelib</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
+		<!-- Java EE -->
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>javax.persistence</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+
 	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>mysql</id>
+			<build>
+				<defaultGoal>clean test</defaultGoal>
+				<resources>
+					<resource>
+						<directory>src/main/mysql-resources</directory>
+					</resource>
+					<resource>
+						<directory>src/main/resources</directory>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<profile>
+			<id>default-resources</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+	</profiles>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/sql</directory>
+				<targetPath>sql</targetPath>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+			<testResource>
+				<directory>src/test/resources-glassfish-embedded</directory>
+			</testResource>
+		</testResources>
+		<plugins>
+			<plugin>
+				<groupId>de.empulse.eclipselink</groupId>
+				<artifactId>staticweave-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<executions>
+					<execution>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>weave</goal>
+						</goals>
+						<configuration>
+							<persistenceXMLLocation>META-INF/persistence.xml</persistenceXMLLocation>
+							<logLevel>FINEST</logLevel>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.eclipse.persistence</groupId>
+						<artifactId>org.eclipse.persistence.jpa</artifactId>
+						<version>2.6.4</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.bsc.maven</groupId>
+				<artifactId>maven-processor-plugin</artifactId>
+				<version>2.2.4</version>
+				<executions>
+					<execution>
+						<id>process</id>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<phase>generate-sources</phase>
+						<configuration>
+							<outputDirectory>${project.build.directory}/generated-sources/metamodel</outputDirectory>
+							<compilerArguments>-Aeclipselink.persistencexml=src/main/resources/META-INF/persistence.xml</compilerArguments>
+							<processors>
+								<processor>org.eclipse.persistence.internal.jpa.modelgen.CanonicalModelProcessor</processor>
+							</processors>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.eclipse.persistence</groupId>
+						<artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
+						<version>2.6.4</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<systemPropertyVariables>
+						<java.util.logging.config.file>${project.build.testOutputDirectory}/logging.properties</java.util.logging.config.file>
+						<derby.stream.error.file>${project.build.directory}/derby.log</derby.stream.error.file>
+						<glassfish.embedded.tmpdir>${project.build.directory}</glassfish.embedded.tmpdir>
+					</systemPropertyVariables>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 	<scm>
 		<connection>scm:git:https://gitlab.lapsa.tech/lapsa/epayment/domain.git</connection>
