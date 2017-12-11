@@ -16,7 +16,7 @@
 		<class>tech.lapsa.kz.vehicle.converter.jpa.VehicleRegNumberAttributeConverter</class>
 
 		<class>com.lapsa.international.phone.converter.jpa.PhoneNumberAttributeConverter</class>
-
+		<class>tech.lapsa.epayment.domain.Domain</class>
 		<class>tech.lapsa.epayment.domain.BaseEntity</class>
 		<class>tech.lapsa.epayment.domain.Invoice</class>
 		<class>tech.lapsa.epayment.domain.Item</class>
@@ -38,7 +38,7 @@
 			<property name="javax.persistence.schema-generation.scripts.action" value="none" />
 			<property name="eclipselink.logging.parameters" value="true" />
 			<property name="eclipselink.weaving" value="static" />
-			<property name="eclipselink.weaving.fetchgroups" value="false"/>
+			<property name="eclipselink.weaving.fetchgroups" value="false" />
 		</properties>
 
 	</persistence-unit>

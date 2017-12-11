@@ -7,7 +7,6 @@ import javax.persistence.MappedSuperclass;
 
 import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyOptionals;
-import tech.lapsa.patterns.domain.Domain;
 
 @MappedSuperclass
 public abstract class BaseEntity extends Domain {
