@@ -139,11 +139,6 @@
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>
-		<dependency>
-			<groupId>tech.lapsa.lapsa</groupId>
-			<artifactId>lapsa-arquillian-test</artifactId>
-			<scope>test</scope>
-		</dependency>
 		<!-- oldies -->
 		<dependency>
 			<groupId>com.lapsa.kz-lib</groupId>
@@ -189,6 +184,11 @@
 		</dependency>
 		<!-- test -->
 		<dependency>
+			<groupId>tech.lapsa.lapsa</groupId>
+			<artifactId>lapsa-arquillian-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>test</scope>
@@ -198,8 +198,6 @@
 			<artifactId>mariadb-java-client</artifactId>
 			<scope>test</scope>
 		</dependency>
-
-
 	</dependencies>
 
 	<profiles>
@@ -290,17 +288,15 @@
 			<plugin>
 				<groupId>org.bsc.maven</groupId>
 				<artifactId>maven-processor-plugin</artifactId>
-				<version>2.2.4</version>
+				<version>3.3.2</version>
 				<executions>
 					<execution>
 						<id>process</id>
 						<goals>
 							<goal>process</goal>
 						</goals>
-						<phase>generate-sources</phase>
+						<phase>process-resources</phase>
 						<configuration>
-							<outputDirectory>${project.build.directory}/generated-sources/metamodel</outputDirectory>
-							<compilerArguments>-Aeclipselink.persistencexml=src/main/resources/META-INF/persistence.xml</compilerArguments>
 							<processors>
 								<processor>org.eclipse.persistence.internal.jpa.modelgen.CanonicalModelProcessor</processor>
 							</processors>

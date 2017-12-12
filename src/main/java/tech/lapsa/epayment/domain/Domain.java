@@ -2,12 +2,9 @@ package tech.lapsa.epayment.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.MappedSuperclass;
-
 import tech.lapsa.java.commons.localization.Localized;
 import tech.lapsa.patterns.domain.MyHcEqToStr;
 
-@MappedSuperclass
 public abstract class Domain implements Localized, Serializable {
 
     private static final long serialVersionUID = 1L;

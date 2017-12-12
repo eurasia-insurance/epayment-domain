@@ -30,11 +30,11 @@ public abstract class BaseEntity extends Domain {
 	return id;
     }
 
-    String appendEntityId() {
+    protected String appendEntityId() {
 	return appendEntityId(id);
     }
 
-    static String appendEntityId(final Object id) {
+    protected static String appendEntityId(final Object id) {
 	return " [ID=" + MyOptionals.of(id).map(Object::toString).orElse("NONE") + "]";
     }
 }
