@@ -69,10 +69,9 @@ public class Invoice extends BaseEntity {
 	do {
 	    number = generateNumber();
 	    if (attempt++ > NUMBER_OF_ATTEMPTS)
-		throw new NumberOfAttemptsExceedException(
-			String.format(
-				"The number of attempts is exceed the limit (%1$d) while generating the unique number",
-				NUMBER_OF_ATTEMPTS));
+		throw MyExceptions.format(NumberOfAttemptsExceedException::new,
+			"The number of attempts is exceed the limit (%1$d) while generating the unique number",
+			NUMBER_OF_ATTEMPTS);
 	} while (!numberIsUniqueTest.test(number));
 	return number;
     }
@@ -224,14 +223,14 @@ public class Invoice extends BaseEntity {
 	    } else {
 		// using user value
 		if (MyObjects.nonNull(numberIsUniqueTest) && !numberIsUniqueTest.test(number))
-		    throw new NonUniqueNumberException(String.format("The number is non-unique (%1$s)", number));
+		    throw MyExceptions.format(NonUniqueNumberException::new, "The number is non-unique (%1$s)", number);
 		invoice.number = number;
 	    }
 
 	    invoice.currency = MyObjects.requireNonNull(currency, "currency");
 	    invoice.items = MyOptionals.streamOf(itms) //
-		    .orElseThrow(() -> new IllegalArgumentException(
-			    "An invoice must contains at least one item")) //
+		    .orElseThrow(
+			    MyExceptions.illegalArgumentSupplierFormat("An invoice must contains at least one item")) //
 		    .map(i -> {
 			Item r = new Item();
 			r.invoice = invoice;
