@@ -58,12 +58,12 @@ public class QazkomPayment extends Payment {
 	private QazkomPaymentBuilder() {
 	}
 
-	public QazkomPaymentBuilder fromRawXml(final String rawXml) {
+	public QazkomPaymentBuilder fromRawXml(final String rawXml) throws IllegalArgumentException {
 	    this.rawXml = MyStrings.requireNonEmpty(rawXml, "rawXml");
 	    return this;
 	}
 
-	public QazkomPaymentBuilder withBankCertificate(X509Certificate certificate) {
+	public QazkomPaymentBuilder withBankCertificate(X509Certificate certificate) throws IllegalArgumentException {
 	    this.certificate = MyObjects.requireNonNull(certificate, "certificate");
 	    return this;
 	}
@@ -73,7 +73,7 @@ public class QazkomPayment extends Payment {
 	    return this;
 	}
 
-	public QazkomPayment build() {
+	public QazkomPayment build() throws IllegalArgumentException {
 
 	    MyStrings.requireNonEmpty(rawXml, "rawXml");
 

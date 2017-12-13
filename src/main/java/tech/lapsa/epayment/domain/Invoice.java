@@ -61,7 +61,7 @@ public class Invoice extends BaseEntity {
     }
 
     public static String generateNumber(final Predicate<String> numberIsUniqueTest)
-	    throws NumberOfAttemptsExceedException {
+	    throws IllegalArgumentException, NumberOfAttemptsExceedException {
 	MyObjects.requireNonNull(numberIsUniqueTest, "numberIsUniqueTest");
 	final int NUMBER_OF_ATTEMPTS = 100;
 	int attempt = 0;
@@ -92,10 +92,10 @@ public class Invoice extends BaseEntity {
 	    private final Integer quantity;
 	    private final Double price;
 
-	    private Itm(final String name, final Integer quantity, final Double price) {
-		this.name = name;
-		this.quantity = quantity;
-		this.price = price;
+	    private Itm(final String name, final Integer quantity, final Double price) throws IllegalArgumentException {
+		this.name = MyStrings.requireNonEmpty(name, "name");
+		this.quantity = MyNumbers.requirePositive(quantity, "quantity");
+		this.price = MyNumbers.requirePositive(price, "price");
 	    }
 	}
 
@@ -113,12 +113,12 @@ public class Invoice extends BaseEntity {
 	private InvoiceBuilder() {
 	}
 
-	public InvoiceBuilder withNumber(final String number) {
+	public InvoiceBuilder withNumber(final String number) throws IllegalArgumentException {
 	    this.number = MyStrings.requireNonEmpty(number, "number");
 	    return this;
 	}
 
-	public InvoiceBuilder withCreationInstant(final Instant created) {
+	public InvoiceBuilder withCreationInstant(final Instant created) throws IllegalArgumentException {
 	    this.created = MyObjects.requireNonNull(created, "created");
 	    return this;
 	}
@@ -128,55 +128,59 @@ public class Invoice extends BaseEntity {
 	    return this;
 	}
 
-	public InvoiceBuilder withCurrency(final Currency currency) {
+	public InvoiceBuilder withCurrency(final Currency currency) throws IllegalArgumentException {
 	    this.currency = Objects.requireNonNull(currency, "currency");
 	    return this;
 	}
 
-	public InvoiceBuilder withConsumerPreferLanguage(final LocalizationLanguage consumerPreferLanguage) {
+	public InvoiceBuilder withConsumerPreferLanguage(final LocalizationLanguage consumerPreferLanguage)
+		throws IllegalArgumentException {
 	    this.consumerPreferLanguage = MyObjects.requireNonNull(consumerPreferLanguage, "consumerPreferLanguage");
 	    return this;
 	}
 
-	public InvoiceBuilder withConsumerName(final String consumerName) {
+	public InvoiceBuilder withConsumerName(final String consumerName) throws IllegalArgumentException {
 	    this.consumerName = MyStrings.requireNonEmpty(consumerName, "consumerName");
 	    return this;
 	}
 
-	public InvoiceBuilder withConsumerEmail(final String consumerEmail) {
+	public InvoiceBuilder withConsumerEmail(final String consumerEmail) throws IllegalArgumentException {
 	    this.consumerEmail = MyStrings.requireNonEmpty(consumerEmail, "consumerEmail");
 	    return this;
 	}
 
-	public InvoiceBuilder withConsumerEmail(Optional<String> consumerEmail) {
+	public InvoiceBuilder withConsumerEmail(Optional<String> consumerEmail) throws IllegalArgumentException {
 	    MyObjects.requireNonNull(consumerEmail, "consumerEmail") //
 		    .ifPresent(this::withConsumerEmail);
 	    return this;
 	}
 
-	public InvoiceBuilder withConsumerPhone(final PhoneNumber consumerPhone) {
+	public InvoiceBuilder withConsumerPhone(final PhoneNumber consumerPhone) throws IllegalArgumentException {
 	    this.consumerPhone = MyObjects.requireNonNull(consumerPhone, "consumerPhone");
 	    return this;
 	}
 
-	public InvoiceBuilder withConsumerPhone(Optional<PhoneNumber> consumerPhone) {
+	public InvoiceBuilder withConsumerPhone(Optional<PhoneNumber> consumerPhone) throws IllegalArgumentException {
 	    MyObjects.requireNonNull(consumerPhone, "consumerPhone") //
 		    .ifPresent(this::withConsumerPhone);
 	    return this;
 	}
 
-	public InvoiceBuilder withConsumerTaxpayerNumber(final TaxpayerNumber consumerTaxpayerNumber) {
+	public InvoiceBuilder withConsumerTaxpayerNumber(final TaxpayerNumber consumerTaxpayerNumber)
+		throws IllegalArgumentException {
 	    this.consumerTaxpayerNumber = MyObjects.requireNonNull(consumerTaxpayerNumber, "consumerTaxpayerNumber");
 	    return this;
 	}
 
-	public InvoiceBuilder withConsumerTaxpayerNumber(Optional<TaxpayerNumber> consumerTaxpayerNumber) {
+	public InvoiceBuilder withConsumerTaxpayerNumber(Optional<TaxpayerNumber> consumerTaxpayerNumber)
+		throws IllegalArgumentException {
 	    MyObjects.requireNonNull(consumerTaxpayerNumber, "consumerTaxpayerNumber") //
 		    .ifPresent(this::withConsumerTaxpayerNumber);
 	    return this;
 	}
 
-	public InvoiceBuilder withItem(final String name, final Integer quantity, final Double price) {
+	public InvoiceBuilder withItem(final String name, final Integer quantity, final Double price)
+		throws IllegalArgumentException {
 	    MyStrings.requireNonEmpty(name, "name");
 	    MyNumbers.requirePositive(quantity, "quantity");
 	    MyNumbers.requirePositive(price, "price");
@@ -189,28 +193,28 @@ public class Invoice extends BaseEntity {
 	    return this;
 	}
 
-	public InvoiceBuilder withExternalId(final Optional<String> externalId) {
+	public InvoiceBuilder withExternalId(final Optional<String> externalId) throws IllegalArgumentException {
 	    MyObjects.requireNonNull(externalId, "externalId") //
 		    .ifPresent(this::withExternalId);
 	    return this;
 	}
 
-	public InvoiceBuilder withExternalId(final String externalId) {
+	public InvoiceBuilder withExternalId(final String externalId) throws IllegalArgumentException {
 	    this.externalId = MyStrings.requireNonEmpty(externalId, "externalId");
 	    return this;
 	}
 
-	public InvoiceBuilder withExternalId(final Number externalId) {
-	    this.externalId = String.valueOf(MyNumbers.requireNonZero(externalId));
+	public InvoiceBuilder withExternalId(final Number externalId) throws IllegalArgumentException {
+	    this.externalId = String.valueOf(MyNumbers.requirePositive(externalId, "externalId"));
 	    return this;
 	}
 
-	public Invoice build() throws NonUniqueNumberException, NumberOfAttemptsExceedException {
+	public Invoice build() throws IllegalArgumentException, NonUniqueNumberException {
 	    return build(null);
 	}
 
 	public Invoice build(final Predicate<String> numberIsUniqueTest)
-		throws NonUniqueNumberException, NumberOfAttemptsExceedException {
+		throws IllegalArgumentException, NonUniqueNumberException, NumberOfAttemptsExceedException {
 	    final Invoice invoice = new Invoice();
 
 	    MyOptionals.of(created).ifPresent(x -> invoice.created = x);

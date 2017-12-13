@@ -44,12 +44,12 @@ public class QazkomError extends BaseEntity {
 	private QazkomErrorBuilder() {
 	}
 
-	public QazkomErrorBuilder fromRawXml(final String rawXml) {
+	public QazkomErrorBuilder fromRawXml(final String rawXml) throws IllegalArgumentException {
 	    this.rawXml = MyStrings.requireNonEmpty(rawXml, "rawXml");
 	    return this;
 	}
 
-	public QazkomError build() {
+	public QazkomError build() throws IllegalArgumentException {
 
 	    MyStrings.requireNonEmpty(rawXml, "rawXml");
 
