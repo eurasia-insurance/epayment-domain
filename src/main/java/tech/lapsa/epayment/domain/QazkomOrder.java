@@ -95,7 +95,7 @@ public class QazkomOrder extends BaseEntity {
 	}
 
 	public QazkomOrderBuilder withGeneratedNumber() {
-	    this.orderNumber = null;
+	    orderNumber = null;
 	    return this;
 	}
 
@@ -117,12 +117,12 @@ public class QazkomOrder extends BaseEntity {
 		throws IllegalArgumentException, NumberOfAttemptsExceedException, NonUniqueNumberException {
 	    final QazkomOrder result = new QazkomOrder();
 
-	    if (MyStrings.empty(orderNumber)) {
+	    if (MyStrings.empty(orderNumber))
 		// using generated value
 		result.orderNumber = MyObjects.nonNull(numberIsUniqueTest) //
 			? generateNumber(numberIsUniqueTest) //
 			: generateNumber();
-	    } else {
+	    else {
 		// using user value
 		if (MyObjects.nonNull(numberIsUniqueTest) && !numberIsUniqueTest.test(orderNumber))
 		    throw new NonUniqueNumberException(String.format("The number is non-unique (%1$s)", orderNumber));
@@ -175,7 +175,7 @@ public class QazkomOrder extends BaseEntity {
 		.ifPresent(sj::add);
 
 	if (amount != null && currency != null) {
-	    NumberFormat nf = NumberFormat.getCurrencyInstance();
+	    final NumberFormat nf = NumberFormat.getCurrencyInstance();
 	    nf.setCurrency(currency);
 	    sj.add(Localization.PAYMENT_FIELD_AMOUNT.fieldAsCaptionMapper(variant, locale)
 		    .apply(nf.format(amount)));
@@ -320,7 +320,7 @@ public class QazkomOrder extends BaseEntity {
 	if (error.optionalOrder().isPresent())
 	    throw MyExceptions.illegalStateFormat("Error has order attached already");
 
-	this.errors.add(error);
+	errors.add(error);
 	error.order = this;
     }
 

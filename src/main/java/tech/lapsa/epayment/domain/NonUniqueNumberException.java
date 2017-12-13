@@ -8,20 +8,15 @@ public class NonUniqueNumberException extends RuntimeException {
 	super();
     }
 
-    public NonUniqueNumberException(String message, Throwable cause, boolean enableSuppression,
-	    boolean writableStackTrace) {
-	super(message, cause, enableSuppression, writableStackTrace);
-    }
-
-    public NonUniqueNumberException(String message, Throwable cause) {
+    public NonUniqueNumberException(final String message, final Throwable cause) {
 	super(message, cause);
     }
 
-    public NonUniqueNumberException(String message) {
+    public NonUniqueNumberException(final String message) {
 	super(message);
     }
 
-    public NonUniqueNumberException(Throwable cause) {
+    public NonUniqueNumberException(final Throwable cause) {
 	super(cause);
     }
 }

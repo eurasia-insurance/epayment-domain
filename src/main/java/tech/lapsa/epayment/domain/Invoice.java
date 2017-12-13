@@ -124,7 +124,7 @@ public class Invoice extends BaseEntity {
 	}
 
 	public InvoiceBuilder withGeneratedNumber() {
-	    this.number = null;
+	    number = null;
 	    return this;
 	}
 
@@ -149,7 +149,7 @@ public class Invoice extends BaseEntity {
 	    return this;
 	}
 
-	public InvoiceBuilder withConsumerEmail(Optional<String> consumerEmail) throws IllegalArgumentException {
+	public InvoiceBuilder withConsumerEmail(final Optional<String> consumerEmail) throws IllegalArgumentException {
 	    MyObjects.requireNonNull(consumerEmail, "consumerEmail") //
 		    .ifPresent(this::withConsumerEmail);
 	    return this;
@@ -160,7 +160,8 @@ public class Invoice extends BaseEntity {
 	    return this;
 	}
 
-	public InvoiceBuilder withConsumerPhone(Optional<PhoneNumber> consumerPhone) throws IllegalArgumentException {
+	public InvoiceBuilder withConsumerPhone(final Optional<PhoneNumber> consumerPhone)
+		throws IllegalArgumentException {
 	    MyObjects.requireNonNull(consumerPhone, "consumerPhone") //
 		    .ifPresent(this::withConsumerPhone);
 	    return this;
@@ -172,7 +173,7 @@ public class Invoice extends BaseEntity {
 	    return this;
 	}
 
-	public InvoiceBuilder withConsumerTaxpayerNumber(Optional<TaxpayerNumber> consumerTaxpayerNumber)
+	public InvoiceBuilder withConsumerTaxpayerNumber(final Optional<TaxpayerNumber> consumerTaxpayerNumber)
 		throws IllegalArgumentException {
 	    MyObjects.requireNonNull(consumerTaxpayerNumber, "consumerTaxpayerNumber") //
 		    .ifPresent(this::withConsumerTaxpayerNumber);
@@ -219,12 +220,12 @@ public class Invoice extends BaseEntity {
 
 	    MyOptionals.of(created).ifPresent(x -> invoice.created = x);
 
-	    if (MyStrings.empty(number)) {
+	    if (MyStrings.empty(number))
 		// using generated value
 		invoice.number = MyObjects.nonNull(numberIsUniqueTest) //
 			? generateNumber(numberIsUniqueTest) //
 			: generateNumber();
-	    } else {
+	    else {
 		// using user value
 		if (MyObjects.nonNull(numberIsUniqueTest) && !numberIsUniqueTest.test(number))
 		    throw MyExceptions.format(NonUniqueNumberException::new, "The number is non-unique (%1$s)", number);
@@ -236,7 +237,7 @@ public class Invoice extends BaseEntity {
 		    .orElseThrow(
 			    MyExceptions.illegalArgumentSupplierFormat("An invoice must contains at least one item")) //
 		    .map(i -> {
-			Item r = new Item();
+			final Item r = new Item();
 			r.invoice = invoice;
 			r.name = i.name;
 			r.price = i.price;
@@ -279,7 +280,7 @@ public class Invoice extends BaseEntity {
 		.ifPresent(sj::add);
 
 	if (currency != null) {
-	    NumberFormat nf = NumberFormat.getCurrencyInstance();
+	    final NumberFormat nf = NumberFormat.getCurrencyInstance();
 	    nf.setCurrency(currency);
 	    sj.add(Localization.INVOICE_FIELD_AMOUNT.fieldAsCaptionMapper(variant, locale)
 		    .apply(nf.format(getAmount())));

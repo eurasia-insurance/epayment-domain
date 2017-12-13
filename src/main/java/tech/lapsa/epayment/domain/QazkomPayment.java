@@ -63,13 +63,14 @@ public class QazkomPayment extends Payment {
 	    return this;
 	}
 
-	public QazkomPaymentBuilder withBankCertificate(X509Certificate certificate) throws IllegalArgumentException {
+	public QazkomPaymentBuilder withBankCertificate(final X509Certificate certificate)
+		throws IllegalArgumentException {
 	    this.certificate = MyObjects.requireNonNull(certificate, "certificate");
 	    return this;
 	}
 
 	public QazkomPaymentBuilder withOptionalSignatureChecking() {
-	    this.signatureCheckRequired = false;
+	    signatureCheckRequired = false;
 	    return this;
 	}
 
@@ -77,7 +78,7 @@ public class QazkomPayment extends Payment {
 
 	    MyStrings.requireNonEmpty(rawXml, "rawXml");
 
-	    XmlDocumentPaymentBuilder documentBuilder = XmlDocumentPayment.builder() //
+	    final XmlDocumentPaymentBuilder documentBuilder = XmlDocumentPayment.builder() //
 		    .ofRawXml(rawXml);
 
 	    if (signatureCheckRequired)
@@ -86,7 +87,7 @@ public class QazkomPayment extends Payment {
 	    if (MyObjects.nonNull(certificate))
 		documentBuilder.withBankCertificate(certificate);
 
-	    XmlDocumentPayment document = documentBuilder.build();
+	    final XmlDocumentPayment document = documentBuilder.build();
 
 	    final XmlResults results = MyOptionals.of(document.getBank()) //
 		    .map(XmlBank::getResults) //
@@ -170,7 +171,7 @@ public class QazkomPayment extends Payment {
 		.ifPresent(sj::add);
 
 	if (amount != null && currency != null) {
-	    NumberFormat nf = NumberFormat.getCurrencyInstance();
+	    final NumberFormat nf = NumberFormat.getCurrencyInstance();
 	    nf.setCurrency(currency);
 	    sj.add(Localization.PAYMENT_FIELD_AMOUNT.fieldAsCaptionMapper(variant, locale)
 		    .apply(nf.format(amount)));

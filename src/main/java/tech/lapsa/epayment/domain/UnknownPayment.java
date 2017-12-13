@@ -92,7 +92,7 @@ public class UnknownPayment extends Payment {
     }
 
     @Override
-    public String localized(LocalizationVariant variant, Locale locale) {
+    public String localized(final LocalizationVariant variant, final Locale locale) {
 	final StringBuilder sb = new StringBuilder();
 
 	sb.append(Localization.UNKNOWNPAYMENT_NAME.localized(variant, locale));
@@ -106,7 +106,7 @@ public class UnknownPayment extends Payment {
 		.ifPresent(sj::add);
 
 	if (amount != null && currency != null) {
-	    NumberFormat nf = NumberFormat.getCurrencyInstance();
+	    final NumberFormat nf = NumberFormat.getCurrencyInstance();
 	    nf.setCurrency(currency);
 	    sj.add(Localization.PAYMENT_FIELD_AMOUNT.fieldAsCaptionMapper(variant, locale)
 		    .apply(nf.format(amount)));

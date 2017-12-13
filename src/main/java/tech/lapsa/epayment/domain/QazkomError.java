@@ -130,7 +130,7 @@ public class QazkomError extends BaseEntity {
     // message
 
     @Basic
-    @Column(name="MESSAGE")
+    @Column(name = "MESSAGE")
     protected String message;
 
     public String getMessage() {
@@ -140,7 +140,7 @@ public class QazkomError extends BaseEntity {
     // code
 
     @Basic
-    @Column(name="CODE")
+    @Column(name = "CODE")
     protected String code;
 
     public String getCode() {
