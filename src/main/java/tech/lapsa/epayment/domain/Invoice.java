@@ -109,7 +109,6 @@ public class Invoice extends BaseEntity {
 	private String externalId;
 	private List<Itm> itms = new ArrayList<>();
 	private String number;
-	private Predicate<String> numberIsUniqueTest;
 	private Instant created;
 
 	private InvoiceBuilder() {
@@ -117,13 +116,6 @@ public class Invoice extends BaseEntity {
 
 	public InvoiceBuilder withNumber(final String number) {
 	    this.number = MyStrings.requireNonEmpty(number, "number");
-	    this.numberIsUniqueTest = null;
-	    return this;
-	}
-
-	public InvoiceBuilder withNumber(final String number, final Predicate<String> numberIsUniqueTest) {
-	    this.number = MyStrings.requireNonEmpty(number, "number");
-	    this.numberIsUniqueTest = MyObjects.requireNonNull(numberIsUniqueTest, "numberIsUniqueTest");
 	    return this;
 	}
 
@@ -132,20 +124,8 @@ public class Invoice extends BaseEntity {
 	    return this;
 	}
 
-	public InvoiceBuilder withGeneratedNumber(final Predicate<String> numberIsUniqueTest) {
-	    this.number = null;
-	    this.numberIsUniqueTest = MyObjects.requireNonNull(numberIsUniqueTest, "numberIsUniqueTest");
-	    return this;
-	}
-
 	public InvoiceBuilder withGeneratedNumber() {
 	    this.number = null;
-	    this.numberIsUniqueTest = null;
-	    return this;
-	}
-
-	public InvoiceBuilder testingNumberWith(final Predicate<String> numberIsUniqueTest) {
-	    this.numberIsUniqueTest = MyObjects.requireNonNull(numberIsUniqueTest, "numberIsUniqueTest");
 	    return this;
 	}
 
@@ -227,6 +207,11 @@ public class Invoice extends BaseEntity {
 	}
 
 	public Invoice build() throws NonUniqueNumberException, NumberOfAttemptsExceedException {
+	    return build(null);
+	}
+
+	public Invoice build(final Predicate<String> numberIsUniqueTest)
+		throws NonUniqueNumberException, NumberOfAttemptsExceedException {
 	    final Invoice invoice = new Invoice();
 
 	    MyOptionals.of(created).ifPresent(x -> invoice.created = x);
