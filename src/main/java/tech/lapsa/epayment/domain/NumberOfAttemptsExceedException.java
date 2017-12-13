@@ -8,20 +8,15 @@ public class NumberOfAttemptsExceedException extends RuntimeException {
 	super();
     }
 
-    public NumberOfAttemptsExceedException(String message, Throwable cause, boolean enableSuppression,
-	    boolean writableStackTrace) {
-	super(message, cause, enableSuppression, writableStackTrace);
-    }
-
-    public NumberOfAttemptsExceedException(String message, Throwable cause) {
+    public NumberOfAttemptsExceedException(final String message, final Throwable cause) {
 	super(message, cause);
     }
 
-    public NumberOfAttemptsExceedException(String message) {
+    public NumberOfAttemptsExceedException(final String message) {
 	super(message);
     }
 
-    public NumberOfAttemptsExceedException(Throwable cause) {
+    public NumberOfAttemptsExceedException(final Throwable cause) {
 	super(cause);
     }
 }

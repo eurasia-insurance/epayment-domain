@@ -16,7 +16,7 @@ public abstract class BaseEntity extends Domain {
     protected BaseEntity() {
     }
 
-    protected BaseEntity(final Integer id) {
+    protected BaseEntity(final Integer id) throws IllegalArgumentException {
 	this.id = MyNumbers.requireNonZero(id, "id");
     }
 

@@ -13,15 +13,15 @@ public final class Exceptions {
 	    super();
 	}
 
-	public IsNotPaidException(String message, Throwable cause) {
+	public IsNotPaidException(final String message, final Throwable cause) {
 	    super(message, cause);
 	}
 
-	public IsNotPaidException(String s) {
+	public IsNotPaidException(final String s) {
 	    super(s);
 	}
 
-	public IsNotPaidException(Throwable cause) {
+	public IsNotPaidException(final Throwable cause) {
 	    super(cause);
 	}
     }
@@ -34,15 +34,15 @@ public final class Exceptions {
 	    super();
 	}
 
-	public IsNotPendingException(String message, Throwable cause) {
+	public IsNotPendingException(final String message, final Throwable cause) {
 	    super(message, cause);
 	}
 
-	public IsNotPendingException(String s) {
+	public IsNotPendingException(final String s) {
 	    super(s);
 	}
 
-	public IsNotPendingException(Throwable cause) {
+	public IsNotPendingException(final Throwable cause) {
 	    super(cause);
 	}
     }
@@ -55,15 +55,15 @@ public final class Exceptions {
 	    super();
 	}
 
-	public IsPaidException(String message, Throwable cause) {
+	public IsPaidException(final String message, final Throwable cause) {
 	    super(message, cause);
 	}
 
-	public IsPaidException(String s) {
+	public IsPaidException(final String s) {
 	    super(s);
 	}
 
-	public IsPaidException(Throwable cause) {
+	public IsPaidException(final Throwable cause) {
 	    super(cause);
 	}
     }
@@ -76,15 +76,15 @@ public final class Exceptions {
 	    super();
 	}
 
-	public IsNotExpiredException(String message, Throwable cause) {
+	public IsNotExpiredException(final String message, final Throwable cause) {
 	    super(message, cause);
 	}
 
-	public IsNotExpiredException(String s) {
+	public IsNotExpiredException(final String s) {
 	    super(s);
 	}
 
-	public IsNotExpiredException(Throwable cause) {
+	public IsNotExpiredException(final Throwable cause) {
 	    super(cause);
 	}
     }

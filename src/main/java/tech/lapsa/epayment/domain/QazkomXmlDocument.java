@@ -31,7 +31,7 @@ public class QazkomXmlDocument extends BaseEntity {
     public QazkomXmlDocument() {
     }
 
-    public QazkomXmlDocument(final String rawXml, final DocumentType type) {
+    public QazkomXmlDocument(final String rawXml, final DocumentType type) throws IllegalArgumentException {
 	this.rawXml = MyStrings.requireNonEmpty(rawXml, "rawXml");
 	this.type = MyObjects.requireNonNull(type, "type");
     }

@@ -50,7 +50,7 @@ public class QazkomOrder extends BaseEntity {
     }
 
     public static String generateNumber(final Predicate<String> numberIsUniqueTest)
-	    throws NumberOfAttemptsExceedException {
+	    throws IllegalArgumentException, NumberOfAttemptsExceedException {
 	MyObjects.requireNonNull(numberIsUniqueTest, "numberIsUniqueTest");
 	final int NUMBER_OF_ATTEMPTS = 100;
 	int attempt = 0;
@@ -58,10 +58,9 @@ public class QazkomOrder extends BaseEntity {
 	do {
 	    number = generateNumber();
 	    if (attempt++ > NUMBER_OF_ATTEMPTS)
-		throw new NumberOfAttemptsExceedException(
-			String.format(
-				"The number of attempts is exceed the limit (%1$d) while generating the unique number",
-				NUMBER_OF_ATTEMPTS));
+		throw MyExceptions.format(NumberOfAttemptsExceedException::new,
+			"The number of attempts is exceed the limit (%1$d) while generating the unique number",
+			NUMBER_OF_ATTEMPTS);
 	} while (!numberIsUniqueTest.test(number));
 	return number;
     }
@@ -85,24 +84,24 @@ public class QazkomOrder extends BaseEntity {
 	private QazkomOrderBuilder() {
 	}
 
-	public QazkomOrderBuilder forInvoice(final Invoice forInvoice) {
+	public QazkomOrderBuilder forInvoice(final Invoice forInvoice) throws IllegalArgumentException {
 	    this.forInvoice = MyObjects.requireNonNull(forInvoice, "forInvoice");
 	    return this;
 	}
 
-	public QazkomOrderBuilder withNumber(final String orderNumber) {
+	public QazkomOrderBuilder withNumber(final String orderNumber) throws IllegalArgumentException {
 	    this.orderNumber = MyStrings.requireNonEmpty(orderNumber, "orderNumber");
 	    return this;
 	}
 
 	public QazkomOrderBuilder withGeneratedNumber() {
-	    this.orderNumber = null;
+	    orderNumber = null;
 	    return this;
 	}
 
 	public QazkomOrderBuilder withMerchant(final String merchantId, final String merchantName,
 		final X509Certificate merchantCertificate,
-		final PrivateKey merchantKey) {
+		final PrivateKey merchantKey) throws IllegalArgumentException {
 	    this.merchantId = MyStrings.requireNonEmpty(merchantId, "merchantId");
 	    this.merchantName = MyStrings.requireNonEmpty(merchantName, "merchantName");
 	    this.merchantKey = MyObjects.requireNonNull(merchantKey, "merchantKey");
@@ -110,20 +109,20 @@ public class QazkomOrder extends BaseEntity {
 	    return this;
 	}
 
-	public QazkomOrder build() throws NumberOfAttemptsExceedException, NonUniqueNumberException {
+	public QazkomOrder build() throws IllegalArgumentException, NonUniqueNumberException {
 	    return build(null);
 	}
 
 	public QazkomOrder build(final Predicate<String> numberIsUniqueTest)
-		throws NumberOfAttemptsExceedException, NonUniqueNumberException {
+		throws IllegalArgumentException, NumberOfAttemptsExceedException, NonUniqueNumberException {
 	    final QazkomOrder result = new QazkomOrder();
 
-	    if (MyStrings.empty(orderNumber)) {
+	    if (MyStrings.empty(orderNumber))
 		// using generated value
 		result.orderNumber = MyObjects.nonNull(numberIsUniqueTest) //
 			? generateNumber(numberIsUniqueTest) //
 			: generateNumber();
-	    } else {
+	    else {
 		// using user value
 		if (MyObjects.nonNull(numberIsUniqueTest) && !numberIsUniqueTest.test(orderNumber))
 		    throw new NonUniqueNumberException(String.format("The number is non-unique (%1$s)", orderNumber));
@@ -176,7 +175,7 @@ public class QazkomOrder extends BaseEntity {
 		.ifPresent(sj::add);
 
 	if (amount != null && currency != null) {
-	    NumberFormat nf = NumberFormat.getCurrencyInstance();
+	    final NumberFormat nf = NumberFormat.getCurrencyInstance();
 	    nf.setCurrency(currency);
 	    sj.add(Localization.PAYMENT_FIELD_AMOUNT.fieldAsCaptionMapper(variant, locale)
 		    .apply(nf.format(amount)));
@@ -312,7 +311,7 @@ public class QazkomOrder extends BaseEntity {
 	getErrors();
     }
 
-    public void attachError(final QazkomError error) {
+    public void attachError(final QazkomError error) throws IllegalArgumentException, IllegalStateException {
 	MyObjects.requireNonNull(error, "order");
 
 	MyStrings.requireEqualsMsg(orderNumber, error.orderNumber,
@@ -321,11 +320,11 @@ public class QazkomOrder extends BaseEntity {
 	if (error.optionalOrder().isPresent())
 	    throw MyExceptions.illegalStateFormat("Error has order attached already");
 
-	this.errors.add(error);
+	errors.add(error);
 	error.order = this;
     }
 
-    public void paidBy(final QazkomPayment payment) {
+    public void paidBy(final QazkomPayment payment) throws IllegalArgumentException, IllegalStateException {
 
 	MyObjects.requireNonNull(payment, "payment");
 

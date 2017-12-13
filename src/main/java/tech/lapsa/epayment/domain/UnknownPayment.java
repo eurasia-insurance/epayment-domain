@@ -42,43 +42,46 @@ public class UnknownPayment extends Payment {
 	private UnknownPaymentBuilder() {
 	}
 
-	public UnknownPaymentBuilder withAmount(final Double amount) {
+	public UnknownPaymentBuilder withAmount(final Double amount) throws IllegalArgumentException {
 	    this.amount = MyNumbers.requirePositive(amount, "amount");
 	    return this;
 	}
 
-	public UnknownPaymentBuilder withCurrency(final Currency currency) {
+	public UnknownPaymentBuilder withCurrency(final Currency currency) throws IllegalArgumentException {
 	    this.currency = MyObjects.requireNonNull(currency, "currency");
 	    return this;
 	}
 
-	public UnknownPaymentBuilder withCreationInstant(final Instant created) {
+	public UnknownPaymentBuilder withCreationInstant(final Instant created) throws IllegalArgumentException {
 	    this.created = MyObjects.requireNonNull(created, "created");
 	    return this;
 	}
 
-	public UnknownPaymentBuilder withCreationInstant(final Optional<Instant> created) {
+	public UnknownPaymentBuilder withCreationInstant(final Optional<Instant> created)
+		throws IllegalArgumentException {
 	    MyObjects.requireNonNull(created, "created").ifPresent(this::withCreationInstant);
 	    return this;
 	}
 
-	public UnknownPaymentBuilder withReferenceNumber(final String referenceNumber) {
+	public UnknownPaymentBuilder withReferenceNumber(final String referenceNumber) throws IllegalArgumentException {
 	    this.referenceNumber = MyStrings.requireNonEmpty(referenceNumber, "referenceNumber");
 	    return this;
 	}
 
-	public UnknownPaymentBuilder withReferenceNumber(final Optional<String> referenceNumber) {
+	public UnknownPaymentBuilder withReferenceNumber(final Optional<String> referenceNumber)
+		throws IllegalArgumentException {
 	    MyObjects.requireNonNull(referenceNumber, "referenceNumber").ifPresent(this::withReferenceNumber);
 	    return this;
 	}
 
-	public UnknownPaymentBuilder withAmountAndCurrency(final Double amount, final Currency currency) {
+	public UnknownPaymentBuilder withAmountAndCurrency(final Double amount, final Currency currency)
+		throws IllegalArgumentException {
 	    withAmount(amount);
 	    withCurrency(currency);
 	    return this;
 	}
 
-	public UnknownPayment build() {
+	public UnknownPayment build() throws IllegalArgumentException {
 	    final UnknownPayment result = new UnknownPayment();
 	    result.currency = MyObjects.requireNonNull(currency, "currency");
 	    result.amount = MyNumbers.requirePositive(amount, "amount");
@@ -89,7 +92,7 @@ public class UnknownPayment extends Payment {
     }
 
     @Override
-    public String localized(LocalizationVariant variant, Locale locale) {
+    public String localized(final LocalizationVariant variant, final Locale locale) {
 	final StringBuilder sb = new StringBuilder();
 
 	sb.append(Localization.UNKNOWNPAYMENT_NAME.localized(variant, locale));
@@ -103,7 +106,7 @@ public class UnknownPayment extends Payment {
 		.ifPresent(sj::add);
 
 	if (amount != null && currency != null) {
-	    NumberFormat nf = NumberFormat.getCurrencyInstance();
+	    final NumberFormat nf = NumberFormat.getCurrencyInstance();
 	    nf.setCurrency(currency);
 	    sj.add(Localization.PAYMENT_FIELD_AMOUNT.fieldAsCaptionMapper(variant, locale)
 		    .apply(nf.format(amount)));

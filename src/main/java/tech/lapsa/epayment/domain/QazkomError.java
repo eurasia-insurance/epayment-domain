@@ -44,12 +44,12 @@ public class QazkomError extends BaseEntity {
 	private QazkomErrorBuilder() {
 	}
 
-	public QazkomErrorBuilder fromRawXml(final String rawXml) {
+	public QazkomErrorBuilder fromRawXml(final String rawXml) throws IllegalArgumentException {
 	    this.rawXml = MyStrings.requireNonEmpty(rawXml, "rawXml");
 	    return this;
 	}
 
-	public QazkomError build() {
+	public QazkomError build() throws IllegalArgumentException {
 
 	    MyStrings.requireNonEmpty(rawXml, "rawXml");
 
@@ -130,7 +130,7 @@ public class QazkomError extends BaseEntity {
     // message
 
     @Basic
-    @Column(name="MESSAGE")
+    @Column(name = "MESSAGE")
     protected String message;
 
     public String getMessage() {
@@ -140,7 +140,7 @@ public class QazkomError extends BaseEntity {
     // code
 
     @Basic
-    @Column(name="CODE")
+    @Column(name = "CODE")
     protected String code;
 
     public String getCode() {
