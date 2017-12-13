@@ -9,7 +9,7 @@ public abstract class Domain implements Localized, Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Domain() {
+    protected Domain() {
     }
 
     @Override

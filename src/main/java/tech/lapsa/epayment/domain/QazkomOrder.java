@@ -1,5 +1,6 @@
 package tech.lapsa.epayment.domain;
 
+import java.io.Serializable;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.text.NumberFormat;
@@ -69,7 +70,10 @@ public class QazkomOrder extends BaseEntity {
 	return new QazkomOrderBuilder();
     }
 
-    public static final class QazkomOrderBuilder {
+    public static final class QazkomOrderBuilder implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	private String orderNumber;
 	private Invoice forInvoice;
 
@@ -77,7 +81,6 @@ public class QazkomOrder extends BaseEntity {
 	private String merchantName;
 	private PrivateKey merchantKey;
 	private X509Certificate merchantCertificate;
-	private Predicate<String> numberIsUniqueTest;
 
 	private QazkomOrderBuilder() {
 	}
@@ -89,25 +92,11 @@ public class QazkomOrder extends BaseEntity {
 
 	public QazkomOrderBuilder withNumber(final String orderNumber) {
 	    this.orderNumber = MyStrings.requireNonEmpty(orderNumber, "orderNumber");
-	    this.numberIsUniqueTest = null;
-	    return this;
-	}
-
-	public QazkomOrderBuilder withNumber(final String orderNumber, final Predicate<String> numberIsUniqueTest) {
-	    this.orderNumber = MyStrings.requireNonEmpty(orderNumber, "orderNumber");
-	    this.numberIsUniqueTest = MyObjects.requireNonNull(numberIsUniqueTest, "numberIsUniqueTest");
-	    return this;
-	}
-
-	public QazkomOrderBuilder withGeneratedNumber(final Predicate<String> numberIsUniqueTest) {
-	    this.orderNumber = null;
-	    this.numberIsUniqueTest = MyObjects.requireNonNull(numberIsUniqueTest, "numberIsUniqueTest");
 	    return this;
 	}
 
 	public QazkomOrderBuilder withGeneratedNumber() {
 	    this.orderNumber = null;
-	    this.numberIsUniqueTest = null;
 	    return this;
 	}
 
@@ -121,7 +110,12 @@ public class QazkomOrder extends BaseEntity {
 	    return this;
 	}
 
-	public QazkomOrder build() {
+	public QazkomOrder build() throws NumberOfAttemptsExceedException, NonUniqueNumberException {
+	    return build(null);
+	}
+
+	public QazkomOrder build(final Predicate<String> numberIsUniqueTest)
+		throws NumberOfAttemptsExceedException, NonUniqueNumberException {
 	    final QazkomOrder result = new QazkomOrder();
 
 	    if (MyStrings.empty(orderNumber)) {

@@ -1,5 +1,6 @@
 package tech.lapsa.epayment.domain;
 
+import java.io.Serializable;
 import java.text.NumberFormat;
 import java.time.Instant;
 import java.util.Currency;
@@ -29,7 +30,10 @@ public class UnknownPayment extends Payment {
 	return new UnknownPaymentBuilder();
     }
 
-    public static final class UnknownPaymentBuilder {
+    public static final class UnknownPaymentBuilder implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	private Currency currency;
 	private Double amount;
 	private Instant created;

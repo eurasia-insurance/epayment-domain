@@ -1,5 +1,6 @@
 package tech.lapsa.epayment.domain;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.Locale;
 import java.util.Optional;
@@ -34,7 +35,10 @@ public class QazkomError extends BaseEntity {
 	return new QazkomErrorBuilder();
     }
 
-    public static final class QazkomErrorBuilder {
+    public static final class QazkomErrorBuilder implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	private String rawXml;
 
 	private QazkomErrorBuilder() {

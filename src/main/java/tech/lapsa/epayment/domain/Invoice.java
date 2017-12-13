@@ -69,10 +69,9 @@ public class Invoice extends BaseEntity {
 	do {
 	    number = generateNumber();
 	    if (attempt++ > NUMBER_OF_ATTEMPTS)
-		throw new NumberOfAttemptsExceedException(
-			String.format(
-				"The number of attempts is exceed the limit (%1$d) while generating the unique number",
-				NUMBER_OF_ATTEMPTS));
+		throw MyExceptions.format(NumberOfAttemptsExceedException::new,
+			"The number of attempts is exceed the limit (%1$d) while generating the unique number",
+			NUMBER_OF_ATTEMPTS);
 	} while (!numberIsUniqueTest.test(number));
 	return number;
     }
@@ -109,7 +108,6 @@ public class Invoice extends BaseEntity {
 	private String externalId;
 	private List<Itm> itms = new ArrayList<>();
 	private String number;
-	private Predicate<String> numberIsUniqueTest;
 	private Instant created;
 
 	private InvoiceBuilder() {
@@ -117,13 +115,6 @@ public class Invoice extends BaseEntity {
 
 	public InvoiceBuilder withNumber(final String number) {
 	    this.number = MyStrings.requireNonEmpty(number, "number");
-	    this.numberIsUniqueTest = null;
-	    return this;
-	}
-
-	public InvoiceBuilder withNumber(final String number, final Predicate<String> numberIsUniqueTest) {
-	    this.number = MyStrings.requireNonEmpty(number, "number");
-	    this.numberIsUniqueTest = MyObjects.requireNonNull(numberIsUniqueTest, "numberIsUniqueTest");
 	    return this;
 	}
 
@@ -132,20 +123,8 @@ public class Invoice extends BaseEntity {
 	    return this;
 	}
 
-	public InvoiceBuilder withGeneratedNumber(final Predicate<String> numberIsUniqueTest) {
-	    this.number = null;
-	    this.numberIsUniqueTest = MyObjects.requireNonNull(numberIsUniqueTest, "numberIsUniqueTest");
-	    return this;
-	}
-
 	public InvoiceBuilder withGeneratedNumber() {
 	    this.number = null;
-	    this.numberIsUniqueTest = null;
-	    return this;
-	}
-
-	public InvoiceBuilder testingNumberWith(final Predicate<String> numberIsUniqueTest) {
-	    this.numberIsUniqueTest = MyObjects.requireNonNull(numberIsUniqueTest, "numberIsUniqueTest");
 	    return this;
 	}
 
@@ -227,6 +206,11 @@ public class Invoice extends BaseEntity {
 	}
 
 	public Invoice build() throws NonUniqueNumberException, NumberOfAttemptsExceedException {
+	    return build(null);
+	}
+
+	public Invoice build(final Predicate<String> numberIsUniqueTest)
+		throws NonUniqueNumberException, NumberOfAttemptsExceedException {
 	    final Invoice invoice = new Invoice();
 
 	    MyOptionals.of(created).ifPresent(x -> invoice.created = x);
@@ -239,14 +223,14 @@ public class Invoice extends BaseEntity {
 	    } else {
 		// using user value
 		if (MyObjects.nonNull(numberIsUniqueTest) && !numberIsUniqueTest.test(number))
-		    throw new NonUniqueNumberException(String.format("The number is non-unique (%1$s)", number));
+		    throw MyExceptions.format(NonUniqueNumberException::new, "The number is non-unique (%1$s)", number);
 		invoice.number = number;
 	    }
 
 	    invoice.currency = MyObjects.requireNonNull(currency, "currency");
 	    invoice.items = MyOptionals.streamOf(itms) //
-		    .orElseThrow(() -> new IllegalArgumentException(
-			    "An invoice must contains at least one item")) //
+		    .orElseThrow(
+			    MyExceptions.illegalArgumentSupplierFormat("An invoice must contains at least one item")) //
 		    .map(i -> {
 			Item r = new Item();
 			r.invoice = invoice;

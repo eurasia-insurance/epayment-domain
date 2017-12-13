@@ -1,5 +1,6 @@
 package tech.lapsa.epayment.domain;
 
+import java.io.Serializable;
 import java.security.cert.X509Certificate;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -46,7 +47,10 @@ public class QazkomPayment extends Payment {
 	return new QazkomPaymentBuilder();
     }
 
-    public static final class QazkomPaymentBuilder {
+    public static final class QazkomPaymentBuilder implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	private String rawXml;
 	private X509Certificate certificate;
 	private boolean signatureCheckRequired = true;
