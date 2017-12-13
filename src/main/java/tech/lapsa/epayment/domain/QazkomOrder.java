@@ -311,7 +311,7 @@ public class QazkomOrder extends BaseEntity {
 	getErrors();
     }
 
-    public void attachError(final QazkomError error) {
+    public void attachError(final QazkomError error) throws IllegalArgumentException, IllegalStateException {
 	MyObjects.requireNonNull(error, "order");
 
 	MyStrings.requireEqualsMsg(orderNumber, error.orderNumber,
@@ -324,7 +324,7 @@ public class QazkomOrder extends BaseEntity {
 	error.order = this;
     }
 
-    public void paidBy(final QazkomPayment payment) {
+    public void paidBy(final QazkomPayment payment) throws IllegalArgumentException, IllegalStateException {
 
 	MyObjects.requireNonNull(payment, "payment");
 

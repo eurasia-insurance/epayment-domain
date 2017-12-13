@@ -498,7 +498,7 @@ public class Invoice extends BaseEntity {
 	expired = Instant.now();
     }
 
-    public synchronized Invoice paidBy(final Payment payment) {
+    public synchronized Invoice paidBy(final Payment payment) throws IllegalArgumentException, IllegalStateException {
 	MyObjects.requireNonNull(payment, "payment");
 
 	synchronized (payment) {
