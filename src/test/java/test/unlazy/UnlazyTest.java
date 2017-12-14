@@ -8,6 +8,9 @@ import org.junit.Test;
 import tech.lapsa.epayment.domain.Invoice;
 import tech.lapsa.epayment.domain.QazkomOrder;
 import tech.lapsa.epayment.domain.QazkomPayment;
+import tech.lapsa.java.commons.exceptions.IllegalArgument;
+import tech.lapsa.java.commons.exceptions.IllegalState;
+import tech.lapsa.java.commons.exceptions.ValidationFailed;
 import test.builder.InvoiceBuilderTest;
 import test.builder.QazkomOrderBuilderTest;
 import test.builder.QazkomPaymentBuilderTest;
@@ -42,7 +45,7 @@ public class UnlazyTest {
     }
 
     @Test
-    public void paidTest() {
+    public void paidTest() throws IllegalArgument, IllegalState, ValidationFailed {
 	QazkomPayment p = QazkomPaymentBuilderTest.payment();
 
 	Invoice i = InvoiceBuilderTest.invoice();
