@@ -61,22 +61,22 @@ public class QazkomError extends BaseEntity {
 
 	    result.orderNumber = MyOptionals.of(document) //
 		    .map(XmlDocumentError::getOrderId) //
-		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Can't parse for order number"));
+		    .orElseThrow(MyExceptions.illegalArgumentSupplier("Can't parse for order number"));
 
 	    result.created = MyOptionals.of(document) //
 		    .map(XmlDocumentError::getError) //
 		    .map(XmlError::getTime) //
-		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Payment timestamp is empty"));
+		    .orElseThrow(MyExceptions.illegalArgumentSupplier("Payment timestamp is empty"));
 
 	    result.message = MyOptionals.of(document) //
 		    .map(XmlDocumentError::getError) //
 		    .map(XmlError::getMessage) //
-		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Message is empty"));
+		    .orElseThrow(MyExceptions.illegalArgumentSupplier("Message is empty"));
 
 	    result.code = MyOptionals.of(document) //
 		    .map(XmlDocumentError::getError) //
 		    .map(XmlError::getCode) //
-		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Message is empty"));
+		    .orElseThrow(MyExceptions.illegalArgumentSupplier("Message is empty"));
 
 	    return result;
 	}

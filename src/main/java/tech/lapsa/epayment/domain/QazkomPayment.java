@@ -91,17 +91,17 @@ public class QazkomPayment extends Payment {
 
 	    final XmlResults results = MyOptionals.of(document.getBank()) //
 		    .map(XmlBank::getResults) //
-		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Can't parse for payment results"));
+		    .orElseThrow(MyExceptions.illegalArgumentSupplier("Can't parse for payment results"));
 
 	    final XmlPayment payment = MyOptionals.of(results.getPayments()) //
 		    .filter(x -> x.size() == 1) // must be exactly one record
 		    .flatMap(MyCollections::firstElement) // map to first
 							  // element
-		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Can't parse for payment line"));
+		    .orElseThrow(MyExceptions.illegalArgumentSupplier("Can't parse for payment line"));
 
 	    final XmlCustomer customer = MyOptionals.of(document.getBank()) //
 		    .map(XmlBank::getCustomer) //
-		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Can't parse for customer"));
+		    .orElseThrow(MyExceptions.illegalArgumentSupplier("Can't parse for customer"));
 
 	    final QazkomPayment result = new QazkomPayment();
 
@@ -111,25 +111,25 @@ public class QazkomPayment extends Payment {
 		    .map(XmlCustomer::getSourceMerchant) //
 		    .map(XmlMerchant::getOrder) //
 		    .map(XmlOrder::getOrderId) //
-		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Can't parse for order number"));
+		    .orElseThrow(MyExceptions.illegalArgumentSupplier("Can't parse for order number"));
 
 	    result.currency = MyOptionals.of(customer) //
 		    .map(XmlCustomer::getSourceMerchant) //
 		    .map(XmlMerchant::getOrder) //
 		    .map(XmlOrder::getCurrency) //
-		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Can't parse for order currency"));
+		    .orElseThrow(MyExceptions.illegalArgumentSupplier("Can't parse for order currency"));
 
 	    result.referenceNumber = MyOptionals.of(payment) //
 		    .map(XmlPayment::getReference) //
-		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Payment reference is empty"));
+		    .orElseThrow(MyExceptions.illegalArgumentSupplier("Payment reference is empty"));
 
 	    result.amount = MyOptionals.of(payment) //
 		    .map(XmlPayment::getAmount) //
-		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Payment amount is empty"));
+		    .orElseThrow(MyExceptions.illegalArgumentSupplier("Payment amount is empty"));
 
 	    result.created = MyOptionals.of(results) //
 		    .map(XmlResults::getTimestamp) //
-		    .orElseThrow(MyExceptions.illegalArgumentSupplierFormat("Payment timestamp is empty"));
+		    .orElseThrow(MyExceptions.illegalArgumentSupplier("Payment timestamp is empty"));
 
 	    result.cardNumber = MyOptionals.of(payment) //
 		    .map(XmlPayment::getCardNumberMasked) //

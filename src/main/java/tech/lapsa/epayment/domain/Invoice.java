@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.StringJoiner;
 import java.util.UUID;
@@ -32,10 +31,6 @@ import javax.persistence.TemporalType;
 import com.lapsa.international.localization.LocalizationLanguage;
 import com.lapsa.international.phone.PhoneNumber;
 
-import tech.lapsa.epayment.domain.Exceptions.IsNotExpiredException;
-import tech.lapsa.epayment.domain.Exceptions.IsNotPaidException;
-import tech.lapsa.epayment.domain.Exceptions.IsNotPendingException;
-import tech.lapsa.epayment.domain.Exceptions.IsPaidException;
 import tech.lapsa.java.commons.function.MyCollections;
 import tech.lapsa.java.commons.function.MyExceptions;
 import tech.lapsa.java.commons.function.MyNumbers;
@@ -92,7 +87,8 @@ public class Invoice extends BaseEntity {
 	    private final Integer quantity;
 	    private final Double price;
 
-	    private Itm(final String name, final Integer quantity, final Double price) throws IllegalArgumentException {
+	    private Itm(final String name, final Integer quantity, final Double price)
+		    throws IllegalArgumentException {
 		this.name = MyStrings.requireNonEmpty(name, "name");
 		this.quantity = MyNumbers.requirePositive(quantity, "quantity");
 		this.price = MyNumbers.requirePositive(price, "price");
@@ -129,7 +125,7 @@ public class Invoice extends BaseEntity {
 	}
 
 	public InvoiceBuilder withCurrency(final Currency currency) throws IllegalArgumentException {
-	    this.currency = Objects.requireNonNull(currency, "currency");
+	    this.currency = MyObjects.requireNonNull(currency, "currency");
 	    return this;
 	}
 
@@ -145,7 +141,8 @@ public class Invoice extends BaseEntity {
 	}
 
 	public InvoiceBuilder withConsumerEmail(final String consumerEmail) throws IllegalArgumentException {
-	    this.consumerEmail = MyStrings.requireNonEmpty(consumerEmail, "consumerEmail");
+	    this.consumerEmail = MyStrings.requireNonEmpty(consumerEmail,
+		    "consumerEmail");
 	    return this;
 	}
 
@@ -156,7 +153,8 @@ public class Invoice extends BaseEntity {
 	}
 
 	public InvoiceBuilder withConsumerPhone(final PhoneNumber consumerPhone) throws IllegalArgumentException {
-	    this.consumerPhone = MyObjects.requireNonNull(consumerPhone, "consumerPhone");
+	    this.consumerPhone = MyObjects.requireNonNull(consumerPhone,
+		    "consumerPhone");
 	    return this;
 	}
 
@@ -169,7 +167,9 @@ public class Invoice extends BaseEntity {
 
 	public InvoiceBuilder withConsumerTaxpayerNumber(final TaxpayerNumber consumerTaxpayerNumber)
 		throws IllegalArgumentException {
-	    this.consumerTaxpayerNumber = MyObjects.requireNonNull(consumerTaxpayerNumber, "consumerTaxpayerNumber");
+	    this.consumerTaxpayerNumber = MyObjects.requireNonNull(
+		    consumerTaxpayerNumber,
+		    "consumerTaxpayerNumber");
 	    return this;
 	}
 
@@ -211,7 +211,11 @@ public class Invoice extends BaseEntity {
 	}
 
 	public Invoice build() throws IllegalArgumentException, NonUniqueNumberException {
-	    return build(null);
+	    try {
+		return build(null);
+	    } catch (NumberOfAttemptsExceedException e) {
+		throw new RuntimeException(e);
+	    }
 	}
 
 	public Invoice build(final Predicate<String> numberIsUniqueTest)
@@ -234,8 +238,7 @@ public class Invoice extends BaseEntity {
 
 	    invoice.currency = MyObjects.requireNonNull(currency, "currency");
 	    invoice.items = MyOptionals.streamOf(itms) //
-		    .orElseThrow(
-			    MyExceptions.illegalArgumentSupplierFormat("An invoice must contains at least one item")) //
+		    .orElseThrow(MyExceptions.illegalArgumentSupplier("An invoice must contains at least one item")) //
 		    .map(i -> {
 			final Item r = new Item();
 			r.invoice = invoice;
@@ -428,13 +431,13 @@ public class Invoice extends BaseEntity {
 
     public Invoice requireNotPaid() throws IllegalStateException {
 	if (isPaid())
-	    throw MyExceptions.illegalStateFormat(IsPaidException::new, "Is paid '%1$s'", this);
+	    throw MyExceptions.illegalStateFormat("Is paid '%1$s'", this);
 	return this;
     }
 
     public Invoice requirePaid() throws IllegalStateException {
 	if (!isPaid())
-	    throw MyExceptions.illegalStateFormat(IsNotPaidException::new, "Is not paid yet '%1$s'", this);
+	    throw MyExceptions.illegalStateFormat("Is not paid yet '%1$s'", this);
 	return this;
     }
 
@@ -444,8 +447,7 @@ public class Invoice extends BaseEntity {
 
     public Invoice requirePending() throws IllegalStateException {
 	if (!isPending())
-	    throw MyExceptions.illegalStateFormat(IsNotPendingException::new,
-		    "Is not pending '%1$s'. It could be expired or paid.", this);
+	    throw MyExceptions.illegalStateFormat("Is not pending '%1$s'. It could be expired or paid.", this);
 	return this;
     }
 
@@ -460,9 +462,9 @@ public class Invoice extends BaseEntity {
 	return MyOptionals.of(expired).isPresent();
     }
 
-    public Invoice requireExpired() {
+    public Invoice requireExpired() throws IllegalStateException {
 	if (!isExpired())
-	    throw MyExceptions.illegalStateFormat(IsNotExpiredException::new, "Is not expired '%1$s'", this);
+	    throw MyExceptions.illegalStateFormat("Is not expired '%1$s'", this);
 	return this;
     }
 
@@ -493,7 +495,7 @@ public class Invoice extends BaseEntity {
 	getAmount(); // also fetches 'items'
     }
 
-    public synchronized void expire() {
+    public synchronized void expire() throws IllegalStateException {
 	requireNotPaid();
 	expired = Instant.now();
     }

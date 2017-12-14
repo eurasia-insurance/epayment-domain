@@ -25,8 +25,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import tech.lapsa.epayment.domain.Exceptions.IsNotPaidException;
-import tech.lapsa.epayment.domain.Exceptions.IsPaidException;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentCart;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder;
 import tech.lapsa.java.commons.function.MyCollections;
@@ -99,7 +97,8 @@ public class QazkomOrder extends BaseEntity {
 	    return this;
 	}
 
-	public QazkomOrderBuilder withMerchant(final String merchantId, final String merchantName,
+	public QazkomOrderBuilder withMerchant(final String merchantId,
+		final String merchantName,
 		final X509Certificate merchantCertificate,
 		final PrivateKey merchantKey) throws IllegalArgumentException {
 	    this.merchantId = MyStrings.requireNonEmpty(merchantId, "merchantId");
@@ -125,13 +124,16 @@ public class QazkomOrder extends BaseEntity {
 	    else {
 		// using user value
 		if (MyObjects.nonNull(numberIsUniqueTest) && !numberIsUniqueTest.test(orderNumber))
-		    throw new NonUniqueNumberException(String.format("The number is non-unique (%1$s)", orderNumber));
+		    throw MyExceptions.format(NonUniqueNumberException::new, "The number is non-unique (%1$s)",
+			    orderNumber);
 		result.orderNumber = orderNumber;
 	    }
 
 	    result.forInvoice = MyObjects.requireNonNull(forInvoice, "forInvoice");
-	    result.amount = MyNumbers.requirePositive(forInvoice.getAmount(), "forInvoice.getAmount");
-	    result.currency = MyObjects.requireNonNull(forInvoice.currency, "forInvoice.currency");
+	    result.amount = MyNumbers.requirePositive(forInvoice.getAmount(),
+		    "forInvoice.getAmount");
+	    result.currency = MyObjects.requireNonNull(forInvoice.currency,
+		    "forInvoice.currency");
 
 	    result.orderDoc = new QazkomXmlDocument( //
 		    XmlDocumentOrder.builder() //
@@ -261,13 +263,13 @@ public class QazkomOrder extends BaseEntity {
 
     public QazkomOrder requireNotPaid() throws IllegalStateException {
 	if (isPaid())
-	    throw MyExceptions.illegalStateFormat(IsPaidException::new, "Is paid '%1$s'", this);
+	    throw MyExceptions.illegalStateFormat("Is paid '%1$s'", this);
 	return this;
     }
 
     public QazkomOrder requirePaid() throws IllegalStateException {
 	if (!isPaid())
-	    throw MyExceptions.illegalStateFormat(IsNotPaidException::new, "Is not paid yet '%1$s'", this);
+	    throw MyExceptions.illegalStateFormat("Is not paid yet '%1$s'", this);
 	return this;
     }
 
@@ -312,7 +314,7 @@ public class QazkomOrder extends BaseEntity {
     }
 
     public void attachError(final QazkomError error) throws IllegalArgumentException, IllegalStateException {
-	MyObjects.requireNonNull(error, "order");
+	MyObjects.requireNonNull(error, "error");
 
 	MyStrings.requireEqualsMsg(orderNumber, error.orderNumber,
 		"Error order number and order number are not the same");
@@ -325,7 +327,6 @@ public class QazkomOrder extends BaseEntity {
     }
 
     public void paidBy(final QazkomPayment payment) throws IllegalArgumentException, IllegalStateException {
-
 	MyObjects.requireNonNull(payment, "payment");
 
 	MyStrings.requireEqualsMsg(orderNumber, payment.orderNumber,
