@@ -31,10 +31,10 @@ public class QazkomOrderBuilderTest {
     @BeforeClass
     public static void loadKeys() throws Exception {
 
-	InputStream storeStream = MyResources.optionalAsStream(QazkomOrderBuilderTest.class, KEYSTORE) //
+	final InputStream storeStream = MyResources.optionalAsStream(QazkomOrderBuilderTest.class, KEYSTORE) //
 		.orElseThrow(() -> new RuntimeException("Keystore not found"));
 
-	KeyStore keystore = MyKeyStores.from(storeStream, STORETYPE, STOREPASS) //
+	final KeyStore keystore = MyKeyStores.from(storeStream, STORETYPE, STOREPASS) //
 		.orElseThrow(() -> new RuntimeException("Can not load keystore"));
 
 	merchantKey = MyPrivateKeys.from(keystore, ALIAS, STOREPASS) //
@@ -74,7 +74,7 @@ public class QazkomOrderBuilderTest {
 
     @Test
     public void simpleTest() {
-	QazkomOrder o = order();
+	final QazkomOrder o = order();
 	System.out.println(o);
 
 	assertThat(o, not(nullValue()));

@@ -25,7 +25,7 @@ public class QazkomErrorBuilderTest {
 	final String ORDER_NUMBER = "740954651955272";
 	final String CODE = "05";
 
-	QazkomError o = QazkomError.builder() //
+	final QazkomError o = QazkomError.builder() //
 		.fromRawXml(ERROR_PLAIN) //
 		.build();
 

@@ -30,7 +30,7 @@ public class InvoiceBuilderTest {
 
     @Test
     public void simpleTest() {
-	Invoice o = invoice();
+	final Invoice o = invoice();
 	System.out.println(o);
 
 	assertThat(o, not(nullValue()));
