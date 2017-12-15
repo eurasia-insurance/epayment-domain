@@ -24,33 +24,33 @@ public class UnlazyTest {
 
     @Test
     public void invoiceTest() {
-	Invoice i = InvoiceBuilderTest.invoice();
+	final Invoice i = InvoiceBuilderTest.invoice();
 	i.unlazy();
 	assertTrue(true);
     }
 
     @Test
     public void orderTest() {
-	QazkomOrder o = QazkomOrderBuilderTest.order();
+	final QazkomOrder o = QazkomOrderBuilderTest.order();
 	o.unlazy();
 	assertTrue(true);
     }
 
     @Test
     public void paymentTest() {
-	QazkomPayment p = QazkomPaymentBuilderTest.payment();
+	final QazkomPayment p = QazkomPaymentBuilderTest.payment();
 	p.unlazy();
 	assertTrue(true);
     }
 
     @Test
     public void paidTest() throws IllegalArgument, IllegalState {
-	QazkomPayment p = QazkomPaymentBuilderTest.payment();
+	final QazkomPayment p = QazkomPaymentBuilderTest.payment();
 
-	Invoice i = InvoiceBuilderTest.invoice();
+	final Invoice i = InvoiceBuilderTest.invoice();
 	i.paidBy(p);
 
-	QazkomOrder o = QazkomOrderBuilderTest.order();
+	final QazkomOrder o = QazkomOrderBuilderTest.order();
 	o.paidBy(p);
 
 	i.unlazy();
