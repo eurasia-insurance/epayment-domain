@@ -1,6 +1,5 @@
 package test.persistenceUnit;
 
-
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;

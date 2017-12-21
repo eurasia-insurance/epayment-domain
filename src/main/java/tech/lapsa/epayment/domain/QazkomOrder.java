@@ -5,6 +5,7 @@ import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.text.NumberFormat;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
@@ -25,10 +26,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import tech.lapsa.epayment.domain.Exceptions.IsNotPaidException;
-import tech.lapsa.epayment.domain.Exceptions.IsPaidException;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentCart;
 import tech.lapsa.epayment.qazkom.xml.bind.XmlDocumentOrder;
+import tech.lapsa.java.commons.exceptions.IllegalArgument;
+import tech.lapsa.java.commons.exceptions.IllegalState;
 import tech.lapsa.java.commons.function.MyCollections;
 import tech.lapsa.java.commons.function.MyExceptions;
 import tech.lapsa.java.commons.function.MyNumbers;
@@ -99,7 +100,8 @@ public class QazkomOrder extends BaseEntity {
 	    return this;
 	}
 
-	public QazkomOrderBuilder withMerchant(final String merchantId, final String merchantName,
+	public QazkomOrderBuilder withMerchant(final String merchantId,
+		final String merchantName,
 		final X509Certificate merchantCertificate,
 		final PrivateKey merchantKey) throws IllegalArgumentException {
 	    this.merchantId = MyStrings.requireNonEmpty(merchantId, "merchantId");
@@ -125,13 +127,16 @@ public class QazkomOrder extends BaseEntity {
 	    else {
 		// using user value
 		if (MyObjects.nonNull(numberIsUniqueTest) && !numberIsUniqueTest.test(orderNumber))
-		    throw new NonUniqueNumberException(String.format("The number is non-unique (%1$s)", orderNumber));
+		    throw MyExceptions.format(NonUniqueNumberException::new, "The number is non-unique (%1$s)",
+			    orderNumber);
 		result.orderNumber = orderNumber;
 	    }
 
 	    result.forInvoice = MyObjects.requireNonNull(forInvoice, "forInvoice");
-	    result.amount = MyNumbers.requirePositive(forInvoice.getAmount(), "forInvoice.getAmount");
-	    result.currency = MyObjects.requireNonNull(forInvoice.currency, "forInvoice.currency");
+	    result.amount = MyNumbers.requirePositive(forInvoice.getAmount(),
+		    "forInvoice.getAmount");
+	    result.currency = MyObjects.requireNonNull(forInvoice.currency,
+		    "forInvoice.currency");
 
 	    result.orderDoc = new QazkomXmlDocument( //
 		    XmlDocumentOrder.builder() //
@@ -259,15 +264,15 @@ public class QazkomOrder extends BaseEntity {
 	return optionalPayment().isPresent();
     }
 
-    public QazkomOrder requireNotPaid() throws IllegalStateException {
+    public QazkomOrder requireNotPaid() throws IllegalState {
 	if (isPaid())
-	    throw MyExceptions.illegalStateFormat(IsPaidException::new, "Is paid '%1$s'", this);
+	    throw MyExceptions.format(IllegalState::new, "Is paid '%1$s'", this);
 	return this;
     }
 
-    public QazkomOrder requirePaid() throws IllegalStateException {
+    public QazkomOrder requirePaid() throws IllegalState {
 	if (!isPaid())
-	    throw MyExceptions.illegalStateFormat(IsNotPaidException::new, "Is not paid yet '%1$s'", this);
+	    throw MyExceptions.format(IllegalState::new, "Is not paid yet '%1$s'", this);
 	return this;
     }
 
@@ -311,37 +316,81 @@ public class QazkomOrder extends BaseEntity {
 	getErrors();
     }
 
-    public void attachError(final QazkomError error) throws IllegalArgumentException, IllegalStateException {
-	MyObjects.requireNonNull(error, "order");
+    /**
+     * Прикрепляет к ордеру сообщение об ошибке
+     *
+     * @param error
+     *            сообщение об ошибке
+     * @return ордер
+     * @throws IllegalArgumentException
+     *             если параметр переданный методу пуст (null)
+     * @throws IllegalArgument
+     *             если параметр <code>payment</code> не проходит проверку на
+     *             консистентность
+     */
+    public synchronized QazkomOrder attachError(final QazkomError error)
+	    throws IllegalArgumentException, IllegalArgument {
 
-	MyStrings.requireEqualsMsg(orderNumber, error.orderNumber,
-		"Error order number and order number are not the same");
+	MyObjects.requireNonNull(error, "error");
 
-	if (error.optionalOrder().isPresent())
-	    throw MyExceptions.illegalStateFormat("Error has order attached already");
+	synchronized (error) {
+	    if (error.optionalOrder().isPresent())
+		throw MyExceptions.format(IllegalArgument::new, "Error has order attached already");
 
-	errors.add(error);
-	error.order = this;
+	    MyStrings.requireEqualsMsg(IllegalArgument::new, orderNumber, error.orderNumber,
+		    "Error order number and order number are not the same");
+
+	    if (errors == null)
+		errors = new ArrayList<>();
+	    errors.add(error);
+
+	    error.order = this;
+	}
+
+	return this;
     }
 
-    public void paidBy(final QazkomPayment payment) throws IllegalArgumentException, IllegalStateException {
+    /**
+     * Прикрепляет платеж к ордеру и устанавливает связи между объектами. Таким
+     * образом статус оредар становится оплаченным.
+     *
+     * @param payment
+     *            платеж
+     * @return оплаченный ордер
+     * @throws IllegalArgumentException
+     *             если параметр переданный методу пуст (null)
+     * @throws IllegalArgument
+     *             если платеж <code>payment</code> не проходит проверку на
+     *             консистентность
+     * @throws IllegalState
+     *             если ордер уже оплачен или платеж уже привязан к ордеру
+     *             (возможно другому)
+     */
+    public synchronized QazkomOrder paidBy(final QazkomPayment payment)
+	    throws IllegalArgumentException, IllegalArgument, IllegalState {
 
 	MyObjects.requireNonNull(payment, "payment");
 
-	MyStrings.requireEqualsMsg(orderNumber, payment.orderNumber,
-		"Qazkom order number and payment order number are not the same");
-	MyNumbers.requireEqualsMsg(getAmount(), payment.getAmount(),
-		"Qazkom order amount and payment amount are not the same");
+	synchronized (payment) {
 
-	if (payment.optionalOrder().isPresent())
-	    throw MyExceptions.illegalStateFormat("Payment has order attached already");
+	    if (payment.optionalOrder().isPresent())
+		throw MyExceptions.format(IllegalArgument::new, "Payment has order attached already");
 
-	if (optionalPayment().isPresent())
-	    throw MyExceptions.illegalStateFormat("Order has payment attached already");
+	    MyStrings.requireEqualsMsg(IllegalArgument::new, orderNumber, payment.orderNumber,
+		    "Qazkom order number and payment order number are not the same");
 
-	// TODO FEAUTURE : Need to implement more Qazkom validation points
+	    MyNumbers.requireEqualsMsg(IllegalArgument::new, getAmount(), payment.getAmount(),
+		    "Qazkom order amount and payment amount are not the same");
 
-	this.payment = payment;
-	payment.order = this;
+	    // TODO FEAUTURE : Need to implement more validation points that
+	    // throws IllegalArgument exception
+
+	    requireNotPaid();
+
+	    this.payment = payment;
+	    payment.order = this;
+	}
+
+	return this;
     }
 }

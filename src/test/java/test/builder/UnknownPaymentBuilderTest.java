@@ -22,7 +22,7 @@ public class UnknownPaymentBuilderTest {
 	final Instant CREATED = LocalDateTime.of(2016, Month.JUNE, 14, 15, 18, 02).atZone(ZoneId.systemDefault())
 		.toInstant();
 
-	UnknownPayment o = UnknownPayment.builder() //
+	final UnknownPayment o = UnknownPayment.builder() //
 		.withAmount(AMOUNT) //
 		.withCurrency(CURRENCY) //
 		.withCreationInstant(CREATED) //

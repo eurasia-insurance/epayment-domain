@@ -8,6 +8,8 @@ import org.junit.Test;
 import tech.lapsa.epayment.domain.Invoice;
 import tech.lapsa.epayment.domain.QazkomOrder;
 import tech.lapsa.epayment.domain.QazkomPayment;
+import tech.lapsa.java.commons.exceptions.IllegalArgument;
+import tech.lapsa.java.commons.exceptions.IllegalState;
 import test.builder.InvoiceBuilderTest;
 import test.builder.QazkomOrderBuilderTest;
 import test.builder.QazkomPaymentBuilderTest;
@@ -22,33 +24,33 @@ public class UnlazyTest {
 
     @Test
     public void invoiceTest() {
-	Invoice i = InvoiceBuilderTest.invoice();
+	final Invoice i = InvoiceBuilderTest.invoice();
 	i.unlazy();
 	assertTrue(true);
     }
 
     @Test
     public void orderTest() {
-	QazkomOrder o = QazkomOrderBuilderTest.order();
+	final QazkomOrder o = QazkomOrderBuilderTest.order();
 	o.unlazy();
 	assertTrue(true);
     }
 
     @Test
     public void paymentTest() {
-	QazkomPayment p = QazkomPaymentBuilderTest.payment();
+	final QazkomPayment p = QazkomPaymentBuilderTest.payment();
 	p.unlazy();
 	assertTrue(true);
     }
 
     @Test
-    public void paidTest() {
-	QazkomPayment p = QazkomPaymentBuilderTest.payment();
+    public void paidTest() throws IllegalArgument, IllegalState {
+	final QazkomPayment p = QazkomPaymentBuilderTest.payment();
 
-	Invoice i = InvoiceBuilderTest.invoice();
+	final Invoice i = InvoiceBuilderTest.invoice();
 	i.paidBy(p);
 
-	QazkomOrder o = QazkomOrderBuilderTest.order();
+	final QazkomOrder o = QazkomOrderBuilderTest.order();
 	o.paidBy(p);
 
 	i.unlazy();

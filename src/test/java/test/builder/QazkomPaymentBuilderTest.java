@@ -33,10 +33,10 @@ public class QazkomPaymentBuilderTest {
     @BeforeClass
     public static void loadKeys() throws Exception {
 
-	InputStream storeStream = MyResources.optionalAsStream(QazkomPaymentBuilderTest.class, KEYSTORE) //
+	final InputStream storeStream = MyResources.optionalAsStream(QazkomPaymentBuilderTest.class, KEYSTORE) //
 		.orElseThrow(() -> new RuntimeException("Keystore not found"));
 
-	KeyStore keystore = MyKeyStores.from(storeStream, STORETYPE, STOREPASS) //
+	final KeyStore keystore = MyKeyStores.from(storeStream, STORETYPE, STOREPASS) //
 		.orElseThrow(() -> new RuntimeException("Can not load keystore"));
 
 	bankCert = MyCertificates.from(keystore, ALIAS) //
@@ -87,7 +87,7 @@ public class QazkomPaymentBuilderTest {
 	final String ORDER_NUMBER = "484902574738032";
 	final String REFERENCE = "160614151802";
 
-	QazkomPayment o = payment();
+	final QazkomPayment o = payment();
 	System.out.println(o);
 
 	assertThat(o, not(nullValue()));
