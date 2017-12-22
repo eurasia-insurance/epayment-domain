@@ -5,6 +5,7 @@ import java.util.Currency;
 import java.util.Optional;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -64,7 +65,7 @@ public abstract class Payment extends BaseEntity {
 
     // forInvoice
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "payment")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "payment")
     protected Invoice forInvoice;
 
     public Invoice getForInvoice() {
