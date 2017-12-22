@@ -1,7 +1,6 @@
 package tech.lapsa.epayment.domain;
 
 import java.io.Serializable;
-import java.text.NumberFormat;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Currency;
@@ -41,6 +40,7 @@ import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.localization.Localized;
 import tech.lapsa.java.commons.localization.Localizeds;
+import tech.lapsa.java.commons.util.MyCurrencies;
 import tech.lapsa.kz.taxpayer.TaxpayerNumber;
 import tech.lapsa.patterns.domain.HashCodePrime;
 
@@ -284,11 +284,9 @@ public class Invoice extends BaseEntity {
 		.map(Localization.FIELD_CREATED.fieldAsCaptionMapper(variant, locale)) //
 		.ifPresent(sj::add);
 
-	if (currency != null) {
-	    final NumberFormat nf = NumberFormat.getCurrencyInstance();
-	    nf.setCurrency(currency);
+	if (MyObjects.nonNull(currency)) {
 	    sj.add(Localization.INVOICE_FIELD_AMOUNT.fieldAsCaptionMapper(variant, locale)
-		    .apply(nf.format(getAmount())));
+		    .apply(MyCurrencies.formatAmount(getAmount(), currency, locale)));
 	}
 
 	return sb.append(sj.toString()) //
