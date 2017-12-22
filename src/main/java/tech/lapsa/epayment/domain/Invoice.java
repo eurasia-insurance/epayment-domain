@@ -327,7 +327,7 @@ public class Invoice extends BaseEntity {
 
     // items
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "invoice", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "invoice", orphanRemoval = true)
     protected List<Item> items;
 
     public List<Item> getItems() {
@@ -413,7 +413,7 @@ public class Invoice extends BaseEntity {
 
     // payment
 
-    @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "PAYMENT_ID")
     protected Payment payment;
 

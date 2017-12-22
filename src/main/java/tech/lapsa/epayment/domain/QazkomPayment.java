@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.StringJoiner;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -189,7 +190,7 @@ public class QazkomPayment extends Payment {
 
     // order
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "payment")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "payment")
     protected QazkomOrder order;
 
     public QazkomOrder getOrder() {
@@ -252,7 +253,7 @@ public class QazkomPayment extends Payment {
 
     // paymentDoc
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PAYMENT_DOC_ID")
     protected QazkomXmlDocument paymentDoc;
 

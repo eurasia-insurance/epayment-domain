@@ -15,6 +15,7 @@ import java.util.UUID;
 import java.util.function.Predicate;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -234,7 +235,7 @@ public class QazkomOrder extends BaseEntity {
 
     // forInvoice
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "INVOICE_ID")
     protected Invoice forInvoice;
 
@@ -248,7 +249,7 @@ public class QazkomOrder extends BaseEntity {
 
     // payment
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "PAYMENT_ID")
     protected QazkomPayment payment;
 
@@ -278,7 +279,7 @@ public class QazkomOrder extends BaseEntity {
 
     // orderDoc
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ORDER_DOC_ID")
     protected QazkomXmlDocument orderDoc;
 
@@ -288,7 +289,7 @@ public class QazkomOrder extends BaseEntity {
 
     // cartDoc
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CART_DOC_ID")
     protected QazkomXmlDocument cartDoc;
 
@@ -298,7 +299,7 @@ public class QazkomOrder extends BaseEntity {
 
     // items
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "order", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "order", orphanRemoval = true)
     protected List<QazkomError> errors;
 
     public List<QazkomError> getErrors() {
