@@ -53,14 +53,14 @@ public abstract class Payment extends EntitySuperclass {
 	return currency;
     }
 
-    // referenceNumber
+    // reference
 
     @Basic
-    @Column(name = "REFERENCE_NUMBER")
-    protected String referenceNumber;
+    @Column(name = "REFERENCE")
+    protected String reference;
 
-    public String getReferenceNumber() {
-	return referenceNumber;
+    public String getReference() {
+	return reference;
     }
 
     // forInvoice

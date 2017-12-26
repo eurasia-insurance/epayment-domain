@@ -33,7 +33,7 @@ public class QazkomPaymentBuilderTest {
     @BeforeClass
     public static void loadKeys() throws Exception {
 
-	final InputStream storeStream = MyResources.optionalAsStream(QazkomPaymentBuilderTest.class, KEYSTORE) //
+	final InputStream storeStream = MyResources.optAsStream(QazkomPaymentBuilderTest.class, KEYSTORE) //
 		.orElseThrow(() -> new RuntimeException("Keystore not found"));
 
 	final KeyStore keystore = MyKeyStores.from(storeStream, STORETYPE, STOREPASS) //
@@ -96,7 +96,7 @@ public class QazkomPaymentBuilderTest {
 	// o.getCardNumber();
 	assertThat(o.getCreated(), allOf(not(nullValue()), is(equalTo(CREATED))));
 	assertThat(o.getOrderNumber(), allOf(not(isEmptyOrNullString()), is(equalTo(ORDER_NUMBER))));
-	assertThat(o.getReferenceNumber(), allOf(not(isEmptyOrNullString()), is(equalTo(REFERENCE))));
+	assertThat(o.getReference(), allOf(not(isEmptyOrNullString()), is(equalTo(REFERENCE))));
 	assertThat(o.getPaymentDoc(), not(nullValue()));
 	assertThat(o.getPaymentDoc().getRawXml(), allOf(not(isEmptyOrNullString()), is(equalTo(PAYMENT_XML))));
 	o.getPayerEmail();

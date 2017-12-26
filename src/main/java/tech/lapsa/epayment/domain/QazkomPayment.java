@@ -120,7 +120,7 @@ public class QazkomPayment extends Payment {
 		    .map(XmlOrder::getCurrency) //
 		    .orElseThrow(MyExceptions.illegalArgumentSupplier("Can't parse for order currency"));
 
-	    result.referenceNumber = MyOptionals.of(payment) //
+	    result.reference = MyOptionals.of(payment) //
 		    .map(XmlPayment::getReference) //
 		    .orElseThrow(MyExceptions.illegalArgumentSupplier("Payment reference is empty"));
 

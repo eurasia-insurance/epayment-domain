@@ -31,7 +31,7 @@ public class QazkomOrderBuilderTest {
     @BeforeClass
     public static void loadKeys() throws Exception {
 
-	final InputStream storeStream = MyResources.optionalAsStream(QazkomOrderBuilderTest.class, KEYSTORE) //
+	final InputStream storeStream = MyResources.optAsStream(QazkomOrderBuilderTest.class, KEYSTORE) //
 		.orElseThrow(() -> new RuntimeException("Keystore not found"));
 
 	final KeyStore keystore = MyKeyStores.from(storeStream, STORETYPE, STOREPASS) //
