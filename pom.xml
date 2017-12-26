@@ -15,17 +15,17 @@
 
 	<properties>
 		<!-- BOMS -->
-		<java-commons.version>1.1-SNAPSHOT</java-commons.version>
-		<javax-javaee-bom.version>7.0a-SNAPSHOT</javax-javaee-bom.version>
-		<payara-bom.version>4.1.2-2-SNAPSHOT</payara-bom.version>
+		<java-commons.version>1.1</java-commons.version>
+		<javax-javaee-bom.version>7.0a</javax-javaee-bom.version>
+		<payara-bom.version>4.1.2-2</payara-bom.version>
 		<!-- tech -->
-		<javax-jpa-commons.version>1.1-SNAPSHOT</javax-jpa-commons.version>
-		<lapsa-arquillian-test.version>1.1-SNAPSHOT</lapsa-arquillian-test.version>
-		<patterns-domain.version>1.0-SNAPSHOT</patterns-domain.version>
-		<epayment-qazkom-commons.version>1.0-SNAPSHOT</epayment-qazkom-commons.version>
+		<javax-jpa-commons.version>1.1</javax-jpa-commons.version>
+		<lapsa-arquillian-test.version>1.1</lapsa-arquillian-test.version>
+		<patterns-domain.version>1.0</patterns-domain.version>
+		<epayment-qazkom-commons.version>1.0</epayment-qazkom-commons.version>
 		<!-- oldies -->
-		<international-lib.version>3.3-SNAPSHOT</international-lib.version>
-		<kz-lib.version>3.2-SNAPSHOT</kz-lib.version>
+		<international-lib.version>3.3</international-lib.version>
+		<kz-lib.version>3.2</kz-lib.version>
 		<!-- PLUGINS dependencies versions -->
 		<!-- version number copied from javax-javaee-web-bom -->
 		<javax.persistence.version>2.1.0</javax.persistence.version>
