@@ -18,7 +18,7 @@ import tech.lapsa.java.commons.function.MyOptionals;
 
 @Entity
 @Table(name = "PAYMENT")
-public abstract class Payment extends BaseEntity {
+public abstract class Payment extends EntitySuperclass {
 
     private static final long serialVersionUID = 1L;
 
