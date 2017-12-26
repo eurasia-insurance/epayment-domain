@@ -47,7 +47,7 @@ import tech.lapsa.patterns.domain.HashCodePrime;
 @Entity
 @Table(name = "INVOICE")
 @HashCodePrime(3)
-public class Invoice extends BaseEntity {
+public class Invoice extends EntitySuperclass {
 
     private static final long serialVersionUID = 1L;
 
@@ -492,7 +492,7 @@ public class Invoice extends BaseEntity {
 
     @Override
     public void unlazy() {
-	MyOptionals.of(getPayment()).ifPresent(BaseEntity::unlazy);
+	MyOptionals.of(getPayment()).ifPresent(EntitySuperclass::unlazy);
 	getAmount(); // also fetches 'items'
     }
 
@@ -534,9 +534,6 @@ public class Invoice extends BaseEntity {
 
 	    if (payment.optionalForInvoice().isPresent())
 		throw MyExceptions.format(IllegalArgument::new, "Payment already has invoice attached");
-
-	    // // TODO FEAUTURE : Need to implement more Invoice validation
-	    // points that throws IllegalArgument exception
 
 	    requirePending();
 

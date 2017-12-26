@@ -19,7 +19,7 @@ import tech.lapsa.patterns.domain.HashCodePrime;
 @Entity
 @Table(name = "ITEM")
 @HashCodePrime(5)
-public class Item extends BaseEntity {
+public class Item extends EntitySuperclass {
 
     private static final long serialVersionUID = 1L;
 

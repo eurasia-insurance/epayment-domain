@@ -43,7 +43,7 @@ import tech.lapsa.patterns.domain.HashCodePrime;
 @Entity
 @Table(name = "QAZKOM_ORDER")
 @HashCodePrime(11)
-public class QazkomOrder extends BaseEntity {
+public class QazkomOrder extends EntitySuperclass {
 
     private static final long serialVersionUID = 1L;
 
@@ -310,10 +310,10 @@ public class QazkomOrder extends BaseEntity {
 
     @Override
     public void unlazy() {
-	MyOptionals.of(getCartDoc()).ifPresent(BaseEntity::unlazy);
-	MyOptionals.of(getOrderDoc()).ifPresent(BaseEntity::unlazy);
-	MyOptionals.of(getPayment()).ifPresent(BaseEntity::unlazy);
-	MyOptionals.of(getForInvoice()).ifPresent(BaseEntity::unlazy);
+	MyOptionals.of(getCartDoc()).ifPresent(EntitySuperclass::unlazy);
+	MyOptionals.of(getOrderDoc()).ifPresent(EntitySuperclass::unlazy);
+	MyOptionals.of(getPayment()).ifPresent(EntitySuperclass::unlazy);
+	MyOptionals.of(getForInvoice()).ifPresent(EntitySuperclass::unlazy);
 	getErrors();
     }
 
@@ -382,9 +382,6 @@ public class QazkomOrder extends BaseEntity {
 
 	    MyNumbers.requireEqualsMsg(IllegalArgument::new, getAmount(), payment.getAmount(),
 		    "Qazkom order amount and payment amount are not the same");
-
-	    // TODO FEAUTURE : Need to implement more validation points that
-	    // throws IllegalArgument exception
 
 	    requireNotPaid();
 
