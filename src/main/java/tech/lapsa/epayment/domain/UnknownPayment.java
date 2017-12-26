@@ -86,7 +86,7 @@ public class UnknownPayment extends Payment {
 	    result.currency = MyObjects.requireNonNull(currency, "currency");
 	    result.amount = MyNumbers.requirePositive(amount, "amount");
 	    MyOptionals.of(created).ifPresent(x -> result.created = x);
-	    MyOptionals.of(referenceNumber).ifPresent(x -> result.referenceNumber = x);
+	    MyOptionals.of(referenceNumber).ifPresent(x -> result.reference = x);
 	    return result;
 	}
     }
