@@ -25,7 +25,7 @@
 		<epayment-qazkom-commons.version>1.0</epayment-qazkom-commons.version>
 		<!-- oldies -->
 		<international-lib.version>3.3</international-lib.version>
-		<kz-lib.version>3.2</kz-lib.version>
+		<kz-lib.version>3.2.1</kz-lib.version>
 		<!-- PLUGINS dependencies versions -->
 		<!-- version number copied from javax-javaee-web-bom -->
 		<javax.persistence.version>2.1.0</javax.persistence.version>
