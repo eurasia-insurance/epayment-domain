@@ -22,7 +22,7 @@
 		<javax-jpa-commons.version>1.2-SNAPSHOT</javax-jpa-commons.version>
 		<lapsa-arquillian-test.version>1.2-SNAPSHOT</lapsa-arquillian-test.version>
 		<patterns-domain.version>1.1-SNAPSHOT</patterns-domain.version>
-		<epayment-qazkom-commons.version>1.0</epayment-qazkom-commons.version>
+		<epayment-qazkom-commons.version>1.1-SNAPSHOT</epayment-qazkom-commons.version>
 		<!-- oldies -->
 		<international-lib.version>3.4-SNAPSHOT</international-lib.version>
 		<kz-lib.version>3.3-SNAPSHOT</kz-lib.version>
