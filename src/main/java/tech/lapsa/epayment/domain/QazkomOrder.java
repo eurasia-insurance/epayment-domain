@@ -43,7 +43,7 @@ import tech.lapsa.patterns.domain.HashCodePrime;
 @Entity
 @Table(name = "QAZKOM_ORDER")
 @HashCodePrime(11)
-public class QazkomOrder extends EntitySuperclass {
+public class QazkomOrder extends IntIdEntitySuperclass {
 
     private static final long serialVersionUID = 1L;
 
@@ -315,10 +315,10 @@ public class QazkomOrder extends EntitySuperclass {
 
     @Override
     public void unlazy() {
-	MyOptionals.of(getCartDoc()).ifPresent(EntitySuperclass::unlazy);
-	MyOptionals.of(getOrderDoc()).ifPresent(EntitySuperclass::unlazy);
-	MyOptionals.of(getPayment()).ifPresent(EntitySuperclass::unlazy);
-	MyOptionals.of(getForInvoice()).ifPresent(EntitySuperclass::unlazy);
+	MyOptionals.of(getCartDoc()).ifPresent(IntIdEntitySuperclass::unlazy);
+	MyOptionals.of(getOrderDoc()).ifPresent(IntIdEntitySuperclass::unlazy);
+	MyOptionals.of(getPayment()).ifPresent(IntIdEntitySuperclass::unlazy);
+	MyOptionals.of(getForInvoice()).ifPresent(IntIdEntitySuperclass::unlazy);
 	getErrors();
     }
 
