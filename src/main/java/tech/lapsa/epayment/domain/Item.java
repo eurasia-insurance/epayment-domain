@@ -53,6 +53,11 @@ public class Item extends EntitySuperclass {
 		.toString();
     }
 
+    // constructor
+
+    protected Item() {
+    }
+
     // name
 
     @Basic

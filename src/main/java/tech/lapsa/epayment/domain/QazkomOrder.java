@@ -192,6 +192,11 @@ public class QazkomOrder extends EntitySuperclass {
 		.toString();
     }
 
+    // constructor
+
+    protected QazkomOrder() {
+    }
+
     // created
 
     @Basic

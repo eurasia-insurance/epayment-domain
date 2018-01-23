@@ -9,9 +9,6 @@ public abstract class Domain implements Localized, Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    protected Domain() {
-    }
-
     @Override
     public String toString() {
 	return localized(LocalizationVariant.NORMAL, MyHcEqToStr.toStringLocaleOf(this.getClass()));
@@ -28,5 +25,10 @@ public abstract class Domain implements Localized, Serializable {
     }
 
     public void unlazy() {
+    }
+
+    // constructor
+
+    protected Domain() {
     }
 }
