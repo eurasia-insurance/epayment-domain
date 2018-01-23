@@ -271,6 +271,6 @@ public class QazkomPayment extends Payment {
     @Override
     public void unlazy() {
 	super.unlazy();
-	MyOptionals.of(getPaymentDoc()).ifPresent(EntitySuperclass::unlazy);
+	MyOptionals.of(getPaymentDoc()).ifPresent(IntIdEntitySuperclass::unlazy);
     }
 }

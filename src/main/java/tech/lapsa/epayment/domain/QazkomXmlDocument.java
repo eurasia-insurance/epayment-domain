@@ -20,7 +20,7 @@ import tech.lapsa.patterns.domain.HashCodePrime;
 @Entity
 @Table(name = "QAZKOM_XML_DOCUMENT")
 @HashCodePrime(19)
-public class QazkomXmlDocument extends EntitySuperclass {
+public class QazkomXmlDocument extends IntIdEntitySuperclass {
 
     private static final long serialVersionUID = 1L;
 

@@ -9,16 +9,16 @@ import tech.lapsa.java.commons.function.MyNumbers;
 import tech.lapsa.java.commons.function.MyOptionals;
 
 @MappedSuperclass
-public abstract class EntitySuperclass extends Domain {
+public abstract class IntIdEntitySuperclass extends Domain {
 
     private static final long serialVersionUID = 1L;
 
     // constructor
 
-    protected EntitySuperclass() {
+    protected IntIdEntitySuperclass() {
     }
 
-    protected EntitySuperclass(final Integer id) throws IllegalArgumentException {
+    protected IntIdEntitySuperclass(final Integer id) throws IllegalArgumentException {
 	this.id = MyNumbers.requireNonZero(id, "id");
     }
 
