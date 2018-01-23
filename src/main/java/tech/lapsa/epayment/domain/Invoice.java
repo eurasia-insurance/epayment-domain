@@ -294,6 +294,11 @@ public class Invoice extends EntitySuperclass {
 		.toString();
     }
 
+    // constructor
+
+    protected Invoice() {
+    }
+
     // created (required)
 
     @Basic

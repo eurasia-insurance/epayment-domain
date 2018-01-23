@@ -82,6 +82,11 @@ public class QazkomError extends EntitySuperclass {
 	}
     }
 
+    // constructor
+
+    protected QazkomError() {
+    }
+
     // created
 
     @Basic

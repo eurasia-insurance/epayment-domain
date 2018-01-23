@@ -28,18 +28,20 @@ public class QazkomXmlDocument extends EntitySuperclass {
 	ORDER, PAYMENT, CART, ERROR;
     }
 
-    public QazkomXmlDocument() {
-    }
-
-    public QazkomXmlDocument(final String rawXml, final DocumentType type) throws IllegalArgumentException {
-	this.rawXml = MyStrings.requireNonEmpty(rawXml, "rawXml");
-	this.type = MyObjects.requireNonNull(type, "type");
-    }
-
     @Override
     public String localized(final LocalizationVariant variant, final Locale locale) {
 	return MyOptionals.of(rawXml) //
 		.orElseGet(() -> Localization.QAZKOMXMLDOC_EMPTYNAME.localized(variant, locale));
+    }
+
+    // constructor
+
+    protected QazkomXmlDocument() {
+    }
+
+    protected QazkomXmlDocument(final String rawXml, final DocumentType type) throws IllegalArgumentException {
+	this.rawXml = MyStrings.requireNonEmpty(rawXml, "rawXml");
+	this.type = MyObjects.requireNonNull(type, "type");
     }
 
     // rawXml

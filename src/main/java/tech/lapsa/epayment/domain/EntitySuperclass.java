@@ -13,6 +13,8 @@ public abstract class EntitySuperclass extends Domain {
 
     private static final long serialVersionUID = 1L;
 
+    // constructor
+
     protected EntitySuperclass() {
     }
 

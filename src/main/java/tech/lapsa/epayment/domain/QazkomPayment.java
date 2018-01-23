@@ -188,6 +188,11 @@ public class QazkomPayment extends Payment {
 	return PaymentMethod.QAZKOM;
     }
 
+    // constructor
+
+    protected QazkomPayment() {
+    }
+
     // order
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "payment")

@@ -22,6 +22,11 @@ public abstract class Payment extends EntitySuperclass {
 
     private static final long serialVersionUID = 1L;
 
+    // constructor
+
+    protected Payment() {
+    }
+
     // created
 
     @Basic
