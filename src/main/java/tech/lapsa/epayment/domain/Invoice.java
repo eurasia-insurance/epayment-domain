@@ -47,7 +47,7 @@ import tech.lapsa.patterns.domain.HashCodePrime;
 @Entity
 @Table(name = "INVOICE")
 @HashCodePrime(3)
-public class Invoice extends EntitySuperclass {
+public class Invoice extends IntIdEntitySuperclass {
 
     private static final long serialVersionUID = 1L;
 
@@ -294,6 +294,11 @@ public class Invoice extends EntitySuperclass {
 		.toString();
     }
 
+    // constructor
+
+    protected Invoice() {
+    }
+
     // created (required)
 
     @Basic
@@ -496,7 +501,7 @@ public class Invoice extends EntitySuperclass {
 
     @Override
     public void unlazy() {
-	MyOptionals.of(getPayment()).ifPresent(EntitySuperclass::unlazy);
+	MyOptionals.of(getPayment()).ifPresent(IntIdEntitySuperclass::unlazy);
 	getAmount(); // also fetches 'items'
     }
 
