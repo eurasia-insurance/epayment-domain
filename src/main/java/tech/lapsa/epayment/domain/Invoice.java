@@ -430,9 +430,38 @@ public class Invoice extends IntIdEntitySuperclass {
 	return MyOptionals.of(getPayment());
     }
 
+    // expired
+
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "EXPIRED")
+    protected Instant expired;
+
+    // status
+
     public boolean isPaid() {
-	return optionalPayment().isPresent();
+	return MyOptionals.of(payment).isPresent();
     }
+
+    public boolean isExpired() {
+	return !isPaid() && MyOptionals.of(expired).isPresent();
+    }
+
+    public boolean isPending() {
+	return !isExpired() && !isPaid();
+    }
+
+    public InvoiceStatus getStatus() throws IllegalStateException {
+	if (isPaid())
+	    return InvoiceStatus.PAID;
+	if (isExpired())
+	    return InvoiceStatus.EXPIRED;
+	if (isPending())
+	    return InvoiceStatus.PENDING;
+	throw MyExceptions.format(IllegalStateException::new, "Invoice has invalid state");
+    }
+
+    // requires
 
     public Invoice requireNotPaid() throws IllegalState {
 	if (isPaid())
@@ -446,10 +475,6 @@ public class Invoice extends IntIdEntitySuperclass {
 	return this;
     }
 
-    public boolean isPending() {
-	return !isExpired() && !isPaid();
-    }
-
     public Invoice requirePending() throws IllegalState {
 	if (!isPending())
 	    throw MyExceptions.format(IllegalState::new, "Is not pending '%1$s'. It could be expired or paid.",
@@ -457,31 +482,10 @@ public class Invoice extends IntIdEntitySuperclass {
 	return this;
     }
 
-    // expired
-
-    @Basic
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "EXPIRED")
-    protected Instant expired;
-
-    public boolean isExpired() {
-	return MyOptionals.of(expired).isPresent();
-    }
-
     public Invoice requireExpired() throws IllegalState {
 	if (!isExpired())
 	    throw MyExceptions.format(IllegalState::new, "Is not expired '%1$s'", this);
 	return this;
-    }
-
-    // status
-
-    public InvoiceStatus getStatus() {
-	if (isPaid())
-	    return InvoiceStatus.PAID;
-	if (isExpired())
-	    return InvoiceStatus.EXPIRED;
-	return InvoiceStatus.PENDING;
     }
 
     // OTHERS
@@ -505,13 +509,31 @@ public class Invoice extends IntIdEntitySuperclass {
      * Изменяет статус счета как истекший. Таким образом счет не может быть
      * оплачен.
      *
+     * @return счет
      * @throws IllegalState
      *             в случае, если счет уже оплачен и не может быть отмечет как
      *             истекший
      */
-    public synchronized void expire() throws IllegalState {
+    public synchronized Invoice expire() throws IllegalState {
 	requireNotPaid();
 	expired = Instant.now();
+	return this;
+    }
+
+    /**
+     * Изменяет статус счета как ожидающий оплаты. Таким образом счет может быть
+     * оплачен
+     * 
+     * @return счет
+     * @throws IllegalState
+     *             в случае, если счет не отмечен как истекший или счет уже
+     *             оплачен
+     */
+
+    public synchronized Invoice pending() throws IllegalState {
+	requireExpired();
+	this.expired = null;
+	return this;
     }
 
     /**
@@ -533,14 +555,12 @@ public class Invoice extends IntIdEntitySuperclass {
     public synchronized Invoice paidBy(final Payment payment)
 	    throws IllegalArgumentException, IllegalArgument, IllegalState {
 
-	MyObjects.requireNonNull(payment, "payment");
+	requirePending();
 
 	synchronized (payment) {
 
 	    if (payment.optionalForInvoice().isPresent())
 		throw MyExceptions.format(IllegalArgument::new, "Payment already has invoice attached");
-
-	    requirePending();
 
 	    this.payment = payment;
 	    payment.forInvoice = this;
