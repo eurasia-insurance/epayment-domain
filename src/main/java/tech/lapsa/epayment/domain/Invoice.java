@@ -550,14 +550,12 @@ public class Invoice extends EntitySuperclass {
     public synchronized Invoice paidBy(final Payment payment)
 	    throws IllegalArgumentException, IllegalArgument, IllegalState {
 
-	MyObjects.requireNonNull(payment, "payment");
+	requirePending();
 
 	synchronized (payment) {
 
 	    if (payment.optionalForInvoice().isPresent())
 		throw MyExceptions.format(IllegalArgument::new, "Payment already has invoice attached");
-
-	    requirePending();
 
 	    this.payment = payment;
 	    payment.forInvoice = this;
