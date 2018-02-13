@@ -27,7 +27,7 @@ import tech.lapsa.patterns.domain.HashCodePrime;
 @Entity
 @Table(name = "QAZKOM_ERROR")
 @HashCodePrime(29)
-public class QazkomError extends EntitySuperclass {
+public class QazkomError extends IntIdEntitySuperclass {
 
     private static final long serialVersionUID = 1L;
 
@@ -80,6 +80,11 @@ public class QazkomError extends EntitySuperclass {
 
 	    return result;
 	}
+    }
+
+    // constructor
+
+    protected QazkomError() {
     }
 
     // created

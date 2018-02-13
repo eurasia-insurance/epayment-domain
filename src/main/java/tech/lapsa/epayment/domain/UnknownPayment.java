@@ -121,4 +121,9 @@ public class UnknownPayment extends Payment {
     public PaymentMethod getMethod() {
 	return PaymentMethod.UNKNOWN;
     }
+
+    // constructor
+
+    protected UnknownPayment() {
+    }
 }
