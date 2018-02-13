@@ -9,7 +9,7 @@
 
 	<groupId>tech.lapsa.epayment</groupId>
 	<artifactId>epayment-domain</artifactId>
-	<version>4.0</version>
+	<version>4.0.1a-SNAPSHOT</version>
 
 	<name>Epayment Lib : Domain</name>
 
