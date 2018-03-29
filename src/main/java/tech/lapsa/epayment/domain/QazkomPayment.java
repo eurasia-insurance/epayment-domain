@@ -221,16 +221,6 @@ public class QazkomPayment extends Payment {
 	return cardNumber;
     }
 
-    // payerName
-
-    @Basic
-    @Column(name = "PAYER_NAME")
-    protected String payerName;
-
-    public String getPayerName() {
-	return payerName;
-    }
-
     // payerEmail
 
     @Basic

@@ -63,6 +63,16 @@ public abstract class Payment extends EntitySuperclass {
 	return reference;
     }
 
+    // payerName
+
+    @Basic
+    @Column(name = "PAYER_NAME")
+    protected String payerName;
+
+    public String getPayerName() {
+	return payerName;
+    }
+
     // forInvoice
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "payment")
