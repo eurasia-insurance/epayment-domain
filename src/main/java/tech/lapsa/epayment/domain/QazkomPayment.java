@@ -42,7 +42,7 @@ import tech.lapsa.patterns.domain.HashCodePrime;
 @HashCodePrime(7)
 public class QazkomPayment extends Payment {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     public static QazkomPaymentBuilder builder() {
 	return new QazkomPaymentBuilder();
