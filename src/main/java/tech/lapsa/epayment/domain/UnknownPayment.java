@@ -38,6 +38,7 @@ public class UnknownPayment extends Payment {
 	private Double amount;
 	private Instant created;
 	private String referenceNumber;
+	private String payerName;
 
 	private UnknownPaymentBuilder() {
 	}
@@ -81,12 +82,23 @@ public class UnknownPayment extends Payment {
 	    return this;
 	}
 
+	public UnknownPaymentBuilder withPayerName(final Optional<String> payerName) {
+	    MyObjects.requireNonNull(payerName, "payerName").ifPresent(this::withPayerName);
+	    return this;
+	}
+
+	public UnknownPaymentBuilder withPayerName(final String payerName) {
+	    this.payerName = MyStrings.requireNonEmpty(payerName, "payerName");
+	    return this;
+	}
+
 	public UnknownPayment build() throws IllegalArgumentException {
 	    final UnknownPayment result = new UnknownPayment();
 	    result.currency = MyObjects.requireNonNull(currency, "currency");
 	    result.amount = MyNumbers.requirePositive(amount, "amount");
 	    MyOptionals.of(created).ifPresent(x -> result.created = x);
 	    MyOptionals.of(referenceNumber).ifPresent(x -> result.reference = x);
+	    MyOptionals.of(payerName).ifPresent(x -> result.payerName = x);
 	    return result;
 	}
     }

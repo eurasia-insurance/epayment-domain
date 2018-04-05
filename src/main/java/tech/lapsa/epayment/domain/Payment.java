@@ -20,7 +20,7 @@ import tech.lapsa.java.commons.function.MyOptionals;
 @Table(name = "PAYMENT")
 public abstract class Payment extends IntIdEntitySuperclass {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     // constructor
 
@@ -66,6 +66,16 @@ public abstract class Payment extends IntIdEntitySuperclass {
 
     public String getReference() {
 	return reference;
+    }
+
+    // payerName
+
+    @Basic
+    @Column(name = "PAYER_NAME")
+    protected String payerName;
+
+    public String getPayerName() {
+	return payerName;
     }
 
     // forInvoice
