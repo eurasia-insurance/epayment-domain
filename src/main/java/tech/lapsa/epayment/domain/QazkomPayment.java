@@ -80,7 +80,8 @@ public class QazkomPayment extends Payment {
 	}
 
 	public QazkomPaymentBuilder withCardIssuingBankFetcher(final Function<String, Bank> cardIssuingBankFetcher) {
-	    this.cardIssuingBankFetcher = MyObjects.requireNonNull(cardIssuingBankFetcher, "cardIssuingBankFetcher");;
+	    this.cardIssuingBankFetcher = MyObjects.requireNonNull(cardIssuingBankFetcher, "cardIssuingBankFetcher");
+	    ;
 	    return this;
 	}
 
@@ -243,6 +244,10 @@ public class QazkomPayment extends Payment {
 
     public Bank getCardIssuingBank() {
 	return cardIssuingBank;
+    }
+
+    public Optional<Bank> optCardIssuingBank() {
+	return MyOptionals.of(cardIssuingBank);
     }
 
     // payerEmail
