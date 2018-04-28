@@ -6,6 +6,8 @@ import java.util.function.Function;
 import tech.lapsa.java.commons.localization.LocalizedElement;
 
 public enum Localization implements LocalizedElement {
+    BANK_NAME,
+    //
     INVOICE_NAME,
     INVOICE_FIELD_AMOUNT,
     //
@@ -28,8 +30,10 @@ public enum Localization implements LocalizedElement {
     PAYMENT_FIELD_AMOUNT,
     //
     FIELD_CREATED, //
-    FIELD_NUMBER,
-    FIELD_STATUS,
+    FIELD_NUMBER, //
+    FIELD_STATUS, //
+    FIELD_NAME, //
+    FIELD_CODE, //
     ;
 
     public Function<String, String> fieldAsCaptionMapper(final LocalizationVariant variant,
