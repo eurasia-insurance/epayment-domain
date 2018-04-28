@@ -21,7 +21,7 @@ import tech.lapsa.patterns.domain.HashCodePrime;
 @Entity
 @Table(name = "BANK")
 @HashCodePrime(31)
-public class Bank extends EntitySuperclass {
+public class Bank extends IntIdEntitySuperclass {
 
     private static final long serialVersionUID = 1L;
 

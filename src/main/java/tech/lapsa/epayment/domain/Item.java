@@ -19,7 +19,7 @@ import tech.lapsa.patterns.domain.HashCodePrime;
 @Entity
 @Table(name = "ITEM")
 @HashCodePrime(5)
-public class Item extends EntitySuperclass {
+public class Item extends IntIdEntitySuperclass {
 
     private static final long serialVersionUID = 1L;
 
@@ -51,6 +51,11 @@ public class Item extends EntitySuperclass {
 	return sb.append(sj.toString()) //
 		.append(appendEntityId()) //
 		.toString();
+    }
+
+    // constructor
+
+    protected Item() {
     }
 
     // name

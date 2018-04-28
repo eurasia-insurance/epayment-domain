@@ -20,7 +20,7 @@ import tech.lapsa.patterns.domain.HashCodePrime;
 @Entity
 @Table(name = "QAZKOM_XML_DOCUMENT")
 @HashCodePrime(19)
-public class QazkomXmlDocument extends EntitySuperclass {
+public class QazkomXmlDocument extends IntIdEntitySuperclass {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,18 +28,20 @@ public class QazkomXmlDocument extends EntitySuperclass {
 	ORDER, PAYMENT, CART, ERROR;
     }
 
-    public QazkomXmlDocument() {
-    }
-
-    public QazkomXmlDocument(final String rawXml, final DocumentType type) throws IllegalArgumentException {
-	this.rawXml = MyStrings.requireNonEmpty(rawXml, "rawXml");
-	this.type = MyObjects.requireNonNull(type, "type");
-    }
-
     @Override
     public String localized(final LocalizationVariant variant, final Locale locale) {
 	return MyOptionals.of(rawXml) //
 		.orElseGet(() -> Localization.QAZKOMXMLDOC_EMPTYNAME.localized(variant, locale));
+    }
+
+    // constructor
+
+    protected QazkomXmlDocument() {
+    }
+
+    protected QazkomXmlDocument(final String rawXml, final DocumentType type) throws IllegalArgumentException {
+	this.rawXml = MyStrings.requireNonEmpty(rawXml, "rawXml");
+	this.type = MyObjects.requireNonNull(type, "type");
     }
 
     // rawXml

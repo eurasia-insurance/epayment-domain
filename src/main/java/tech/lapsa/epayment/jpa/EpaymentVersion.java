@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "EPAYMENT_VER_4_0_4")
+@Table(name = "EPAYMENT_VER_4_1")
 @Access(AccessType.PROPERTY)
 public class EpaymentVersion {
 
