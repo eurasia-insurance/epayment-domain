@@ -17,8 +17,8 @@
 
 		<class>com.lapsa.international.phone.converter.jpa.PhoneNumberAttributeConverter</class>
 
-		<class>tech.lapsa.epayment.domain.Domain</class>
-		<class>tech.lapsa.epayment.domain.EntitySuperclass</class>
+		<class>tech.lapsa.epayment.domain.IntIdEntitySuperclass</class>
+		<class>tech.lapsa.epayment.domain.Bank</class>
 		<class>tech.lapsa.epayment.domain.Invoice</class>
 		<class>tech.lapsa.epayment.domain.Item</class>
 		<class>tech.lapsa.epayment.domain.Payment</class>

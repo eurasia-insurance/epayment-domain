@@ -15,14 +15,14 @@
 
 	<properties>
 		<!-- BOMS -->
-		<java-commons.version>1.3-SNAPSHOT</java-commons.version>
+		<java-commons.version>1.3</java-commons.version>
 		<javax-javaee-bom.version>7.0a</javax-javaee-bom.version>
 		<payara-bom.version>4.1.2-2</payara-bom.version>
 		<!-- tech -->
+		<lapsa-arquillian-test.version>1.2</lapsa-arquillian-test.version>
+		<epayment-qazkom-commons.version>1.0</epayment-qazkom-commons.version>
 		<javax-jpa-commons.version>1.2-SNAPSHOT</javax-jpa-commons.version>
-		<lapsa-arquillian-test.version>1.2-SNAPSHOT</lapsa-arquillian-test.version>
 		<patterns-domain.version>1.1-SNAPSHOT</patterns-domain.version>
-		<epayment-qazkom-commons.version>1.1-SNAPSHOT</epayment-qazkom-commons.version>
 		<!-- oldies -->
 		<international-lib.version>3.4-SNAPSHOT</international-lib.version>
 		<kz-lib.version>3.3-SNAPSHOT</kz-lib.version>
