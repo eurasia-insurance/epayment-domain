@@ -1,3 +1,5 @@
+tech.lapsa.epayment.domain.Localization.BANK_NAME = Банк
+
 tech.lapsa.epayment.domain.Localization.INVOICE_NAME = Электронный счет
 tech.lapsa.epayment.domain.Localization.INVOICE_FIELD_AMOUNT = сумма
 
@@ -22,3 +24,5 @@ tech.lapsa.epayment.domain.Localization.PAYMENT_FIELD_AMOUNT = оплачено
 tech.lapsa.epayment.domain.Localization.FIELD_CREATED = создан
 tech.lapsa.epayment.domain.Localization.FIELD_NUMBER = номер
 tech.lapsa.epayment.domain.Localization.FIELD_STATUS = статус
+tech.lapsa.epayment.domain.Localization.FIELD_NAME = название
+tech.lapsa.epayment.domain.Localization.FIELD_CODE = код

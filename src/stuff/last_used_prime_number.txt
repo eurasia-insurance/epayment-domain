@@ -7,7 +7,7 @@
       19 tech.lapsa.epayment.domain.QazkomXmlDocument
       23 tech.lapsa.epayment.domain.UnknownPayment
       29 tech.lapsa.epayment.domain.QazkomError
-      31 
+      31 tech.lapsa.epayment.domain.Bank
       37 
       41 
       43 
@@ -41,7 +41,7 @@
      181 
      191 
      193 
-     197 com.lapsa.insurance.domain.crm.UserGroup
+     197 
      199 
      211 
      223 
