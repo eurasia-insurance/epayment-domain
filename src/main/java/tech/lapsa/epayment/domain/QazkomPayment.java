@@ -6,6 +6,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.StringJoiner;
+import java.util.function.Function;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -15,6 +16,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -56,6 +58,8 @@ public class QazkomPayment extends Payment {
 	private X509Certificate certificate;
 	private boolean signatureCheckRequired = true;
 
+	private Function<String, Bank> cardIssuingBankFetcher = null;
+
 	private QazkomPaymentBuilder() {
 	}
 
@@ -72,6 +76,11 @@ public class QazkomPayment extends Payment {
 
 	public QazkomPaymentBuilder withOptionalSignatureChecking() {
 	    signatureCheckRequired = false;
+	    return this;
+	}
+
+	public QazkomPaymentBuilder withCardIssuingBankFetcher(final Function<String, Bank> cardIssuingBankFetcher) {
+	    this.cardIssuingBankFetcher = MyObjects.requireNonNull(cardIssuingBankFetcher, "cardIssuingBankFetcher");;
 	    return this;
 	}
 
@@ -135,6 +144,11 @@ public class QazkomPayment extends Payment {
 	    result.cardNumber = MyOptionals.of(payment) //
 		    .map(XmlPayment::getCardNumberMasked) //
 		    .orElse(null);
+
+	    if (MyObjects.nonNull(cardIssuingBankFetcher))
+		result.cardIssuingBank = MyOptionals.of(result.cardNumber) //
+			.map(cardIssuingBankFetcher) //
+			.orElse(null);
 
 	    result.payerName = MyOptionals.of(customer) //
 		    .map(XmlCustomer::getName) //
@@ -219,6 +233,16 @@ public class QazkomPayment extends Payment {
 
     public String getCardNumber() {
 	return cardNumber;
+    }
+
+    // cardIssuingBank
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "CARD_BANK_ID")
+    protected Bank cardIssuingBank;
+
+    public Bank getCardIssuingBank() {
+	return cardIssuingBank;
     }
 
     // payerEmail
