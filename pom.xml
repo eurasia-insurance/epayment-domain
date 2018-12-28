@@ -9,23 +9,23 @@
 
 	<groupId>tech.lapsa.epayment</groupId>
 	<artifactId>epayment-domain</artifactId>
-	<version>4.1-SNAPSHOT</version>
+	<version>CURRENT-SNAPSHOT</version>
 
 	<name>Epayment Lib : Domain</name>
 
 	<properties>
 		<!-- BOMS -->
-		<java-commons.version>1.3.1</java-commons.version>
-		<javax-javaee-bom.version>7.0a</javax-javaee-bom.version>
-		<payara-bom.version>4.1.2-2</payara-bom.version>
+		<java-commons.version>CURRENT-SNAPSHOT</java-commons.version>
+		<javax-javaee-bom.version>CURRENT-SNAPSHOT</javax-javaee-bom.version>
+		<payara-bom.version>CURRENT-SNAPSHOT</payara-bom.version>
 		<!-- tech -->
-		<lapsa-arquillian-test.version>1.2</lapsa-arquillian-test.version>
-		<epayment-qazkom-commons.version>1.0.1</epayment-qazkom-commons.version>
-		<javax-jpa-commons.version>1.2</javax-jpa-commons.version>
-		<patterns-domain.version>1.1</patterns-domain.version>
+		<lapsa-arquillian-test.version>CURRENT-SNAPSHOT</lapsa-arquillian-test.version>
+		<epayment-qazkom-commons.version>CURRENT-SNAPSHOT</epayment-qazkom-commons.version>
+		<javax-jpa-commons.version>CURRENT-SNAPSHOT</javax-jpa-commons.version>
+		<patterns-domain.version>CURRENT-SNAPSHOT</patterns-domain.version>
 		<!-- oldies -->
-		<international-lib.version>3.3.1</international-lib.version>
-		<kz-lib.version>3.3</kz-lib.version>
+		<international-lib.version>CURRENT-SNAPSHOT</international-lib.version>
+		<kz-lib.version>CURRENT-SNAPSHOT</kz-lib.version>
 		<!-- PLUGINS dependencies versions -->
 		<!-- version number copied from javax-javaee-web-bom -->
 		<javax.persistence.version>2.1.0</javax.persistence.version>
