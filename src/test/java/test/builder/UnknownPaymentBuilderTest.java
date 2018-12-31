@@ -6,7 +6,6 @@ import static org.junit.Assert.*;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.ZoneId;
 import java.util.Currency;
 
 import org.junit.Test;
@@ -19,7 +18,7 @@ public class UnknownPaymentBuilderTest {
     public void basicTest() {
 	final Currency CURRENCY = Currency.getInstance("KZT");
 	final Double AMOUNT = 2382.05d;
-	final Instant CREATED = LocalDateTime.of(2016, Month.JUNE, 14, 15, 18, 02).atZone(ZoneId.systemDefault())
+	final Instant CREATED = LocalDateTime.of(2016, Month.JUNE, 14, 15, 18, 02).atZone(TestConstants.TEST_ZONE)
 		.toInstant();
 
 	final UnknownPayment o = UnknownPayment.builder() //

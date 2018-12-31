@@ -9,7 +9,6 @@ import java.security.cert.X509Certificate;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.ZoneId;
 import java.util.Currency;
 
 import org.junit.BeforeClass;
@@ -82,7 +81,7 @@ public class QazkomPaymentBuilderTest {
     public void simpleTest() {
 	final Currency CURRENCY = Currency.getInstance("KZT");
 	final Double AMOUNT = 2382.05d;
-	final Instant CREATED = LocalDateTime.of(2016, Month.JUNE, 14, 15, 18, 02).atZone(ZoneId.systemDefault())
+	final Instant CREATED = LocalDateTime.of(2016, Month.JUNE, 14, 15, 18, 02).atZone(TestConstants.TEST_ZONE)
 		.toInstant();
 	final String ORDER_NUMBER = "484902574738032";
 	final String REFERENCE = "160614151802";
