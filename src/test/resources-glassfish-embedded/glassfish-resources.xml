@@ -4,18 +4,16 @@
 	<jdbc-resource pool-name="JDBCEpaymentPool_DEFAULT" jndi-name="epayment/jdbc/DataSource" />
 
 	<jdbc-connection-pool name="JDBCEpaymentPool_DEFAULT" res-type="javax.sql.DataSource"
-		datasource-classname="org.h2.jdbcx.JdbcDataSource"
-		is-isolation-level-guaranteed="false">
+		datasource-classname="org.h2.jdbcx.JdbcDataSource" is-isolation-level-guaranteed="false">
 		<property name="url" value="jdbc:h2:mem:junit" />
 	</jdbc-connection-pool>
 
 	<jdbc-resource pool-name="JDBCEpaymentPool_MYSQL" jndi-name="epayment/jdbc/DataSource_MYSQL" />
 
 	<jdbc-connection-pool name="JDBCEpaymentPool_MYSQL" res-type="javax.sql.DataSource"
-		datasource-classname="org.mariadb.jdbc.MySQLDataSource"
-		is-isolation-level-guaranteed="false">
-		<property name="serverName" value="mysql.theeurasia.local" />
-		<property name="portNumber" value="3306" />
+		datasource-classname="org.mariadb.jdbc.MySQLDataSource" is-isolation-level-guaranteed="false">
+		<property name="serverName" value="localhost" />
+		<property name="portNumber" value="33306" />
 		<property name="databaseName" value="junit" />
 		<property name="user" value="junit" />
 		<property name="password" value="junit" />
