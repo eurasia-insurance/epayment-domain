@@ -10,6 +10,7 @@
 	<groupId>tech.lapsa.epayment</groupId>
 	<artifactId>epayment-domain</artifactId>
 	<version>CURRENT-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
 	<name>Epayment Lib : Domain</name>
 
