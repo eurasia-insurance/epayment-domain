@@ -30,6 +30,15 @@ public class UnknownPayment extends Payment {
 	return new UnknownPaymentBuilder();
     }
 
+    public static UnknownPaymentBuilder forInvoice(Invoice invoice) {
+	UnknownPaymentBuilder builder = new UnknownPaymentBuilder();
+	builder.amount = invoice.getAmount();
+	builder.currency = invoice.currency;
+	builder.payerName = invoice.consumerName;
+	builder.created = Instant.now();
+	return builder;
+    }
+
     public static final class UnknownPaymentBuilder implements Serializable {
 
 	private static final long serialVersionUID = 1L;

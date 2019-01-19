@@ -10,6 +10,7 @@ import java.util.Currency;
 
 import org.junit.Test;
 
+import tech.lapsa.epayment.domain.Invoice;
 import tech.lapsa.epayment.domain.UnknownPayment;
 import tech.lapsa.epayment.qazkom.QazkomConstants;
 
@@ -33,5 +34,18 @@ public class UnknownPaymentBuilderTest {
 	assertThat(o.getCurrency(), allOf(not(nullValue()), is(equalTo(CURRENCY))));
 	assertThat(o.getAmount(), allOf(not(nullValue()), is(equalTo(AMOUNT))));
 	assertThat(o.getCreated(), allOf(not(nullValue()), is(equalTo(CREATED))));
+    }
+    
+    @Test
+    public void fromInvoice() {
+	Invoice i = InvoiceBuilderTest.invoice();
+	
+	UnknownPayment o = UnknownPayment.forInvoice(i).build();
+	System.out.println(o);
+
+	assertThat(o, not(nullValue()));
+	assertThat(o.getCurrency(), allOf(not(nullValue()), is(equalTo(InvoiceBuilderTest.INVOICE_CURRENCY))));
+	assertThat(o.getAmount(), allOf(not(nullValue()), is(equalTo(InvoiceBuilderTest.INVOICE_AMOUNT))));
+	assertThat(o.getCreated(), not(nullValue()));
     }
 }
