@@ -1,3 +1,4 @@
 tech.lapsa.epayment.domain.InvoiceStatus.EXPIRED = Истек
 tech.lapsa.epayment.domain.InvoiceStatus.PAID = Оплачен
 tech.lapsa.epayment.domain.InvoiceStatus.PENDING = В ожидании оплаты
+tech.lapsa.epayment.domain.InvoiceStatus.PAYMENT_CANCELED = Платеж отменен
