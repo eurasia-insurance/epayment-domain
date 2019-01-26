@@ -14,11 +14,15 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import tech.lapsa.java.commons.exceptions.IllegalArgument;
+import tech.lapsa.java.commons.exceptions.IllegalState;
+import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.java.commons.function.MyOptionals;
+import tech.lapsa.java.commons.function.MyStrings;
 
 @Entity
 @Table(name = "PAYMENT")
-public abstract class Payment extends EntitySuperclass {
+public abstract class Payment<T extends Payment<T>> extends EntitySuperclass {
 
     private static final long serialVersionUID = 2L;
 
@@ -31,6 +35,35 @@ public abstract class Payment extends EntitySuperclass {
 
     public Instant getCreated() {
 	return created;
+    }
+
+    // canceled
+
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CANCELED")
+    protected Instant canceled;
+
+    public Instant getCanceled() {
+	return canceled;
+    }
+
+    public boolean isCanceled() {
+	return !isAlive();
+    }
+
+    public boolean isAlive() {
+	return canceled == null;
+    }
+
+    // cancelationReason
+
+    @Basic
+    @Column(name = "CANCELATION_REASON")
+    protected String cancelationReason;
+
+    public String getCancelationReason() {
+	return cancelationReason;
     }
 
     // amount
@@ -86,7 +119,34 @@ public abstract class Payment extends EntitySuperclass {
 	return MyOptionals.of(getForInvoice());
     }
 
+    /**
+     * Отмечает оплату как отмененную
+     *
+     * @param reason
+     *            причина отмены
+     *
+     * @return счет
+     * @throws IllegalState
+     *             в случае, если оплата уже отменена
+     * @throws IllegalArgument
+     *             если причина не указана
+     */
+    public synchronized T cancel(final String reason) throws IllegalState, IllegalArgument {
+	MyStrings.requireNonEmpty(IllegalArgument::new, reason, "reason");
+	requireNotCanceled();
+	canceled = Instant.now();
+	cancelationReason = reason;
+	return thizz();
+    }
+
     // method
 
+    private void requireNotCanceled() throws IllegalState {
+	MyObjects.requireNullMsg(IllegalState::new, canceled, "Is caneled");
+    }
+
     public abstract PaymentMethod getMethod();
+
+    protected abstract T thizz();
+
 }

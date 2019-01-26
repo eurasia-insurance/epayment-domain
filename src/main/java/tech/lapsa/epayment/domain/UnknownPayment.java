@@ -22,7 +22,7 @@ import tech.lapsa.patterns.domain.HashCodePrime;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @HashCodePrime(23)
-public class UnknownPayment extends Payment {
+public class UnknownPayment extends Payment<UnknownPayment> {
 
     private static final long serialVersionUID = 1L;
 
@@ -141,5 +141,10 @@ public class UnknownPayment extends Payment {
     @Override
     public PaymentMethod getMethod() {
 	return PaymentMethod.UNKNOWN;
+    }
+
+    @Override
+    protected UnknownPayment thizz() {
+	return this;
     }
 }

@@ -1,7 +1,14 @@
 package test.builder;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.emptyCollectionOf;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Currency;
 
@@ -12,6 +19,9 @@ import com.lapsa.international.phone.PhoneNumber;
 
 import tech.lapsa.epayment.domain.Invoice;
 import tech.lapsa.epayment.domain.Item;
+import tech.lapsa.epayment.domain.UnknownPayment;
+import tech.lapsa.java.commons.exceptions.IllegalArgument;
+import tech.lapsa.java.commons.exceptions.IllegalState;
 
 public class InvoiceBuilderTest {
 
@@ -55,5 +65,30 @@ public class InvoiceBuilderTest {
 	assertThat(o, not(nullValue()));
 	assertThat(o.getItems(), allOf(not(emptyCollectionOf(Item.class)), hasSize(2)));
 	assertThat(o.getAmount(), allOf(not(nullValue()), equalTo(INVOICE_AMOUNT)));
+    }
+
+    @Test
+    public void statusesTest() throws IllegalArgumentException, IllegalArgument, IllegalState {
+	// given
+	Invoice i = invoice();
+
+	UnknownPayment o = UnknownPayment.forInvoice(i).build();
+	assertTrue(i.isPending());
+	assertFalse(i.isPaid());
+	assertFalse(i.isCanceled());
+	
+	i.paidBy(o);
+	assertFalse(i.isPending());
+	assertTrue(i.isPaid());
+	assertFalse(i.isCanceled());
+
+	// when
+	i.getPayment().cancel("Some reason");
+
+	// then
+	assertFalse(i.isPending());
+	assertFalse(i.isPaid());
+	assertTrue(i.isCanceled());
+
     }
 }
