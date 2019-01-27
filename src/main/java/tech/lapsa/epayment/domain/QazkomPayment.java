@@ -42,7 +42,7 @@ import tech.lapsa.patterns.domain.HashCodePrime;
 @Table(name = "QAZKOM_PAYMENT")
 @Inheritance(strategy = InheritanceType.JOINED)
 @HashCodePrime(7)
-public class QazkomPayment extends Payment {
+public class QazkomPayment extends Payment<QazkomPayment> {
 
     private static final long serialVersionUID = 2L;
 
@@ -286,5 +286,10 @@ public class QazkomPayment extends Payment {
     public void unlazy() {
 	super.unlazy();
 	MyOptionals.of(getPaymentDoc()).ifPresent(EntitySuperclass::unlazy);
+    }
+
+    @Override
+    protected QazkomPayment thizz() {
+	return this;
     }
 }

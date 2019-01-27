@@ -415,13 +415,13 @@ public class Invoice extends EntitySuperclass {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "PAYMENT_ID")
-    protected Payment payment;
+    protected Payment<?> payment;
 
-    public Payment getPayment() {
+    public Payment<?> getPayment() {
 	return payment;
     }
 
-    public Optional<Payment> optionalPayment() {
+    public Optional<Payment<?>> optionalPayment() {
 	return MyOptionals.of(getPayment());
     }
 
@@ -435,7 +435,11 @@ public class Invoice extends EntitySuperclass {
     // status
 
     public boolean isPaid() {
-	return MyOptionals.of(payment).isPresent();
+	return optionalPayment().filter(Payment::isAlive).isPresent();
+    }
+
+    public boolean isCanceled() {
+	return optionalPayment().filter(Payment::isCanceled).isPresent();
     }
 
     public boolean isExpired() {
@@ -443,12 +447,14 @@ public class Invoice extends EntitySuperclass {
     }
 
     public boolean isPending() {
-	return !isExpired() && !isPaid();
+	return !isExpired() && !isPaid() && !isCanceled();
     }
 
     public InvoiceStatus getStatus() throws IllegalStateException {
 	if (isPaid())
 	    return InvoiceStatus.PAID;
+	if (isCanceled())
+	    return InvoiceStatus.PAYMENT_CANCELED;
 	if (isExpired())
 	    return InvoiceStatus.EXPIRED;
 	if (isPending())
@@ -547,7 +553,7 @@ public class Invoice extends EntitySuperclass {
      *             если счет не может быть оплачен (уже оплачен, истек срок
      *             действия)
      */
-    public synchronized Invoice paidBy(final Payment payment)
+    public synchronized Invoice paidBy(final Payment<?> payment)
 	    throws IllegalArgumentException, IllegalArgument, IllegalState {
 
 	requirePending();
